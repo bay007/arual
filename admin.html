@@ -99,8 +99,8 @@
 			<section>
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs" role="tablist">
-				  <li ><a href="#catalogo_centros" role="tab" data-toggle="tab">Catálogo centros afiliados</a></li>
-				  <li class="active" ><a href="#edicion_cursos" role="tab" data-toggle="tab">Edición de cursos</a></li>
+				  <li class="active"><a href="#catalogo_centros" role="tab" data-toggle="tab">Catálogo centros afiliados</a></li>
+				  <li  ><a href="#edicion_cursos" role="tab" data-toggle="tab">Edición de cursos</a></li>
 				  <li   ><a href="#catalogo_cursos" role="tab" data-toggle="tab">Catalogo de cursos</a></li>
 				 <!-- <li><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
 				  <li><a href="#settings" role="tab" data-toggle="tab">Settings</a></li> -->
@@ -109,7 +109,7 @@
 				<!-- Tab panes -->
 				<div class="tab-content">
 				<br>
-					<div class="tab-pane" id="catalogo_centros">
+					<div class="tab-pane active" id="catalogo_centros">
 						<div class="col-md-7"> 
 							<div class="panel panel-primary">
 								<div class="panel-heading">Ubicación real del inmueble</div>
@@ -188,7 +188,7 @@
 						</div> 
 					</div>
 				  
-					<div class="tab-pane active" id="edicion_cursos">
+					<div class="tab-pane " id="edicion_cursos">
 						<div class="col-md-8">  	  
 							<div class="panel panel-primary">
 								<div class="panel-heading">Cursos publicados:</div>
@@ -457,6 +457,27 @@
 </div><!-- /.modal -->
 
 
+<div class="modal fade"  id="confirmacionesEdicionCursos">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h2 class="modal-title">Confirme la eliminación.</h2>
+      </div>
+      <div class="modal-body">
+        <h2>¿Está Usted seguro(a) que quiere borrar ésta edicion del curso?</h2>
+		<h3>Si borra éste elemento el los interesados no podran ver el curso.</h3>
+		
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button id="btnConfirmacionEliminarEdicionCursos" type="button" class="btn btn-primary">Eliminar curso</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 <script type='text/javascript'>
 
 // $('#tblEdicionCursos').bootstrapTable({
@@ -566,7 +587,7 @@ GuardarActualizar("#btnGuardarEdicionCursos","#tblEdicionCursos");
 resetFormularioBoton("#btnLimpiarFormulario");
 iniciarTabla("#tblEdicionCursos","#frmEdicionCursos");
 GuardarActualizarEdicion("#btnGuardarEdicionCursos");
-EliminarElemento("#btnEliminarEdicionCursos","#tblEdicionCursos","#btnConfirmacionEliminarCatalogoCursos");
+EliminarElemento("#btnEliminarEdicionCursos","#tblEdicionCursos","#btnConfirmacionEliminarEdicionCursos");
 </script>
    
 
