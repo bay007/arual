@@ -81,18 +81,16 @@ function GuardarActualizar(idBotonGuardar,idTablaAsociada){
 				url : formURL,
 				type: "POST",
 				data : postData,
-				success:function(data, textStatus, jqXHR) 
-				{
-				
-				console.dir(textStatus);
-				console.dir(data);
-				console.dir(jqXHR);
+				success:function(data, textStatus, jqXHR){
+				// console.dir(textStatus);
+				// console.dir(data);
+				// console.dir(jqXHR);
 					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
 					{
-				 $(idTablaAsociada).bootstrapTable('refresh');
-				 $("#body-mensajes").html('<p class="bg-success">El cambio en el curso fue exitoso</p>');
-				 $('#mensajes').modal('show');
-				resetFormulario("#"+formulario_id);
+					 $(idTablaAsociada).bootstrapTable('refresh');
+					 $("#body-mensajes").html('<p class="bg-success">El cambio en el curso fue exitoso</p>');
+					 $('#mensajes').modal('show');
+					resetFormulario("#"+formulario_id);
 					}else{						//if fails      
 					$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al actualizar el curso</p>');
 					$('#mensajes').modal('show');
@@ -160,14 +158,10 @@ var formURL = $("#"+formulario_id).attr("action");
 		
 	var accion="delete";
 	$('#'+modal_id).modal('hide');
-	
-	
 		$("#"+formulario_id+' input#accion').val(accion);
 		/*$("#"+formulario_id).submit(function(e)
 		{*/
-			
 			postData = $("#"+formulario_id).find("input[type=hidden]").serializeArray();
-		
 			$.ajax(
 			{
 				url : formURL,
@@ -175,20 +169,18 @@ var formURL = $("#"+formulario_id).attr("action");
 				data : postData,
 				success:function(data, textStatus, jqXHR) 
 				{
-				console.dir(textStatus);
-				console.dir(data);
-				console.dir(jqXHR);
+				// console.dir(textStatus);
+				// console.dir(data);
+				// console.dir(jqXHR);
 					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
 					{
-				 $(idTablaAsociada).bootstrapTable('refresh');
-				 $("#body-mensajes").html('<p class="bg-success">La eliminacion fue exitosa</p>');
-				 $('#mensajes').modal('show');
-				 resetFormulario("#"+formulario_id);
-
+					 $(idTablaAsociada).bootstrapTable('refresh');
+					 $("#body-mensajes").html('<p class="bg-success">La eliminacion fue exitosa</p>');
+					 resetFormulario("#"+formulario_id);
 					}else{						//if fails      
 					$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al eliminar el curso,inténtelo de nuevo por favor</p>');
-					$('#mensajes').modal('show');
 					}
+					$('#mensajes').modal('show');
 					//data: return data from server
 				},
 				error: function(jqXHR, textStatus, errorThrown) 
@@ -374,46 +366,6 @@ function GuardarActualizarCentro(idBotonGuardar){
 
 	
 ////////////////EDICION de cursos usuario final////////////////////////////////////////////////////
-function CargaSelectCursos(IdSelect){
-	$.ajax({
-		type: "GET",
-		url: 'sistema/CatalogoCentros.php?accion=selectCMBCursos&id=',
-	   // data: {'categoryID': $("#category").val(),'isAjax':true},
-		dataType:'json',
-		success: function(data) {
-		   var select = $(IdSelect);
-		   options = '<option value="-1">Seleccion</option>';
-		   select.empty();      
-
-		   for(var i=0;i<data.length; i++)
-		   {
-			options += "<option data-texto='"+data[i].nombre_curso+"' value='"+data[i].id+"'>"+ data[i].nombre_curso+"</option>";              
-		   }
-
-		   select.append(options);
-		}
-	});
-}
-
-function CargaSelectHospitalesActivos(IdSelect){
-	$.ajax({
-		type: "GET",
-		url: 'sistema/CatalogoCentros.php?accion=selectCMBActivos&id=',
-	   // data: {'categoryID': $("#category").val(),'isAjax':true},
-		dataType:'json',
-		success: function(data) {
-		   var select = $(IdSelect);
-		   options = '<option value="-1">Seleccion</option>';
-		   select.empty();      
-
-		   for(var i=0;i<data.length; i++)
-		   {
-			options += "<option data-texto='"+data[i].hospital+"' value='"+data[i].id+"'>"+ data[i].hospital+"</option>";              
-		   }
-		   select.append(options);
-		}
-	});
-}
 
 function GuardarActualizarEdicion(idBotonGuardar){
 	$(idBotonGuardar).click(function(e){
@@ -459,7 +411,7 @@ function GuardarActualizarEdicion(idBotonGuardar){
 				
 				 $("#body-mensajes").html('<p class="bg-success">El cambio en el centro afiliado ARUAL fue exitoso</p>');
 				 $('#mensajes').modal('show');
-				resetFormularioMapas("#"+formulario_id);
+				resetFormulario("#"+formulario_id);
 				$("#tblEdicionCursos").bootstrapTable('refresh');
 					}else{						//if fails      
 					$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al actualizar el Centro Arual</p>');
@@ -480,6 +432,47 @@ function GuardarActualizarEdicion(idBotonGuardar){
 		
 		//});
 	});} 
+
+function CargaSelectCursos(IdSelect){
+	$.ajax({
+		type: "GET",
+		url: 'sistema/CatalogoCentros.php?accion=selectCMBCursos&id=',
+	   // data: {'categoryID': $("#category").val(),'isAjax':true},
+		dataType:'json',
+		success: function(data) {
+		   var select = $(IdSelect);
+		   options = '<option value="-1">Seleccion</option>';
+		   select.empty();      
+
+		   for(var i=0;i<data.length; i++)
+		   {
+			options += "<option data-texto='"+data[i].nombre_curso+"' value='"+data[i].id+"'>"+ data[i].nombre_curso+"</option>";              
+		   }
+
+		   select.append(options);
+		}
+	});
+}
+
+function CargaSelectHospitalesActivos(IdSelect){
+	$.ajax({
+		type: "GET",
+		url: 'sistema/CatalogoCentros.php?accion=selectCMBActivos&id=',
+	   // data: {'categoryID': $("#category").val(),'isAjax':true},
+		dataType:'json',
+		success: function(data) {
+		   var select = $(IdSelect);
+		   options = '<option value="-1">Seleccion</option>';
+		   select.empty();      
+
+		   for(var i=0;i<data.length; i++)
+		   {
+			options += "<option data-texto='"+data[i].hospital+"' value='"+data[i].id+"'>"+ data[i].hospital+"</option>";              
+		   }
+		   select.append(options);
+		}
+	});
+}
 
 
 

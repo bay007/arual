@@ -5,8 +5,11 @@
     <title>ARUAL</title>
     <meta http-equiv="Content-Type" content="text/html" charset="iso-8859-1" />
     <link rel="stylesheet" type="text/css" media="screen" href="css/reset.css">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="expires" content="0">
+<meta http-equiv="cache-control" content="max-age=0" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+<meta http-equiv="pragma" content="no-cache" />
     
 	<link rel="stylesheet" type="text/css" media="screen" href="css/animate.css">
     <link rel="stylesheet" type="text/css" media="screen" href="css/slider.css">
