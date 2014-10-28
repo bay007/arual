@@ -8,10 +8,10 @@
 				<div class="panel-heading">Ã‰sta es nuestra disponibilidad de cursos</div>
 					<div class="panel-body">
 						<div id="centros" class="list-group primary">
-							<a href="#" class="list-group-item active"><span class="glyphicon glyphicon-hand-right"></span> SOPORTE VITAL BaSICO (BLS)</a>
+						<!-- 	<a href="#" class="list-group-item active"><span class="glyphicon glyphicon-hand-right"></span> SOPORTE VITAL BaSICO (BLS)</a>
 							<a href="#" class="list-group-item "><span class="glyphicon glyphicon-hand-right"></span> SALVACORAZONES PRIMEROS AUXILIOS CON RCP Y DEA</a>
 							<a href="#" class="list-group-item "><span class="glyphicon glyphicon-hand-right"></span> REANIMACIÓN CARDIOPULMONAR AVANZADA (ACLS)</a>
-							<a href="#" class="list-group-item "><span class="glyphicon glyphicon-hand-right"></span> REANIMACIÓN CARDIOPULMONAR AVANZADA PARA PROFESIONALES EXPERTOS (ACLS PE)</a>
+							<a href="#" class="list-group-item "><span class="glyphicon glyphicon-hand-right"></span> REANIMACIÓN CARDIOPULMONAR AVANZADA  PARA PROFESIONALES EXPERTOS (ACLS PE)</a>-->
 						</div>
 					</div>
 			</div>
@@ -89,6 +89,32 @@
 <!--==============================footer=================================-->
   
 <script>
+$(document).ready(function(){
+	$.ajax(
+			{
+				url : "sistema/cursos_.php",
+				type: "POST",
+				data : "action=disponibilidad",
+				success:function(data, textStatus, jqXHR){
+				 //console.dir(textStatus);
+				 //console.dir(data);
+				//console.dir(jqXHR);
+					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data!="error")
+					{
+					 $("#centros").html(data);
+					 
+					 
+					 
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) 
+				{
+				$("#body-mensajes").html('<p class=bg-warning">'+errorThrown+'</p>');
+				$('#mensajes').modal('show');
+					//if fails      
+				}
+			});
+			
 			$("h5").click(function(){
 					//window.location.href = 'contacto.html?lugar=' + $(a).text().split(":")[1].trim();
 					$.get( 'contacto.html?lugar=' + $(this).text().split(":")[1].trim(), function( data ) {
@@ -96,6 +122,18 @@
 				});
 			});
 
+			
+		
+			
+			$("#centros a").click(function(){
+			$(this).addClass("active");
+			});
+			});
+			
+			
+			
+			
+			
 /*	
 $('.list-group-item').click(function(e){
 alert($(this).text());
