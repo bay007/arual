@@ -398,7 +398,7 @@ function GuardarActualizarEdicion(idBotonGuardar){
 			$.ajax(
 			{
 				url : formURL,
-				type: "GET",
+				type: "POST",
 				data : postData,
 				success:function(data, textStatus, jqXHR) 
 				{
@@ -414,7 +414,7 @@ function GuardarActualizarEdicion(idBotonGuardar){
 				resetFormulario("#"+formulario_id);
 				$("#tblEdicionCursos").bootstrapTable('refresh');
 					}else{						//if fails      
-					$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al actualizar el Centro Arual</p>');
+					$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al actualizar la edicion a un curso.</p>'+data);
 					$('#mensajes').modal('show');
 					}
 					//data: return data from server
