@@ -21,12 +21,13 @@
 			<div class="panel panel-primary">
 				<div class="panel-heading"><h2 class="tituloCurso" align="center">REANIMACIÓN CARDIOPULMONAR AVANZADA (ACLS)</h2></div>
 				<div class="panel-body">
-					<p class="p6" align="justify">
+					<p class="p6" align="justify" style="display: inline;">
 						<strong>
 						<span class="glyphicon glyphicon-eye-open"></span>
 						Contenido:
 						</strong>
-						El curso es teórico práctico y da un repaso de RCP con DEA en adultos y manejo
+						<div id="contenidoCuerpo" style="display: inline;">
+						<!-- El curso es teórico práctico y da un repaso de RCP con DEA en adultos y manejo
 						de paro respiratorio, revisión de casos de Síndrome coronario agudo y Stroke. También 
 						se realizan estaciones de destreza en donde se enseña la integración del equipo de reanimación 
 						en el manejo del paro cardiorespiratorio repasando los ritmos letales de Fibrilación 
@@ -36,28 +37,34 @@
 						indispensable para la aprobación del mismo, además de una evaluación escrita en donde 
 						la calificación mínima aprobatoria es de 84%. Al final del curso, se entregan tarjetas 
 						avaladas por la American Heart Association a los alumnos 
-						que hayan completado en forma satisfactoria el curso.      
+						que hayan completado en forma satisfactoria el curso.       -->
+						</div>
 					</p>
 					
-					<p class="p6" align="justify">
+					<p class="p6" align="justify" style="display: inline;">
 						<strong>
 						<span class="glyphicon glyphicon-time"></span>
 						Duración:
-						</strong> 2 días (15 horas aproximadamente).
+						</strong><div id="duracion" style="display: inline;"><!--  2 días (15 horas aproximadamente). --></div>
 					</p>
 
-					<p class="p6" align="justify">
+					<p class="p6" align="justify" style="display: inline;">
 					   <strong>
 					   <span class="glyphicon glyphicon-list-alt"></span> 
 					   Requisitos:
 					   </strong>
-					   1.- Tener curso de Apoyo Vital Básico de la AHA vigente y aprobado.
-					   2.- Contestar autoevaluación en línea previamente al día del curso      
+					   <div id="requisitos" style="display: inline;">
+					   <!-- 1.- Tener curso de Apoyo Vital Básico de la AHA vigente y aprobado.
+					   2.- Contestar autoevaluación en línea previamente al día del curso       -->
+					   </div>
 					</p>
     
-					<p class="p6" align="justify">
-						<strong><span class="glyphicon glyphicon-user"></span> Público dirigido:
-						</strong> Profesionales del area de la salud, médicos, enfermeras, paramedicos, etc.      
+					<p class="p6" align="justify" style="display: inline;">
+						<strong><span class="glyphicon glyphicon-user"></span> Público dirigido:</strong>
+						 
+							<div id="publicoDirigido" style="display: inline;">
+						<!-- 	Profesionales del area de la salud, médicos, enfermeras, paramedicos, etc. -->
+							</div>
 					</p>
 				</div>
 			</div>
@@ -93,18 +100,20 @@ $(document).ready(function(){
 	$.ajax(
 			{
 				url : "sistema/cursos_.php",
-				type: "POST",
-				data : "action=disponibilidad",
+				type: "GET",
+				data : "accion=disponibilidad",
 				success:function(data, textStatus, jqXHR){
 				 //console.dir(textStatus);
 				 //console.dir(data);
 				//console.dir(jqXHR);
 					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data!="error")
 					{
-					 $("#centros").html(data);
-					 
-					 
-					 
+					$("#centros").html(data);
+						$.ajax({
+						  type: "GET",
+						  url: "js/cursos_.js",
+						  dataType: "script"
+						});
 					}
 				},
 				error: function(jqXHR, textStatus, errorThrown) 
@@ -115,20 +124,12 @@ $(document).ready(function(){
 				}
 			});
 			
-			$("h5").click(function(){
-					//window.location.href = 'contacto.html?lugar=' + $(a).text().split(":")[1].trim();
-					$.get( 'contacto.html?lugar=' + $(this).text().split(":")[1].trim(), function( data ) {
-					$( "#contenido" ).replaceWith( data );
-				});
-			});
+		
 
 			
 		
+			});
 			
-			$("#centros a").click(function(){
-			$(this).addClass("active");
-			});
-			});
 			
 			
 			
