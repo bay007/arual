@@ -4,6 +4,8 @@
  * @Version 1.3
  * @Package Database
  */
+ date_default_timezone_set('America/Mexico_City');setlocale(LC_ALL, "es_MX");
+ 
  error_reporting(-1);
 class Database{
 	/* 
@@ -30,6 +32,9 @@ class Database{
 		if(!$this->con){
 			$this->myconn = mysqli_connect($this->db_host,$this->db_user,$this->db_pass);  // mysql_connect() with variables defined at the start of Database class
             $this->myconn->set_charset("utf-8");
+			mysqli_query($this->myconn,"SET lc_time_names = 'es_MX'");
+			
+			
 			if($this->myconn){
             	$seldb = mysqli_select_db($this->myconn,$this->db_name); // Credentials have been pass through mysql_connect() now select the database
                 if($seldb){

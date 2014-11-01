@@ -193,4 +193,8 @@ border-color: #111111
 top: 75px;
 }
 
-
+hr {
+color: #42A8A4;
+background-color: #42A8A4;
+height: 5px;
+}
