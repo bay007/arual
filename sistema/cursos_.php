@@ -39,7 +39,7 @@ try {
 		echo json_encode($detalleCurso);
 		}
 	}
-	
+	 
 	
 	if(isset($_GET["accion"])){
 		if($_GET['accion']=="centosConCurso"){

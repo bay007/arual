@@ -32,7 +32,7 @@ class Database{
 		if(!$this->con){
 			$this->myconn = mysqli_connect($this->db_host,$this->db_user,$this->db_pass);  // mysql_connect() with variables defined at the start of Database class
             $this->myconn->set_charset("utf-8");
-			mysqli_query($this->myconn,"SET lc_time_names = 'es_MX'");
+			mysqli_query($this->myconn,"SET lc_time_names ='es_MX'");
 			
 			
 			if($this->myconn){
