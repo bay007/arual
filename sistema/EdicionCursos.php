@@ -3,6 +3,7 @@ header("Content-Type: text/plain; charset=ISO-8859-1");
 //header('Content-Type: text/html; charset=UTF-8'); 
 include("mysql_crud.php");
  error_reporting(-1);
+ date_default_timezone_set('America/Mexico_City');setlocale(LC_ALL, "es_MX");
 
 // if (!isset($_POST["activo"]))
 // {
