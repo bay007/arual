@@ -1,12 +1,4 @@
-	$("h5").click(function(){
-					//window.location.href = 'contacto.html?lugar=' + $(a).text().split(":")[1].trim();
-					$.get( 'contacto.html?lugar=' + $(this).text().split(":")[1].trim(), function( data ) {
-					$( "#contenido" ).replaceWith( data );
-				});
-			});
-			
 			$("#centros a").click(function(){
-				
 				$("#centros a").removeClass("active");
 				$(this).addClass("active");
 				var nombre_cursos=$(this).text();
@@ -38,6 +30,7 @@
 										if(jqXHR1.status==200&&jqXHR1.statusText=="OK"&&data1!="error")
 										{
 										$("#ubicacionesCursos").html(data1);
+										
 										}
 									},
 									error: function(jqXHR1, textStatus1, errorThrown1) 
@@ -58,11 +51,5 @@
 								//if fails      
 							}
 						});
-		
-						
-				
-				
-				
-				
+
 			});
-			
