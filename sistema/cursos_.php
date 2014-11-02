@@ -55,11 +55,13 @@ try {
 		
 		
 		$entrada="";
-		$disponibilidad='<h5 id="h5"><a> <img src="images/gm.png"></img></a><div><strong> Lugar: </strong>{hospital} ({lespecifico})</div> </h5>';
+		$disponibilidad='<h5 id="h5"><a> <img src="images/gm.png"></img></a><div><strong> Lugar: </strong>{hospital}-({lespecifico})</div> </h5>';
 		$disponibilidad.='<p><strong><span class="glyphicon glyphicon-map-marker"></span>Direccion:</strong>{direccion}.</p>';
 		$disponibilidad.='<p><a class="link" href="#"><strong>Cupos disponibles en éste momento: {cupo}</strong></a></p>';
 		$disponibilidad.='<strong><span class="glyphicon glyphicon-calendar"></span> Fecha y hora de aplicación :</strong> {faplicacion}';
 		$disponibilidad.='<hr>';
+		
+		
 	
 	
 			foreach($centrosConCurso as $v){
@@ -69,7 +71,7 @@ try {
 				@$entrada=str_ireplace('{cupo}',@$v["cupo"],$entrada);
 				@$entrada=str_ireplace('{faplicacion}',@$v["faplicacion"],$entrada);
 			}
-		echo ($entrada);
+		echo ($entrada.'<script>$("#h5").click(function(){var h5=$(this);$.get( "contacto.html", function( data ) {$( "#contenido" ).replaceWith( data.replace("{lugar}",h5.text().split(":")[1].split("-")[0].trim()) );});});</script>');
 	
 	
 		}
