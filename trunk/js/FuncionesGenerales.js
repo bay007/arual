@@ -38,17 +38,15 @@ function iniciarTabla(idTabla,idFormulario){
 $(idTabla).bootstrapTable({
     //url: 'data.json'
 	 onClickRow: function (row) {
-							
-							var obj=JSON.stringify(row);
-							//var frm = $("#formularioCursos");
-								formularioDesdeTabla(row,idFormulario);
-									//console.dir(response);      // for debug
-							}
+	
+	var obj=JSON.stringify(row);
+	//var frm = $("#formularioCursos");
+		formularioDesdeTabla(row,idFormulario);
+			//console.dir(response);      // for debug
+	}
 });
 }
-
 function GuardarActualizar(idBotonGuardar,idTablaAsociada){
-
 	$(idBotonGuardar).click(function(e){
 	e.preventDefault(); //STOP default action
 	var formulario_id=$(idBotonGuardar).parent().attr('id');
@@ -76,34 +74,33 @@ function GuardarActualizar(idBotonGuardar,idTablaAsociada){
 			;})
 			
 		if(!(3<=nuevoElemento)){
-			$.ajax(
-			{
-				url : formURL,
-				type: "POST",
-				data : postData,
-				success:function(data, textStatus, jqXHR){
-				// console.dir(textStatus);
-				// console.dir(data);
-				// console.dir(jqXHR);
-					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
+				$.ajax({
+					url : formURL,
+					type: "POST",
+					data : postData,
+					success:function(data, textStatus, jqXHR){
+					// console.dir(textStatus);
+					// console.dir(data);
+					// console.dir(jqXHR);
+						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
+						{
+						 $(idTablaAsociada).bootstrapTable('refresh');
+						 $("#body-mensajes").html('<p class="bg-success">El cambio en el curso fue exitoso</p>');
+						 $('#mensajes').modal('show');
+						resetFormulario("#"+formulario_id);
+						}else{						//if fails      
+						$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al actualizar el curso</p>');
+						$('#mensajes').modal('show');
+						}
+						//data: return data from server
+					},
+					error: function(jqXHR, textStatus, errorThrown) 
 					{
-					 $(idTablaAsociada).bootstrapTable('refresh');
-					 $("#body-mensajes").html('<p class="bg-success">El cambio en el curso fue exitoso</p>');
-					 $('#mensajes').modal('show');
-					resetFormulario("#"+formulario_id);
-					}else{						//if fails      
-					$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al actualizar el curso</p>');
+					$("#body-mensajes").html('<p class=bg-warning">'+errorThrown+'</p>');
 					$('#mensajes').modal('show');
+						//if fails      
 					}
-					//data: return data from server
-				},
-				error: function(jqXHR, textStatus, errorThrown) 
-				{
-				$("#body-mensajes").html('<p class=bg-warning">'+errorThrown+'</p>');
-				$('#mensajes').modal('show');
-					//if fails      
-				}
-			});
+				});
 			}else{
 			alert("Por favor, complete todos los campos antes de continuar.");
 			}
@@ -111,7 +108,6 @@ function GuardarActualizar(idBotonGuardar,idTablaAsociada){
 		//});
 	});
 } 
-
 function resetFormularioBoton(idBotonReset){
 $(idBotonReset).click(function(e){
 e.preventDefault(); //STOP default action
@@ -155,12 +151,9 @@ var formURL = $("#"+formulario_id).attr("action");
 	});	
 		
 	$(idBotonEliminarModal).click(function(e){	
-		
 	var accion="delete";
 	$('#'+modal_id).modal('hide');
 		$("#"+formulario_id+' input#accion').val(accion);
-		/*$("#"+formulario_id).submit(function(e)
-		{*/
 			postData = $("#"+formulario_id).find("input[type=hidden]").serializeArray();
 			$.ajax(
 			{
@@ -190,13 +183,8 @@ var formURL = $("#"+formulario_id).attr("action");
 					//if fails      
 				}
 			});
-			
-		
 		});
-	
 } 
-
-
 //////////////////EDICION DEL CATALOGO DE CENTROS AFILIADOS////////////////////////////////////////////////////
 function CargaSelectHospitales(IdSelect){
 	$.ajax({
@@ -364,7 +352,25 @@ function GuardarActualizarCentro(idBotonGuardar){
 		//});
 	});} 
 
-	
+function CargaSelectPublicoDirigido(IdSelect){
+	$.ajax({
+		type: "GET",
+		url: 'sistema/CatalogoCursos.php?accion=selectCMBPublico',
+	   // data: {'categoryID': $("#category").val(),'isAjax':true},
+		dataType:'json',
+		success: function(data) {
+		   var select = $(IdSelect);
+		   options = '<option value="-1">Seleccion</option>';
+		   select.empty();      
+
+		   for(var i=0;i<data.length; i++)
+		   {
+			options += '<option value="'+data[i].publico_dirigido+'">'+ data[i].publico_dirigido+'</option>';
+		   }
+		   select.append(options);
+		}
+	});
+}	
 ////////////////EDICION de cursos usuario final////////////////////////////////////////////////////
 
 function GuardarActualizarEdicion(idBotonGuardar){

@@ -26,12 +26,9 @@
 	
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.2.3/bootstrap-table.min.js"></script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.2.3/bootstrap-table.min.css" rel="stylesheet" type="text/css">
-<script src="js/populate.js"></script>
-	<script src="js/FuncionesGenerales.js"></script>-->
+<!-- <script src="js/populate.js"></script> -->
+	<script src="js/FuncionesGenerales.js"></script>
 	
-<style>
-
-</style>
 
 	
 
@@ -52,7 +49,7 @@
   <!--==============================header=================================-->
  
 	<div class="col-md-6 col-md-offset-1">   
-		<h1><a href="index.html"><img src="images/logo.png" alt=""></a></h1>
+		<h1><a href="index.html"><img class="img-responsive" src="images/Imagen1.png" alt="" style="height: 120px;"/></a></h1>
 	</div>
       
 	<div class="col-md-10 col-md-offset-1"> 
@@ -68,7 +65,7 @@
 						<span class="icon-bar"></span>
 					</button>
 					<ul class=" menu">
-						<li class="home-page"><a class="" href="http://localhost/ARUAL" accesskey="h"><span></span></a></li>
+						<li class="home-page"><a class="" href="http://localhost/ARUALMR" accesskey="h"><span></span></a></li>
 					</ul>
 				</div>
 
@@ -295,9 +292,9 @@
 												<th data-field="nombre_curso" data-align="right" data-sortable="true">Nombre Curso</th>
 												<th data-field="contenido" data-align="right" >Contenido</th>
 												<th data-field="duracion" data-align="right" data-sortable="true">Duración</th>
-												<th data-field="requisitos" data-align="center" data-sortable="true">Requisitos:</th>
-												<th data-field="publico_dirigido" data-align="left">Público dirigido:</th>
-												<th data-field="activo" data-align="left" >Activo:</th>
+												<th data-field="requisitos" data-align="center" data-sortable="true">Requisitos</th>
+												<th data-field="publico_dirigido" data-align="left">Público dirigido</th>
+												<th data-field="activo" data-align="left" >Activo</th>
 											</tr>
 										</thead>
 									</table>
@@ -337,9 +334,9 @@
 												<label for="publico_dirigido">Público dirigido:</label>
 											 
 												<select id="publico_dirigido" class="form-control"  name="publico_dirigido" >
-													<option value="-1"></option>
+													<!-- <option value="-1"></option>
 													<option value="0">Personal Area de la Salud</option>
-													<option value="1">Legos</option>
+													<option value="1">Legos</option> -->
 												</select>
 											</div>
 
@@ -484,20 +481,7 @@
     // //url: 'data.json'
 // });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
- var centro=new google.maps.LatLng(19.394574923950497,-99.28167567436219);
+var centro=new google.maps.LatLng(19.394574923950497,-99.28167567436219);
  var mapProp = {center:centro,zoom:12};
  var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
  var marker = new google.maps.Marker({
@@ -574,7 +558,7 @@ iniciarTabla("#tblCatalogoCursos","#frmCatalogoCursos");
 resetFormularioBoton("#btnLimpiarCatalogoCurso");
 GuardarActualizar("#btnGuardarCatalogoCurso","#tblCatalogoCursos");
 EliminarElemento("#btnEliminarCatalogoCurso","#tblCatalogoCursos","#btnConfirmacionEliminarCatalogoCursos");
- 
+CargaSelectPublicoDirigido("#publico_dirigido"); 
 ///////catalogo de hospitales////////////////////////////////////////////////////////7 
 CargaSelectHospitales("#cmbEdicionHospitales");  
 formularioDesdeSelect("#cmbEdicionHospitales","#frmMapas");

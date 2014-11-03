@@ -6,6 +6,7 @@ date_default_timezone_set('America/Mexico_City');setlocale(LC_ALL, "es_MX");
  error_reporting(-1);
 
 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  
 $db = new Database;
@@ -50,12 +51,23 @@ $db->disconnect();
   
   
 }else{
-$db = new Database;
-$db->connect();
-$db->select("catalogo_cursos","id,nombre_curso,contenido,duracion,requisitos,publico_dirigido,activo");
-$catalogo_cursos=$db->getResult();
-$db->disconnect();
-echo json_encode($catalogo_cursos);
+	if(isset($_GET["accion"])){
+		if($_GET['accion']=="selectCMBPublico"){
+		$db = new Database;
+		$db->connect();
+		@$db->select("catalogo_cursos","distinct publico_dirigido");
+		@$detalleCurso=$db->getResult();
+		$db->disconnect();
+		echo json_encode($detalleCurso);
+		}
+	}else{ 
+		$db = new Database;
+		$db->connect();
+		$db->select("catalogo_cursos","id,nombre_curso,contenido,duracion,requisitos,publico_dirigido,activo");
+		$catalogo_cursos=$db->getResult();
+		$db->disconnect();
+		echo json_encode($catalogo_cursos);
+		}
 }
 
 ?>
