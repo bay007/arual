@@ -3,44 +3,38 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-11-2014 a las 02:16:42
+-- Tiempo de generación: 03-11-2014 a las 03:06:36
 -- Versión del servidor: 5.6.20
 -- Versión de PHP: 5.5.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
 --
 -- Base de datos: `arual`
 --
+--CREATE DATABASE IF NOT EXISTS `arual` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci;
+--USE `arual`;
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `catalogo_centros`
 --
--- Creación: 20-10-2014 a las 07:05:55
--- Última actualización: 01-11-2014 a las 13:50:13
---
 
+DROP TABLE IF EXISTS `catalogo_centros`;
 CREATE TABLE IF NOT EXISTS `catalogo_centros` (
 `id` int(11) NOT NULL,
   `latitud` float(10,6) NOT NULL,
   `longitud` float(10,6) NOT NULL,
-  `hospital` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `direccion` varchar(100) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `contacto` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `telefono` varchar(25) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `email` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `logotipo` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `activo` char(1) COLLATE utf8mb4_spanish2_ci NOT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci AUTO_INCREMENT=5 ;
+  `hospital` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `direccion` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `contacto` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `telefono` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `logotipo` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `activo` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `catalogo_centros`
@@ -57,10 +51,8 @@ INSERT INTO `catalogo_centros` (`id`, `latitud`, `longitud`, `hospital`, `direcc
 --
 -- Estructura de tabla para la tabla `catalogo_cursos`
 --
--- Creación: 03-11-2014 a las 00:32:57
--- Última actualización: 03-11-2014 a las 01:14:05
---
 
+DROP TABLE IF EXISTS `catalogo_cursos`;
 CREATE TABLE IF NOT EXISTS `catalogo_cursos` (
 `id` int(11) NOT NULL COMMENT 'identificador',
   `contenido` varchar(800) COLLATE utf8_spanish2_ci NOT NULL,
@@ -86,10 +78,8 @@ INSERT INTO `catalogo_cursos` (`id`, `contenido`, `duracion`, `requisitos`, `pub
 --
 -- Estructura de tabla para la tabla `edicion_cursos`
 --
--- Creación: 01-11-2014 a las 11:55:08
--- Última actualización: 01-11-2014 a las 08:40:41
---
 
+DROP TABLE IF EXISTS `edicion_cursos`;
 CREATE TABLE IF NOT EXISTS `edicion_cursos` (
 `id` int(11) NOT NULL,
   `fkIDCh` int(11) unsigned NOT NULL,
@@ -100,14 +90,6 @@ CREATE TABLE IF NOT EXISTS `edicion_cursos` (
   `fkIDCc` int(11) unsigned NOT NULL,
   `activo` tinyint(1) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=8 ;
-
---
--- RELACIONES PARA LA TABLA `edicion_cursos`:
---   `fkIDCc`
---       `catalogo_cursos` -> `id`
---   `fkIDCh`
---       `catalogo_centros` -> `id`
---
 
 --
 -- Volcado de datos para la tabla `edicion_cursos`
@@ -159,6 +141,3 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identificador',AUTO_INCREME
 --
 ALTER TABLE `edicion_cursos`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
