@@ -33,7 +33,7 @@ class Database{
 			$this->myconn = mysqli_connect($this->db_host,$this->db_user,$this->db_pass);  // mysql_connect() with variables defined at the start of Database class
             $this->myconn->set_charset("utf-8");
 			mysqli_query($this->myconn,"SET lc_time_names ='es_MX'");
-			
+			mysqli_query($this->myconn,"SET NAMES 'utf8'");  
 			
 			if($this->myconn){
             	$seldb = mysqli_select_db($this->myconn,$this->db_name); // Credentials have been pass through mysql_connect() now select the database
@@ -86,7 +86,7 @@ class Database{
                		// Sanitizes keys so only alphavalues are allowed
                    	if(!is_int($key[$x])){
                    		if($this->myconn->affected_rows>= 1){
-                   			$this->result[$i][$key[$x]] = utf8_encode($r[$key[$x]]);
+                   			$this->result[$i][$key[$x]] = utf8_decode($r[$key[$x]]);
 						}else{
 							$this->result = null;
 						}
@@ -136,7 +136,7 @@ class Database{
                 		// Sanitizes keys so only alphavalues are allowed
                     	if(!is_int($key[$x])){
                     		if(mysqli_num_rows($query) >= 1){
-                    			$this->result[$i][$key[$x]] =utf8_encode($r[$key[$x]]);
+                    			$this->result[$i][$key[$x]] =($r[$key[$x]]);
 							}else{
 								$this->result = null;
 							}

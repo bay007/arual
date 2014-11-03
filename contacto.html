@@ -18,50 +18,67 @@
 			<div class="col-md-6">
 				<div class="panel panel-primary">
 					<div class="panel-heading">Centros ARUAL autorizados</div>
-						<div class="panel-body">
+						<div class="panel-body" id="detallesCuerpo">
 						<!-- 	<div id="centros" class="list-group primary">
 								<a href="#" class="list-group-item active"><span class="glyphicon glyphicon-hand-right"></span> Hospital Espa�ol </a>
 								<a href="#" class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> Angeles Lindavista</a>
 								<a href="#" class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> Angeles Lomas</a>
 							</div> -->
-				<div id="accordion" class="panel-group">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a id="centoArual" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Nuevo Hospital</a>
-							</h4>
-						</div>
-						<div id="collapseOne" class="panel-collapse collapse" >
-							<div class="panel-body">
-								<p>HTML stands for HyperText Markup Language. HTML is the main markup language for describing the structure of Web pages. <a href="http://www.tutorialrepublic.com/html-tutorial/" target="_blank">Learn more.</a></p>
-							</div>
-						</div>
-					</div>
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">2. What is Twitter Bootstrap?</a>
-							</h4>
-						</div>
-						<div id="collapseTwo" class="panel-collapse collapse ">
-							<div class="panel-body">
-								<p>Twitter Bootstrap is a powerful front-end framework for faster and easier web development. It is a collection of CSS and HTML conventions. <a href="http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/" target="_blank">Learn more.</a></p>
-							</div>
-						</div>
-					</div>
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">3. What is CSS?</a>
-							</h4>
-						</div>
-						<div id="collapseThree" class="panel-collapse collapse">
-							<div class="panel-body">
-								<p>CSS stands for Cascading Style Sheet. CSS allows you to specify various style properties for a given HTML element such as colors, backgrounds, fonts etc. <a href="http://www.tutorialrepublic.com/css-tutorial/" target="_blank">Learn more.</a></p>
-							</div>
-						</div>
-					</div>
-				</div>						
+							<!--<div id="accordion" class="panel-group">
+								<div class="panel panel-primary">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a id="centoArual" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Nuevo Hospital</a>
+										</h4>
+									</div>
+									<div id="collapseOne" class="panel-collapse collapse" >
+										<div class="panel-body">
+											<strong><span class="glyphicon glyphicon-user"></span>
+											Persona de contacto:
+											</strong>
+											<div id="duracion" style="display: inline;">
+											{contacto}
+											</div>
+											<br>
+											<strong><span class="glyphicon glyphicon-envelope"></span>
+											Email:
+											</strong>
+											<div id="duracion" style="display: inline;">
+											{email}
+											</div>
+											<br>
+											<strong><span class="glyphicon glyphicon-earphone"></span>
+											Teléfono:
+											</strong>
+											<div id="duracion" style="display: inline;">
+											{telefono}
+											</div>
+											<br>
+											<strong><span class="glyphicon glyphicon-map-marker"></span>
+											Dirección:
+											</strong>
+											<div id="duracion" style="display: inline;">
+											{direccion}
+											</div>
+											<br>
+											<img src="{logotipo}" height="50px"></img>
+										</div>
+									</div>
+								</div> 
+								<div class="panel panel-primary">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">2. What is Twitter Bootstrap?</a>
+										</h4>
+									</div>
+									<div id="collapseTwo" class="panel-collapse collapse ">
+										<div class="panel-body">
+											<p>Twitter Bootstrap is a powerful front-end framework for faster and easier web development. It is a collection of CSS and HTML conventions. <a href="http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/" target="_blank">Learn more.</a></p>
+										</div>
+									</div>
+								</div>
+							</div>		-->		
+													
 						</div>
 				</div>
 			</div>
@@ -71,7 +88,31 @@
 <!--==============================footer=================================-->
 
 <script>
-
+function detalleUbicacion(nombre_hospital){
+$.ajax({
+		url : "sistema/contacto_.php",
+		type: "GET",
+		data : "accion=UbicacionCurso&nombre_hospital="+nombre_hospital,
+		dataType: 'json',
+		success:function(data2, textStatus2, jqXHR2){
+		//console.dir(textStatus);
+		//console.dir(data1);
+		//console.dir(jqXHR);
+			if(jqXHR2.status==200&&jqXHR2.statusText=="OK"&&data2!="error")
+			{
+			centro={lat: Number(data2[0].lat), lng:Number(data2[0].lng)};
+			mapa.setCenter(centro);
+			marker.setPosition(centro);
+			}
+		},
+		error: function(jqXHR2, textStatus2, errorThrown2) 
+		{
+		$("#body-mensajes").html('<p class=bg-warning">'+errorThrown1+'</p>');
+		$('#mensajes').modal('show');
+			//if fails      
+		}
+	});
+}
 
 
 $.getScript('https://maps.googleapis.com/maps/api/js?v=3.exp&callback=initialize');
@@ -96,47 +137,42 @@ function initialize() {
 		  });
 			//mostramos la ubicacion si se carga el mapa desde CURSOS
 		  if($("#lugar").val()!="{lugar}"){
-			var nombre_hospital=$("#lugar").val();
+			var nombre_hospital=$("#lugar").val().trim();
 			detalleUbicacion(nombre_hospital);
+				var entradas=$("#detallesCuerpo").find("a");
+					entradas.each (function(e){
+						if($(this).html().trim()==nombre_hospital){
+							$($(this).attr("href")).collapse('show'); 
+						}  
+					});
 		}
 }
 
-$("a#centoArual").click(function(){
-//mostramos en caso de dar click el panel
-	$($(this).attr("href").trim()).collapse('show');
-	var nombre_hospital=$(this).text();
-detalleUbicacion(nombre_hospital);
-
-});
-
-
-function detalleUbicacion(nombre_hospital){
-$.ajax({
-		url : "sistema/contacto_.php",
-		type: "GET",
-		data : "accion=UbicacionCurso&nombre_hospital="+nombre_hospital,
-		dataType: 'json',
-		success:function(data2, textStatus2, jqXHR2){
-		//console.dir(textStatus);
-		//console.dir(data1);
-		//console.dir(jqXHR);
-			if(jqXHR2.status==200&&jqXHR2.statusText=="OK"&&data2!="error")
-			{
-			
-			centro={lat: Number(data2[0].lat), lng:Number(data2[0].lng)};
-			mapa.setCenter(centro);
-			marker.setPosition(centro);
-			
-			}
-		},
-		error: function(jqXHR2, textStatus2, errorThrown2) 
-		{
-		$("#body-mensajes").html('<p class=bg-warning">'+errorThrown1+'</p>');
-		$('#mensajes').modal('show');
-			//if fails      
-		}
-	});
-}
+			$.ajax({
+				url : "sistema/contacto_.php",
+				type: "GET",
+				data : "accion=detalleCentros",
+				success:function(data, textStatus, jqXHR){
+				 //console.dir(textStatus);
+				 //console.dir(data);
+				//console.dir(jqXHR);
+					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data!="error")
+					{
+					$("#detallesCuerpo").html(data);
+						$.ajax({
+						  type: "GET",
+						  url: "js/contacto_.js",
+						  dataType: "script"
+						});
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) 
+				{
+				$("#body-mensajes").html('<p class=bg-warning">'+errorThrown+'</p>');
+				$('#mensajes').modal('show');
+					//if fails      
+				}
+			});
 
 
 //google.maps.event.addDomListener(window, 'load', initialize);

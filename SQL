@@ -1,0 +1,164 @@
+-- phpMyAdmin SQL Dump
+-- version 4.2.7.1
+-- http://www.phpmyadmin.net
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 03-11-2014 a las 02:16:42
+-- Versión del servidor: 5.6.20
+-- Versión de PHP: 5.5.15
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Base de datos: `arual`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_centros`
+--
+-- Creación: 20-10-2014 a las 07:05:55
+-- Última actualización: 01-11-2014 a las 13:50:13
+--
+
+CREATE TABLE IF NOT EXISTS `catalogo_centros` (
+`id` int(11) NOT NULL,
+  `latitud` float(10,6) NOT NULL,
+  `longitud` float(10,6) NOT NULL,
+  `hospital` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `direccion` varchar(100) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `contacto` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `telefono` varchar(25) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `email` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `logotipo` varchar(50) COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `activo` char(1) COLLATE utf8mb4_spanish2_ci NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci AUTO_INCREMENT=5 ;
+
+--
+-- Volcado de datos para la tabla `catalogo_centros`
+--
+
+INSERT INTO `catalogo_centros` (`id`, `latitud`, `longitud`, `hospital`, `direccion`, `contacto`, `telefono`, `email`, `logotipo`, `activo`) VALUES
+(1, 19.394573, -99.281693, 'Angeles interLOMAS', 'Av. Vialidad de la Barranca s/n Col. Valle de las Palmas Huixquilucan, 52763 Huixquilucan de Degolla', 'Maria Juarez', '552244556654', 'angeles1@angeles.com', 'Angeles Lomas.gif', '1'),
+(2, 19.383867, -99.220528, 'Pedregal angeles', 'Rio sambuesa #34', 'Juan martinez ceron', '663344224422,66446666', 'pedregal@p.com', '', '1'),
+(3, 19.439510, -99.196129, 'Hospital Español', 'Ejército Nacional 617, Granada, 11520 Ciudad de Mexico, D.F.', 'Martha Zarmudi', '01 55 5255 9600', 'servicios@hespanol.com', '', '1'),
+(4, 19.486790, -99.129539, 'Angeles Lindavista', 'Calle Rio Bamba 639, Magdalena de Las Salinas, 07760 Ciudad de Mexico, Distrito Federal', 'Jose luis kerman', '01 55 5754 7000', 'nuevo@nuevo.com', '', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `catalogo_cursos`
+--
+-- Creación: 03-11-2014 a las 00:32:57
+-- Última actualización: 03-11-2014 a las 01:14:05
+--
+
+CREATE TABLE IF NOT EXISTS `catalogo_cursos` (
+`id` int(11) NOT NULL COMMENT 'identificador',
+  `contenido` varchar(800) COLLATE utf8_spanish2_ci NOT NULL,
+  `duracion` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `requisitos` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
+  `publico_dirigido` varchar(80) COLLATE utf8_spanish2_ci NOT NULL,
+  `nombre_curso` varchar(80) COLLATE utf8_spanish2_ci NOT NULL,
+  `activo` char(1) COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci COMMENT='Catalogo de cursos' AUTO_INCREMENT=47 ;
+
+--
+-- Volcado de datos para la tabla `catalogo_cursos`
+--
+
+INSERT INTO `catalogo_cursos` (`id`, `contenido`, `duracion`, `requisitos`, `publico_dirigido`, `nombre_curso`, `activo`) VALUES
+(1, 'Su contenido es teórico práctico dividido en dos partes. La primera parte revisa aspectos de RCP en adultos y lactantes. La segunda parte abarca varios aspectos de primeros auxilios que incluye lo siguiente:\r\n\r\n- Conceptos básicos\r\n\r\n- Emergencias médicas \r\n\r\n- Emergencias por lesiones\r\n\r\n- Emergencias medioambientales\r\n\r\nEn el transcurso del curso se realizan evaluaciones  de habilidades que son requisito indispensable para la aprobación del curso. No hay evaluación escrita. \r\n\r\nAl final del curso, se entregan tarjetas avaladas por la American Heart Association a los alumnos que hayan completado en forma satisfactoria el curso.', '9 horas con recesos.', 'Se debe entregar un manual un mes previo a la realización del curso para poder revisar y estudiar los temas.', 'Público en general.', 'CURSO SALVACORAZONES PRIMEROS AUXILIOS CON RCP Y DEA', '1'),
+(44, 'Su contenido es teórico práctico, practicando habilidades de RCP en adultos, lactantes y manejo de obstrucción de la vía aérea por cuerpo extraño.   \r\nEn el transcurso del curso se realizan evaluaciones  de habilidades que son requisito indispensable para la aprobación del mismo, además de una evaluación escrita en donde la calificación mínima aprobatoria es de 84%. \r\nAl final del curso, se entregan tarjetas avaladas por la American Heart Association a los alumnos que hayan completado en forma satisfactoria el curso.', 'Duración del curso: 6 horas con recesos.', 'El manual deberá entregarse un mes previo a la realización del  curso para poder revisar y estudiar los temas.', 'Sólo profesionales que se desempeñan en el área de la salud.', 'CURSO DE SOPORTE VITAL BÁSICO (BLS)', '1'),
+(45, 'El curso es teórico práctico y da un repaso de RCP con DEA en adultos y manejo de paro respiratorio, revisión de casos de Síndrome coronario agudo y Stroke. También se realizan estaciones de destreza en donde se enseña la integración del equipo de reanimación en el \r\nmanejo del paro cardiorespiratorio repasando los ritmos letales de Fibrilación \r\nventricular/Taquicardia ventricular sin pulso, Actividad eléctrica sin pulso, Asistolia además de manejo de taquicardias y bradicardias con pulso estables e inestables.  Evaluación del curso: En el transcurso del curso se realizan evaluaciones  de habilidades que son \r\nrequisito indispensable para la aprobación del mismo, además de una evaluación escrita en donde la calificación mínima aprobatoria es de 84%. \r\n\r\nAl final del curso, se entregan tar', '2 días (15 horas aproximadamente).', '1.- Tener curso de Apoyo Vital Básico de la AHA vigente y aprobado.   2.- Contestar autoevaluación en línea previamente al día del curso', 'Sólo profesionales que se desempeñan en el área de la salud.', 'CURSO DE REANIMACIÓN CARDIOPULMONAR AVANZADA (ACLS)', '1'),
+(46, 'Contenido del curso: El curso es teórico práctico y requiere evaluación práctica del manejo de paro con RCP y DEA en adultos, Manejo de paro respiratorio, evaluación de código mega. \r\nPosteriormente se realiza revisión de casos especiales que incluyen: \r\n\r\n1.- Cuidados post paro cardiaco\r\n\r\n2.- Emergencias cardiovasculares\r\n\r\n3.- Farmacología y toxicología\r\n\r\n4.- Emergencias respiratorias y metabólicas. \r\n\r\nAl final del curso, se entregan tarjetas avaladas por la American Heart Association a los alumnos que hayan completado en forma satisfactoria y completa todos los requisitos del curso que incluyen evaluaciones escritas en línea con calificación mínima aprobatoria y evaluación de habilidades en RCP con DEA, manejo de paro respiratorio y código mega.', '9.5 horas incluyendo recesos.', '1.- Tener curso de Apoyo Vital Cardiovascular Avanzado proveedor o instructor AHA vigente.  2.- Contestar dos autoevaluaciones  en línea previamente al día del curso    Recomendaciones para el curso: ', 'Sólo profesionales que se desempeñan en el área de la salud.', 'CURSO DE REANIMACIÓN CARDIOPULMON ARAVANZADA PARA PROFESIONALES EXPERTOS (ACLS)', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `edicion_cursos`
+--
+-- Creación: 01-11-2014 a las 11:55:08
+-- Última actualización: 01-11-2014 a las 08:40:41
+--
+
+CREATE TABLE IF NOT EXISTS `edicion_cursos` (
+`id` int(11) NOT NULL,
+  `fkIDCh` int(11) unsigned NOT NULL,
+  `lespecifico` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `cupo` int(10) unsigned NOT NULL,
+  `faplicacion` date NOT NULL,
+  `haplicacion` time NOT NULL,
+  `fkIDCc` int(11) unsigned NOT NULL,
+  `activo` tinyint(1) NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=8 ;
+
+--
+-- RELACIONES PARA LA TABLA `edicion_cursos`:
+--   `fkIDCc`
+--       `catalogo_cursos` -> `id`
+--   `fkIDCh`
+--       `catalogo_centros` -> `id`
+--
+
+--
+-- Volcado de datos para la tabla `edicion_cursos`
+--
+
+INSERT INTO `edicion_cursos` (`id`, `fkIDCh`, `lespecifico`, `cupo`, `faplicacion`, `haplicacion`, `fkIDCc`, `activo`) VALUES
+(1, 1, 'Auditorio Jorge Cabrera', 16, '2014-11-30', '14:01:01', 1, 1),
+(4, 3, '2do piso en la sala principal', 14, '2014-11-12', '14:00:00', 44, 1),
+(7, 4, 'Sala de conferencias ', 4, '2014-11-18', '16:01:00', 46, 1);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `catalogo_centros`
+--
+ALTER TABLE `catalogo_centros`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `catalogo_cursos`
+--
+ALTER TABLE `catalogo_cursos`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `edicion_cursos`
+--
+ALTER TABLE `edicion_cursos`
+ ADD PRIMARY KEY (`id`,`fkIDCh`,`fkIDCc`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `catalogo_centros`
+--
+ALTER TABLE `catalogo_centros`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `catalogo_cursos`
+--
+ALTER TABLE `catalogo_cursos`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'identificador',AUTO_INCREMENT=47;
+--
+-- AUTO_INCREMENT de la tabla `edicion_cursos`
+--
+ALTER TABLE `edicion_cursos`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

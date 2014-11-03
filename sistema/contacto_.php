@@ -26,45 +26,28 @@ try {
 	}
 	 
 	if(isset($_GET["accion"])){
-		if($_GET['accion']=="centosConCurso"){
-		$nombre_cursos=trim(urldecode($_GET['nombre_cursos']));
-		
+		if($_GET['accion']=="detalleCentros"){
+		$c=0;
 		$db = new Database;
 		$db->connect();
-		@$db->select("edicion_cursos",'concat(date_format(date(faplicacion),"%a %d de %M del %Y")," a las ",date_format(haplicacion,"%T")," horas.") as faplicacion,hospital,cupo,direccion,lespecifico',"catalogo_centros join catalogo_cursos",'date(faplicacion) >= date(now()) and edicion_cursos.activo=1 and fkIDCh=catalogo_centros.id and catalogo_cursos.nombre_curso like "%'.$nombre_cursos.'%"  and fkIDCc=catalogo_cursos.id');
-		@$centrosConCurso=$db->getResult();
+		@$db->select("catalogo_centros",'*',"",'activo=1');
+		@$centros=$db->getResult();
 		@$db->disconnect();
-		
-		
-		
-		
-		$entrada="";
-		$disponibilidad='<h5 id="h5"><a> <img src="images/gm.png"></img></a><div><strong> Lugar: </strong>{hospital}-({lespecifico})</div> </h5>';
-		$disponibilidad.='<p><strong><span class="glyphicon glyphicon-map-marker"></span>Direccion:</strong>{direccion}.</p>';
-		$disponibilidad.='<p><a class="link" href="#"><strong>Cupos disponibles en éste momento: {cupo}</strong></a></p>';
-		$disponibilidad.='<strong><span class="glyphicon glyphicon-calendar"></span> Fecha y hora de aplicación :</strong> {faplicacion}';
-		$disponibilidad.='<hr>';
-		
-		
-	
-	
-			foreach($centrosConCurso as $v){
-				@$entrada=$entrada.str_ireplace('{hospital}',@$v["hospital"],$disponibilidad);
+		$entrada=null;
+		$detalle_centros=file_get_contents('../pages/contacto_a.html');
+				foreach($centros as $v){
+				@$entrada=$entrada.str_ireplace('{hospital}',@$v["hospital"],$detalle_centros);
 				@$entrada=str_ireplace('{direccion}',@$v["direccion"],$entrada);
-				@$entrada=str_ireplace('{lespecifico}',@$v["lespecifico"],$entrada);
-				@$entrada=str_ireplace('{cupo}',@$v["cupo"],$entrada);
-				@$entrada=str_ireplace('{faplicacion}',@$v["faplicacion"],$entrada);
+				@$entrada=str_ireplace('{telefono}',@$v["telefono"],$entrada);
+				@$entrada=str_ireplace('{contacto}',@$v["contacto"],$entrada);
+				@$entrada=str_ireplace('{email}',@$v["email"],$entrada);
+				@$entrada=str_ireplace('{logotipo}',@$v["logotipo"],$entrada);
+				@$entrada=str_ireplace('{c}',$c,$entrada);
+			$c=$c+1;
 			}
-		echo ($entrada.'<script>$("#h5").click(function(){var h5=$(this);$.get( "contacto.html", function( data ) {$( "#contenido" ).replaceWith( data.replace("{lugar}",h5.text().split(":")[1].split("-")[0].trim()) );});});</script>');
-	
-	
+		echo ('<div id="accordion" class="panel-group">'.$entrada."</div>");
 		}
 	}
-	
-	
-	
-	
-	
 }
 catch (Exception $e) {
     echo 'error';
