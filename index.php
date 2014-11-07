@@ -102,7 +102,7 @@
 </nav>
  </div>
 <div id="contenido" class="animated fadeInRight"> 	
-	<div  class="col-md-12 "> 	
+	<div  class="col-md-10 col-md-offset-1"> 	
 		<div class="col-md-8 col-md-offset-2">
 		   <div id="slide" class="box-shadow">
 					<div class="slider">
@@ -144,18 +144,10 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-
-
-
-
-
-
-
-
-    <footer>
-        <p>© 2012 Global</p>
-        <p><a rel="nofollow" href="http://templatemonster.com/" target="_blank" class="link">Website Template</a> by TemplateMonster.com</p>
-    </footer> 
+	<footer>
+        <p>Â© 2012 Global</p>
+        <p><a>ARUAL</a> Medicina de reanimación</p>
+    </footer>
 
 
 </body>

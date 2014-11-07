@@ -48,11 +48,11 @@
 <div class="container main">
   <!--==============================header=================================-->
  
-	<div class="col-md-6 col-md-offset-1">   
+	<div class="col-md-6 col-md-offset-0">   
 		<h1><a href="index.html"><img class="img-responsive" src="images/Imagen1.png" alt="" style="height: 120px;"/></a></h1>
 	</div>
       
-	<div class="col-md-10 col-md-offset-1"> 
+	<div class="col-md-12"> 
 		<nav class="navbar navbar-inverse" role="navigation">
 			<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -111,7 +111,20 @@
 							<div class="panel panel-primary">
 								<div class="panel-heading">Ubicación real del inmueble</div>
 								<div class="panel-body">
-									<div  id="googleMap" style="height:545px;"></div>
+									<div  id="googleMap" style="height:440px;"></div>
+											
+						<hr>
+							<label for="cmbEdicionHospitales">Edición/eliminación</label>
+							<select id="cmbEdicionHospitales" name"edicionHospitales" class="form-control">
+							<!-- 	<option>Seleccion</option>
+								<option>Angeles Lomas</option>
+								<option>Angeles Lindavista</option>
+								<option>Hospital Español</option> -->
+							</select>
+							<button id="botonEliminarHospital" class="btn btn-danger" style="display:none;" type="button">Eliminar hospital</button>
+							<input id="inputEliminar" type="text" required style="display:none;" id="hospital" class="form-control" placeholder="borrar">
+						
+									
 								</div>
 							</div>
 						</div>
@@ -169,20 +182,7 @@
 							</div>
 						</div>
 				 
-						<div class="col-md-6"> 
-						<hr>
-							<label for="cmbEdicionHospitales">Edición/eliminación</label>
-								
-							<select id="cmbEdicionHospitales" name"edicionHospitales" class="form-control">
-							<!-- 	<option>Seleccion</option>
-								<option>Angeles Lomas</option>
-								<option>Angeles Lindavista</option>
-								<option>Hospital Español</option> -->
-							</select>
-							
-							<button id="botonEliminarHospital" class="btn btn-danger" style="display:none;" type="button">Eliminar hospital</button>
-							<input id="inputEliminar" type="text" required style="display:none;" id="hospital" class="form-control" placeholder="borrar">
-						</div> 
+				
 					</div>
 				  
 					<div class="tab-pane " id="edicion_cursos">
@@ -271,7 +271,7 @@
 											</div>
 											
 											<button type="button" id="btnGuardarEdicionCursos" class="btn btn-primary">Salvar cambios</button>
-											<button type="button" class="btn btn-primary" id="btnLimpiarFormulario">Limpiar</button>
+											<button type="button" class="btn btn-primary" id="btnLimpiarFormulario">Nuevo curso</button>
 											<button type="button" class="btn btn-danger" id="btnEliminarEdicionCursos">Eliminar</button>
 					<!-- 					</fieldset> -->
 									</form>
@@ -343,11 +343,10 @@
 											<div class="checkbox">
 												<label>
 													<input type="checkbox" value="0" name="activo" id="activo" > Activar curso.
-													
 												</label>
 											</div>
 											<button type="botton" id="btnGuardarCatalogoCurso" class="btn btn-primary">Salvar cambios</button>
-											<button type="button" id="btnLimpiarCatalogoCurso" class="btn btn-primary">Limpiar</button>
+											<button type="button" id="btnLimpiarCatalogoCurso" class="btn btn-primary">Nueva Edición</button>
 											<button type="button" id="btnEliminarCatalogoCurso" class="btn btn-danger" >Eliminar</button>
 										<!-- </fieldset> -->
 									</form>
@@ -356,58 +355,16 @@
 						</div>
 					</div>
 				</div>
-					
-
-				<!-- 
-				<div id="tabs">
-					<ul>
-					<li><a href="#tabs-1">Altas&Incripciones</a></li>
-					<li><a href="#tabs-2">Ofertar cursos</a></li>
-					<li><a href="#tabs-3">Material</a></li>
-					<li><a href="#tabs-4">Administrar Personal&Alumnos</a></li>
-					</ul>
-
-					<div id="tabs-1">
-						
-						<hr>
-						<div class="col-md-6"> 
-						<div class="panel panel-default">
-				  <div class="panel-body">
-					Basic panel example
-				  </div>
-				</div>
-						</div>	
-						<div class="col-md-6"> 
-						asdasdasd
-						</div>	
-					</div>
-
-				<div id="tabs-2">
-				<div id="GestionCursos"></div>
-				</div>
-
-				<div id="tabs-3">
-
-				</div>
-
-				<div id="tabs-4">
-
-				</div>
-
-				tabs
-				</div> -->
-
-
 			</section> 
 		</div>
 	</div>
-<hr><br>
+<br>
 </div>  
 <!--==============================footer=================================-->
     
 	<footer>
         <p>Â© 2012 Global</p>
-        <p><a rel="nofollow" href="http://templatemonster.com/" target="_blank" class="link">Website Template</a> by TemplateMonster.com</p>
+        <p><a>ARUAL</a> Medicina de reanimación</p>
     </footer>
     
 <!-- Button to trigger modal -->
@@ -499,59 +456,6 @@ var centro=new google.maps.LatLng(19.394574923950497,-99.28167567436219);
  }
  google.maps.event.addDomListener(window, 'load', initialize);
 
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-//MAPAS//
-// $('#botonGuardarHospital').click(function(e){
-// e.preventDefault();
-// });
-
-// cargarCentros("#edicionHospitales");
-// cargarCentros("#selectHospitales");
-
-
-
-
-	
-// function esconder(){
-// $('#edicionHospitales').val('Seleccion');
-// $('#botonEliminar').css( "display", "none" );
-// $('#inputEliminar').css( "display", "none" );
-// $('#inputEliminar').val('');
-// resetFormularioMapas("#frmMapas");
-// }
-
-
- 
-
-// $('#edicionHospitales').change(function(){
-// if($(this).val()=="Seleccion"){
-// esconder();
-// }
-// else{
-// $('#botonEliminar').css( "display", "block" );
-// cargarDatosFormulario();
-// }
-// });    
-
-// $('#botonEliminar').click(function(){
-// $(this).next().css( "display", "block" );
-// })
-    
-// $('#inputEliminar').on("input", function(){
-// if($(this).val().toLowerCase()=="borrar"){
-// alert('Borrando: '+$('#edicionHospitales').val());
-// cargarCentros("#edicionHospitales");
-// cargarCentros("#selectHospitales");
-// esconder();
-
-// //$("#edicionHospitales").append("<option value='text'>text</option>");
-// }
-// });
-
-
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //Edicion CATALOGO de cursos
 iniciarTabla("#tblCatalogoCursos","#frmCatalogoCursos");
@@ -567,14 +471,10 @@ GuardarActualizarCentro("#btnGuardarHospital");
 ////////////////edicion de cursos////////////////////////////////////////
 CargaSelectHospitalesActivos("#cmbHospitalesCatalogo");
 CargaSelectCursos("#cmbCursosCatalogo");
-GuardarActualizar("#btnGuardarEdicionCursos","#tblEdicionCursos");
 resetFormularioBoton("#btnLimpiarFormulario");
 iniciarTabla("#tblEdicionCursos","#frmEdicionCursos");
-GuardarActualizarEdicion("#btnGuardarEdicionCursos");
+GuardarActualizarEdicion("#btnGuardarEdicionCursos","#tblEdicionCursos");
 EliminarElemento("#btnEliminarEdicionCursos","#tblEdicionCursos","#btnConfirmacionEliminarEdicionCursos");
 </script>
-   
-
-    	    
 </body>
 </html>

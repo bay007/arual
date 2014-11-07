@@ -1,5 +1,4 @@
-﻿
-function seleccionaTAGSelect(idSelect,datoABuscar){
+﻿function seleccionaTAGSelect(idSelect,datoABuscar){
 $(idSelect+" option").each(function(){
 	if($(this).data("texto")==datoABuscar){
 	$(idSelect).val($(this).val());
@@ -9,6 +8,7 @@ $(idSelect+" option").each(function(){
 
 function formularioDesdeTabla(fila,idFormulario){
 $(idFormulario).addClass('animated pulse');
+
 $.each( fila, function( key, value ) {
 							$(idFormulario+' :input#'+key).val(value);
 					
@@ -34,10 +34,24 @@ $.each( fila, function( key, value ) {
 }
 
 ////////EDICION DEL CATALOGO DE CURSOS////////////////////////////////////////////////////////////////////////////////
+
 function iniciarTabla(idTabla,idFormulario){
 $(idTabla).bootstrapTable({
     //url: 'data.json'
-	 onClickRow: function (row) {
+		onClickRow: function (row) {
+		var row_=row;
+		var Referencia;
+	  $(idTabla+' tr').each(function(index, element){
+	  //$(idTabla+' tr').removeClass("info");
+        Referencia = $(element).find("td").eq(0).html();
+			if(Referencia==row_.id){
+			// console.log(Referencia);
+			// console.log(row_.id);
+			$(element).addClass("info");
+			}else{
+			$(element).removeClass("info");
+			}
+		});
 	
 	var obj=JSON.stringify(row);
 	//var frm = $("#formularioCursos");
@@ -46,6 +60,7 @@ $(idTabla).bootstrapTable({
 	}
 });
 }
+
 function GuardarActualizar(idBotonGuardar,idTablaAsociada){
 	$(idBotonGuardar).click(function(e){
 	e.preventDefault(); //STOP default action
@@ -67,8 +82,8 @@ function GuardarActualizar(idBotonGuardar,idTablaAsociada){
 			postData.push({name: "activo", value:a?1:0});
 			var nuevoElemento=0;
 			
-			postData.forEach(function(e){
-				if(e.value==""){
+			postData.forEach(function(f){
+				if(f.value==""){
 				nuevoElemento=nuevoElemento+1;
 				}
 			;})
@@ -84,10 +99,11 @@ function GuardarActualizar(idBotonGuardar,idTablaAsociada){
 					// console.dir(jqXHR);
 						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
 						{
-						 $(idTablaAsociada).bootstrapTable('refresh');
+						 
 						 $("#body-mensajes").html('<p class="bg-success">El cambio en el curso fue exitoso</p>');
 						 $('#mensajes').modal('show');
 						resetFormulario("#"+formulario_id);
+						 $(idTablaAsociada).bootstrapTable('refresh');
 						}else{						//if fails      
 						$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al actualizar el curso</p>');
 						$('#mensajes').modal('show');
@@ -108,11 +124,13 @@ function GuardarActualizar(idBotonGuardar,idTablaAsociada){
 		//});
 	});
 } 
+
 function resetFormularioBoton(idBotonReset){
 $(idBotonReset).click(function(e){
 e.preventDefault(); //STOP default action
+$("tr").removeClass("info");
 	var formulario=$(idBotonReset).parent();
-	var entradas=formulario.find(":input")
+	var entradas=formulario.find(":input");
 	entradas.each (function(){
 	  //this.reset();
 	  $(this).val(null);
@@ -124,7 +142,7 @@ $('select').val(-1);
 }
 
 function resetFormulario(idFormulario){
-	var entradas=$(idFormulario).find(" :input")
+	var entradas=$(idFormulario).find(" :input");
 	entradas.each (function(){
 	  //this.reset();
 	  $(this).val(null);
@@ -218,22 +236,9 @@ $(idFormulario+'>select').val(-1);
 
 function formularioDesdeSelect(idSelect,idFormulario){
 var formURL = $(idFormulario).attr("action");
-// $.each( fila, function( key, value ) {
-							// $(idFormulario+' :input#'+key).val(value);
-					
-							// if(key=="activo"){
-							// $(idFormulario+' :checkbox#'+key).prop("checked",value=="1"?true:false);
-							// }
-							// else{
-							// $(idFormulario+' :checkbox#'+key).prop("checked",value=="1"?true:false);
-							// }
-							
-							// });
-							
+
 							$(idSelect).on('change', function (e) {
-							
-							
-							
+
 							var value=$(idSelect).val();
 							if(value=="Seleccion"){
 							resetFormularioMapas(idFormulario);
@@ -274,11 +279,7 @@ var formURL = $(idFormulario).attr("action");
 									// console.dir(jqXHR);
 									}
 								});
-								
 
-
-
-								
 							$(idFormulario).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
 							$(idFormulario).removeClass('animated pulse');
 							});
@@ -346,7 +347,7 @@ function GuardarActualizarCentro(idBotonGuardar){
 				}
 			});
 			}else{
-			alert("Por favor, complete todos los campos antes de continuar y seleccione un lugar en el mapa.");
+			alert("Por favor, complete todos los campos antes de continuar.");
 			}
 		
 		//});
@@ -373,7 +374,7 @@ function CargaSelectPublicoDirigido(IdSelect){
 }	
 ////////////////EDICION de cursos usuario final////////////////////////////////////////////////////
 
-function GuardarActualizarEdicion(idBotonGuardar){
+function GuardarActualizarEdicion(idBotonGuardar,idTablaAsociada){
 	$(idBotonGuardar).click(function(e){
 	e.preventDefault(); //STOP default action
 	var formulario_id=$(idBotonGuardar).parent().attr('id');
@@ -418,7 +419,7 @@ function GuardarActualizarEdicion(idBotonGuardar){
 				 $("#body-mensajes").html('<p class="bg-success">El cambio en el centro afiliado ARUAL fue exitoso</p>');
 				 $('#mensajes').modal('show');
 				resetFormulario("#"+formulario_id);
-				$("#tblEdicionCursos").bootstrapTable('refresh');
+				$(idTablaAsociada).bootstrapTable('refresh');
 					}else{						//if fails      
 					$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al actualizar la edicion a un curso.</p>'+data);
 					$('#mensajes').modal('show');
@@ -454,7 +455,6 @@ function CargaSelectCursos(IdSelect){
 		   {
 			options += "<option data-texto='"+data[i].nombre_curso+"' value='"+data[i].id+"'>"+ data[i].nombre_curso+"</option>";              
 		   }
-
 		   select.append(options);
 		}
 	});
@@ -479,8 +479,3 @@ function CargaSelectHospitalesActivos(IdSelect){
 		}
 	});
 }
-
-
-
-
-
