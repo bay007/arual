@@ -177,7 +177,7 @@ $('#logo_footer').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimat
 	  $('#logo_footer').addClass('animated rubberBand');
 	  $('#logo').addClass('animated swing'); */
 $('#logo').css({ "display":" none" });
-	 $('.menu li a').click(function(){
+	 $('.menu li a').click(function(event){
 	
 		var url=$(this).parent().data().url;
 		
