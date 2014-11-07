@@ -1,7 +1,7 @@
 			$("#centros a").click(function(){
 				$("#centros a").removeClass("active");
 				$(this).addClass("active");
-				var nombre_cursos=$(this).text();
+				var nombre_cursos=$(this).text().trim();
 						$.ajax({
 							url : "sistema/cursos_.php",
 							type: "GET",
