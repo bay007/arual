@@ -344,69 +344,82 @@ return (json_encode(($jTableResult)));
   
   
 // }else{
-$id=$_GET['id'];
+$conDatos=false;
+if(isset($_GET["accion"])){
 $accion=$_GET['accion'];
-$db = new Database;
-$db->connect();
-$bandera=true;
-array_shift($_GET);
-array_shift($_GET);
-$datos=$_GET;
-switch ($accion) {
-    case 'update':
-		$bandera=false;
-		
-          $db->update("catalogo_centros",$datos,"id=".$id);
-		  echo $db->numRows();
-		
-        break;
-    case 'delete':
-         // $db->delete("catalogo_centros","id=".$id);
-		 // echo $db->numRows();
-		$bandera=false; 
-        break;
-    case 'create':
-        $db->insert("catalogo_centros",$datos);
-		echo $db->numRows();
-		$bandera=false;
-        break;
+$conDatos=true;
+}else{
+$accion=$_POST['accion'];
+$conDatos=true;
+}
+
+if(isset($_GET["id"])){
+$id=$_GET['id'];
+$conDatos=true;
+}else{
+$id=$_POST['id'];
+$conDatos=true;
+}
+	if($conDatos){
+
+	$db = new Database;
+	$db->connect();
+	$bandera=true;
+	array_shift($_GET);
+	array_shift($_GET);
+	$datos=$_GET;
+	switch ($accion) {
+		case 'update':
+			$bandera=false;
+			
+			  $db->update("catalogo_centros",$datos,"id=".$id);
+			  echo $db->numRows();
+			
+			break;
+		case 'delete':
+			  $db->delete("catalogo_centros","id=".$id);
+			  echo $db->numRows();
+			$bandera=false; 
+			break;
+		case 'create':
+			$db->insert("catalogo_centros",$datos);
+			echo $db->numRows();
+			$bandera=false;
+			break;
+	 }
 
 
-		
+
+	if(($id!="")&&$bandera){
+	$db->select("catalogo_centros","id, latitud, longitud, hospital, direccion, contacto, telefono, email, activo",'',"id=".$id);//,);		
+	$catalogo_centros=$db->getResult();
+	$db->disconnect();
+	echo json_encode($catalogo_centros);
+	}
+
+	 if($accion=="selectCMB"){
+	$db->select("catalogo_centros","id,hospital");
+	$catalogo_centros=$db->getResult();
+	$db->disconnect();
+	echo json_encode($catalogo_centros);
+	}
+
+	if($accion=="selectCMBActivos"){
+	$db->select("catalogo_centros","id,hospital","","activo=1");
+	$catalogo_centros=$db->getResult();
+	$db->disconnect();
+	echo json_encode($catalogo_centros);
+	}
+
+
+	if($accion=="selectCMBCursos"){
+	$db->select("catalogo_cursos","id,nombre_curso","","activo=1");
+	$catalogo_centros=$db->getResult();
+	$db->disconnect();
+	echo json_encode($catalogo_centros);
+	}
+
+
  }
-
-
-
-if(($id!="")&&$bandera){
-$db->select("catalogo_centros","id, latitud, longitud, hospital, direccion, contacto, telefono, email, activo",'',"id=".$id);//,);		
-$catalogo_centros=$db->getResult();
-$db->disconnect();
-echo json_encode($catalogo_centros);
-}
-
- if($accion=="selectCMB"){
-$db->select("catalogo_centros","id,hospital");
-$catalogo_centros=$db->getResult();
-$db->disconnect();
-echo json_encode($catalogo_centros);
-}
-
-if($accion=="selectCMBActivos"){
-$db->select("catalogo_centros","id,hospital","","activo=1");
-$catalogo_centros=$db->getResult();
-$db->disconnect();
-echo json_encode($catalogo_centros);
-}
-
-
-if($accion=="selectCMBCursos"){
-$db->select("catalogo_cursos","id,nombre_curso","","activo=1");
-$catalogo_centros=$db->getResult();
-$db->disconnect();
-echo json_encode($catalogo_centros);
-}
-
-
-// }
 
 ?>
