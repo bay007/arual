@@ -1,4 +1,7 @@
-﻿function seleccionaTAGSelect(idSelect,datoABuscar){
+﻿var timeOut=1000;
+
+
+function seleccionaTAGSelect(idSelect,datoABuscar){
 $(idSelect+" option").each(function(){
 	if($(this).data("texto")==datoABuscar){
 	$(idSelect).val($(this).val());
@@ -99,11 +102,10 @@ function GuardarActualizar(idBotonGuardar,idTablaAsociada){
 					// console.dir(jqXHR);
 						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
 						{
-						 
-						 $("#body-mensajes").html('<p class="bg-success">El cambio en el curso fue exitoso</p>');
-						 $('#mensajes').modal('show');
-						resetFormulario("#"+formulario_id);
-						 $(idTablaAsociada).bootstrapTable('refresh');
+							$("#body-mensajes").html('<p class="bg-success">El cambio en el curso fue exitoso</p>');
+							$('#mensajes').modal('show');
+							resetFormulario("#"+formulario_id);
+							setTimeout('wait("'+idTablaAsociada+'")',timeOut);
 						}else{						//if fails      
 						$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al actualizar el curso</p>');
 						$('#mensajes').modal('show');
@@ -185,10 +187,9 @@ var formURL = $("#"+formulario_id).attr("action");
 				// console.dir(jqXHR);
 					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
 					{
-					 $(idTablaAsociada).bootstrapTable('refresh');
 					 $("#body-mensajes").html('<p class="bg-success">La eliminacion fue exitosa</p>');
 					 resetFormulario("#"+formulario_id);
-					 $(idTablaAsociada).bootstrapTable('refresh');
+					 setTimeout('wait("'+idTablaAsociada+'")',timeOut);
 					}else{						//if fails      
 					$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al eliminar el curso,inténtelo de nuevo por favor</p>');
 					}
@@ -233,7 +234,6 @@ map.setCenter(centro);
 map.setZoom(mapProp.zoom);
 $(idFormulario+'>select').val(-1);
 }
-
 
 function formularioDesdeSelect(idSelect,idFormulario){
 var formURL = $(idFormulario).attr("action");
@@ -416,11 +416,10 @@ function GuardarActualizarEdicion(idBotonGuardar,idTablaAsociada){
 				// console.dir(jqXHR);
 					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
 					{
-				
-				 $("#body-mensajes").html('<p class="bg-success">El cambio en el centro afiliado ARUAL fue exitoso</p>');
-				 $('#mensajes').modal('show');
-				resetFormulario("#"+formulario_id);
-				$(idTablaAsociada).bootstrapTable('refresh');
+						$("#body-mensajes").html('<p class="bg-success">El cambio en el centro afiliado ARUAL fue exitoso</p>');
+						$('#mensajes').modal('show');
+						resetFormulario("#"+formulario_id);
+						setTimeout('wait("'+idTablaAsociada+'")',timeOut);
 					}else{						//if fails      
 					$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al actualizar la edicion a un curso.</p>'+data);
 					$('#mensajes').modal('show');
@@ -479,4 +478,8 @@ function CargaSelectHospitalesActivos(IdSelect){
 		   select.append(options);
 		}
 	});
+}
+function wait(idTablaAsociada){
+$(idTablaAsociada).bootstrapTable('refresh');
+console.log('Refreshed...');
 }
