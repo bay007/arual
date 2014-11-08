@@ -27,10 +27,17 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.2.3/bootstrap-table.min.js"></script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.2.3/bootstrap-table.min.css" rel="stylesheet" type="text/css">
 <!-- <script src="js/populate.js"></script> -->
+<link  href="css/datepicker3.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" type="text/css" href="css/bootstrap-clockpicker.min.css">
+<script type="text/javascript" src="js/bootstrap-clockpicker.min.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
+<script src="js/bootstrap-datepicker.es.js"></script>
 	<script src="js/FuncionesGenerales.js"></script>
 	
-
 	
+
+
 
 	<!--[if lt IE 8]>
        <div style=' clear: both; text-align:center; position: relative;'>
@@ -238,14 +245,25 @@
 												<input type="number" required id="cupo" name="cupo" min="0" max="30" step="1" class="form-control" placeholder="0">
 											</div>
 													
-											<div class="form-group">
+											<div class="form-group" id="faplicacion_">
 												<label for="faplicacion">Fecha aplicación:</label>
-												<input id="faplicacion" type="date" required name="faplicacion" class="form-control" >
+												    <div class="input-group date">
+														<input id="faplicacion" type="text" name="faplicacion" class="form-control" readonly><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+													</div>
+												
+												<!-- <input id="faplicacion" type="text" required name="faplicacion" class="form-control" > -->
 											</div>
 													
 											<div class="form-group">
 												<label for="haplicacion">Hora aplicación:</label>
-												<input type="time" required id="haplicacion" class="form-control" name="haplicacion">
+													<div class="input-group clockpicker" data-align="top" data-autoclose="true">
+														<input type="text" class="form-control" value="13:14" required id="haplicacion" name="haplicacion" readonly>
+														<span class="input-group-addon">
+															<span class="glyphicon glyphicon-time"></span>
+														</span>
+													</div>												
+												
+												<!-- <input type="time" required id="haplicacion" class="form-control" name="haplicacion"> -->
 											</div>
 													
 										<!-- 	<div class="form-group">
@@ -441,8 +459,8 @@
         <h2 class="modal-title">Confirme la eliminación.</h2>
       </div>
       <div class="modal-body">
-        <h2>¿Está Usted seguro(a) que quiere borrar éste centro ARUAL?</h2>
-		<h3>Si borra éste centro todos los cursos asociados a el centro serán eliminados.</h3>
+        <h3>¿Está Usted seguro(a) que quiere borrar éste centro ARUAL?</h3>
+		<h4>Si borra éste centro todos los cursos asociados a el centro serán eliminados.</h4>
 		
       </div>
       <div class="modal-footer">
@@ -498,6 +516,21 @@ resetFormularioBoton("#btnLimpiarFormulario");
 iniciarTabla("#tblEdicionCursos","#frmEdicionCursos");
 GuardarActualizarEdicion("#btnGuardarEdicionCursos","#tblEdicionCursos");
 EliminarElemento("#btnEliminarEdicionCursos","#tblEdicionCursos","#btnConfirmacionEliminarEdicionCursos");
+
+
+    $('#faplicacion_ .input-group.date').datepicker({
+    weekStart: 1,
+	format: "yyyy-mm-dd",
+startDate: "today",
+startView: 1,
+language: "es",
+orientation: "bottom left",
+keyboardNavigation: false,
+forceParse: false,
+autoclose: true,
+todayHighlight: true
+    });
+$('.clockpicker').clockpicker();
 
 </script>
 </body>
