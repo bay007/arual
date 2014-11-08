@@ -114,17 +114,13 @@
 									<div  id="googleMap" style="height:440px;"></div>
 											
 						<hr>
-							<label for="cmbEdicionHospitales">Edición/eliminación</label>
-							<select id="cmbEdicionHospitales" name"edicionHospitales" class="form-control">
-							<!-- 	<option>Seleccion</option>
-								<option>Angeles Lomas</option>
-								<option>Angeles Lindavista</option>
-								<option>Hospital Español</option> -->
-							</select>
-							<button id="botonEliminarHospital" class="btn btn-danger" style="display:none;" type="button">Eliminar hospital</button>
-							<input id="inputEliminar" type="text" required style="display:none;" id="hospital" class="form-control" placeholder="borrar">
-						
-									
+									<label for="cmbEdicionHospitales">Hospitales en el sistema:</label>
+									<select id="cmbEdicionHospitales" name="edicionHospitales" class="form-control">
+									<!-- 	<option>Seleccion</option>
+										<option>Angeles Lomas</option>
+										<option>Angeles Lindavista</option>
+										<option>Hospital Español</option> -->
+									</select>
 								</div>
 							</div>
 						</div>
@@ -134,8 +130,9 @@
 							  <div class="panel-heading">Detalles del inmueble</div>
 								<div class="panel-body">
 									<form id="frmMapas" role="form" method="POST" action="sistema/CatalogoCentros.php">
-										<input type="hidden" id="id" name="id" required value="">
+										
 										<input type="hidden" id="accion" name="accion" required value="">
+										<input type="hidden" id="id" name="id" required value="">
 										<input type="hidden" id="latitud" required value="19" name="latitud">
 										<input type="hidden" id="longitud" required value="-99" name="longitud">
 										
@@ -176,6 +173,9 @@
 												</label>
 											</div>
 											<button id="btnGuardarHospital" type="button" class="btn btn-primary">Guardar</button>
+											<button id="btnLimpiarFormularioCentros" class="btn btn-primary" type="button">Nuevo centro</button>
+											<button id="botonEliminarHospital" class="btn btn-danger" type="button">Eliminar hospital</button>
+											
 										<!-- </fieldset> -->
 									</form>
 								</div>
@@ -432,6 +432,28 @@
 </div><!-- /.modal -->
 
 
+
+<div class="modal fade"  id="confirmacionesEdicionHospitales">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h2 class="modal-title">Confirme la eliminación.</h2>
+      </div>
+      <div class="modal-body">
+        <h2>¿Está Usted seguro(a) que quiere borrar éste centro ARUAL?</h2>
+		<h3>Si borra éste centro todos los cursos asociados a el centro serán eliminados.</h3>
+		
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button id="btnConfirmacionEliminarHospital" type="button" class="btn btn-primary">Eliminar curso</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 <script type='text/javascript'>
 
 // $('#tblEdicionCursos').bootstrapTable({
@@ -467,7 +489,8 @@ CargaSelectPublicoDirigido("#publico_dirigido");
 CargaSelectHospitales("#cmbEdicionHospitales");  
 formularioDesdeSelect("#cmbEdicionHospitales","#frmMapas");
 GuardarActualizarCentro("#btnGuardarHospital");
-
+resetFormularioBoton("#btnLimpiarFormularioCentros");
+EliminarElemento("#botonEliminarHospital",null,"#btnConfirmacionEliminarHospital");
 ////////////////edicion de cursos////////////////////////////////////////
 CargaSelectHospitalesActivos("#cmbHospitalesCatalogo");
 CargaSelectCursos("#cmbCursosCatalogo");
@@ -475,6 +498,7 @@ resetFormularioBoton("#btnLimpiarFormulario");
 iniciarTabla("#tblEdicionCursos","#frmEdicionCursos");
 GuardarActualizarEdicion("#btnGuardarEdicionCursos","#tblEdicionCursos");
 EliminarElemento("#btnEliminarEdicionCursos","#tblEdicionCursos","#btnConfirmacionEliminarEdicionCursos");
+
 </script>
 </body>
 </html>

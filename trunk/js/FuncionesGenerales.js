@@ -188,6 +188,7 @@ var formURL = $("#"+formulario_id).attr("action");
 					 $(idTablaAsociada).bootstrapTable('refresh');
 					 $("#body-mensajes").html('<p class="bg-success">La eliminacion fue exitosa</p>');
 					 resetFormulario("#"+formulario_id);
+					 $(idTablaAsociada).bootstrapTable('refresh');
 					}else{						//if fails      
 					$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al eliminar el curso,inténtelo de nuevo por favor</p>');
 					}
@@ -315,7 +316,7 @@ function GuardarActualizarCentro(idBotonGuardar){
 				}
 			;})
 			
-		if(!(3<=nuevoElemento)){
+		if((5>=nuevoElemento)){
 			$.ajax(
 			{
 				url : formURL,
@@ -347,7 +348,7 @@ function GuardarActualizarCentro(idBotonGuardar){
 				}
 			});
 			}else{
-			alert("Por favor, complete todos los campos antes de continuar.");
+			alert("Por favor, complete todos los campos del nuevo centro antes de continuar.");
 			}
 		
 		//});
