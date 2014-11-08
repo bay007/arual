@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
  * @Author Rory Standley <rorystandley@gmail.com>
  * @Version 1.3
@@ -73,6 +73,7 @@ class Database{
     }
 	
 	public function sql($sql){
+	@mysqli_query($this->myconn,"start transaction;");
 		$query = @mysqli_query($this->myconn,$sql);
         $this->myQuery = $sql; // Pass back the SQL
 		if($query){
@@ -93,9 +94,11 @@ class Database{
 					}
 				}
 			}
+			@mysqli_query($this->myconn,"commit;");
 			return true; // Query was successful
 		}else{
 			array_push($this->result,mysqli_errno($this->myconn));
+			@mysqli_query($this->myconn,"rollback;");
 			return false; // No rows where returned
 		}
 	}
@@ -116,14 +119,11 @@ class Database{
         if($limit != null){
             $q .= ' LIMIT '.$limit;
         }
-        
         $this->myQuery = $q; // Pass back the SQL
-        
+        @mysqli_query($this->myconn,"start transaction;");
 		// Check to see if the table exists
         if($this->tableExists($table)){
         	// The table exists, run the query
-        	
-        	
         	$query = @mysqli_query($this->myconn,$q);
 			if($query){
 				// If the query returns >= 1 assign the number of rows to numResults
@@ -143,18 +143,22 @@ class Database{
 						}
 					}
 				}
+				@mysqli_query($this->myconn,"commit;");
 				return true; // Query was successful
 			}else{
 				array_push($this->result,mysqli_errno($this->myconn));
+				@mysqli_query($this->myconn,"rollback;");
 				return false; // No rows where returned
 			}
       	}else{
+		@mysqli_query($this->myconn,"rollback;");
       		return false; // Table does not exist
     	}
     }
 	
 	// Function to insert into the database
     public function insert($table,$params=array()){
+	@mysqli_query($this->myconn,"start transaction;");
     	// Check to see if the table exists
     	 if($this->tableExists($table)){
     	 	$sql='INSERT INTO `'.$table.'` (`'.implode('`, `',array_keys($params)).'`) VALUES ("' . implode('", "', $params) . '")';
@@ -164,24 +168,28 @@ class Database{
             if($ins =mysqli_query($this->myconn,$sql)){
             	array_push($this->result,"insertar:ok");
             	//array_push($this->result,$this->myconn->affected_rows);
-            	  $this->numResults=$this->myconn->affected_rows;              
+            	  $this->numResults=$this->myconn->affected_rows;
+				  @mysqli_query($this->myconn,"commit;");
+				  return true;
             }else{
             	//array_push($this->result,mysqli_errno($this->myconn));
             	array_push($this->result, mysqli_errno($this->myconn));
 				$this->numResults=$this->myconn->affected_rows;
+				@mysqli_query($this->myconn,"rollback;");
                 return false; // The data has not been inserted
             }
         }else{
 		$this->numResults=$this->myconn->affected_rows;
-        	return false; // Table does not exist
+		@mysqli_query($this->myconn,"rollback;");
+        return false; // Table does not exist
         }
     }
 	
 	//Function to delete table or row(s) from database
     public function delete($table,$where = null){
+	@mysqli_query($this->myconn,"start transaction;");
     	// Check to see if table exists
-    
-    	 if($this->tableExists($table)){
+		if($this->tableExists($table)){
     	 	// The table exists check to see if we are deleting rows or table
     	 	if($where == null){
                 $delete = 'DELETE '.$table; // Create query to delete table
@@ -193,24 +201,27 @@ class Database{
             if($del =mysqli_query($this->myconn,$delete)){
           		array_push($this->result,"borrar:ok");
             	//array_push($this->result,$this->myconn->affected_rows);
-            	
                 $this->myQuery = $delete; // Pass back the SQL
                 $this->numResults=1;
+				@mysqli_query($this->myconn,"commit;");
 				return true; // The query exectued correctly
             }else{
             	array_push($this->result,mysqli_errno($this->myconn));
 				$this->numResults=0;
+				@mysqli_query($this->myconn,"rollback;");
                	return false; // The query did not execute correctly
             }
         }else{
         	array_push($this->result,mysqli_errno($this->myconn));
 			$this->numResults=0;
+			@mysqli_query($this->myconn,"rollback;");
             return false; // The table does not exist
         }
     }
 	
 	// Function to update row in database
     public function update($table,$params=array(),$where){
+	@mysqli_query($this->myconn,"start transaction;");
     	// Check to see if table exists
     	if($this->tableExists($table)){
     		// Create Array to hold all the columns to update
@@ -228,27 +239,32 @@ class Database{
             	array_push($this->result,"update:ok");
 				//$this->numResults=$this->myconn->affected_rows;
             	$this->numResults=1;
+				@mysqli_query($this->myconn,"commit;");
             	return true; // Update has been successful
             }else{
             	array_push($this->result,mysqli_errno($this->myconn));
 				$this->numResults=0;
+				@mysqli_query($this->myconn,"rollback;");
                 return false; // Update has not been successful
             }
         }else{
 		$this->numResults=0;
+		@mysqli_query($this->myconn,"rollback;");
             return false; // The table does not exist
         }
     }
 	
 	// Private function to check if table exists for use with queries
 	private function tableExists($table){
-	
+	@mysqli_query($this->myconn,"rollback;");
 		$tablesInDb = mysqli_query($this->myconn,'SHOW TABLES FROM '.$this->db_name.' LIKE "'.$table.'"');
         if($tablesInDb){
         	if(mysqli_num_rows($tablesInDb)==1){
+			@mysqli_query($this->myconn,"commit;");
                 return true; // The table exists
             }else{
             	array_push($this->result,"900811");
+				@mysqli_query($this->myconn,"rollback;");
             	//array_push($this->result,mysqli_errno($this->myconn));
                 return false; // The table does not exist
             }
