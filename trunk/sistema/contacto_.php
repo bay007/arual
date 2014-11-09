@@ -30,7 +30,7 @@ try {
 		$c=0;
 		$db = new Database;
 		$db->connect();
-		@$db->select("catalogo_centros",'*',"",'activo=1');
+		@$db->select("catalogo_centros",'*',"",'activo="Si"');
 		@$centros=$db->getResult();
 		@$db->disconnect();
 		$entrada=null;

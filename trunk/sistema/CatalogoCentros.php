@@ -405,7 +405,7 @@ $conDatos=true;
 	}
 
 	if($accion=="selectCMBActivos"){
-	$db->select("catalogo_centros","id,hospital","","activo=1");
+	$db->select("catalogo_centros","id,hospital","",'activo="Si"');
 	$catalogo_centros=$db->getResult();
 	$db->disconnect();
 	echo json_encode($catalogo_centros);
@@ -413,7 +413,7 @@ $conDatos=true;
 
 
 	if($accion=="selectCMBCursos"){
-	$db->select("catalogo_cursos","id,nombre_curso","","activo=1");
+	$db->select("catalogo_cursos","id,nombre_curso","",'activo="Si"');
 	$catalogo_centros=$db->getResult();
 	$db->disconnect();
 	echo json_encode($catalogo_centros);
