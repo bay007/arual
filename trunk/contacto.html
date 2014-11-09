@@ -141,7 +141,7 @@ function initialize() {
 			detalleUbicacion(nombre_hospital);
 				var entradas=$("#detallesCuerpo").find("a");
 					entradas.each (function(e){
-						if($(this).html().trim()==nombre_hospital){
+						if($(this).text().trim()==nombre_hospital){
 							$($(this).attr("href")).collapse('show'); 
 						}  
 					});
