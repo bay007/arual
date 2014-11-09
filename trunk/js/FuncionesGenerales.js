@@ -1,4 +1,4 @@
-﻿var timeOut=1000;
+var timeOut=1000;
 
 
 function seleccionaTAGSelect(idSelect,datoABuscar){
@@ -305,9 +305,9 @@ function GuardarActualizarCentro(idBotonGuardar){
 			var formURL = $("#"+formulario_id).attr("action");
 			
 			var a=$("#"+formulario_id+' :checkbox').is(":checked");
-			var logotipo=$("#frmMapas").find("input[type=file]").val();
+			//var logotipo=$("#"+formulario_id).find("input[type=hidden]").val();
 			postData.push({name: "activo", value:a?"Si":"No"});
-			postData.push({name: "logotipo", value:logotipo});
+			//postData.push({name: "logotipo", value:logotipo});
 			var nuevoElemento=0;
 			
 			postData.forEach(function(e){
@@ -317,26 +317,23 @@ function GuardarActualizarCentro(idBotonGuardar){
 			;})
 			
 		if((5>=nuevoElemento)){
-			$.ajax(
-			{
+			$.ajax({
 				url : formURL,
-				type: "GET",
+				type: "POST",
 				data : postData,
 				success:function(data, textStatus, jqXHR) 
 				{
-				
 				// console.dir(textStatus);
 				// console.dir(data);
 				// console.dir(jqXHR);
 					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
 					{
-				
-				 $("#body-mensajes").html('<p class="bg-success">El cambio en el centro afiliado ARUAL fue exitoso</p>');
-				 $('#mensajes').modal('show');
-				resetFormularioMapas("#"+formulario_id);
+						$("#body-mensajes").html('<p class="bg-success">El cambio en el centro afiliado ARUAL fue exitoso</p>');
+						$('#mensajes').modal('show');
+						resetFormularioMapas("#"+formulario_id);
 					}else{						//if fails      
-					$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al actualizar el Centro Arual</p>');
-					$('#mensajes').modal('show');
+						$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al actualizar el Centro Arual</p>');
+						$('#mensajes').modal('show');
 					}
 					//data: return data from server
 				},

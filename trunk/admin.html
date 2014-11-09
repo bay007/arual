@@ -171,12 +171,13 @@
 											
 											<div class="form-group">
 												<label for="logotipo">Logotipo:</label>
-												<input type="file"  name="logotipo" required  accept=".gif,.jpg,.jpeg,.png" id="logotipo" class="form-control" placeholder="servicios@angeleslindavista.com.mx">
+												<input type="file" accept=".gif,.jpg,.jpeg,.png" class="form-control">
+												<input type="hidden"  name="logotipo"  id="logotipo">
 											</div>
 
 											<div class="checkbox">
 												<label>
-													<input  id="activo" name="activo" type="checkbox" required > Activar hospital.
+													<input  id="activo" name="activo" type="checkbox"> Activar hospital.
 												</label>
 											</div>
 											<button id="btnGuardarHospital" type="button" class="btn btn-primary">Guardar</button>
@@ -531,6 +532,14 @@ autoclose: true,
 todayHighlight: true
     });
 $('.clockpicker').clockpicker();
+	$(":file").change(function(){
+		var file = this.files[0];
+		var FR= new FileReader();
+			FR.onload = function(e) {
+				$("#logotipo").val(e.target.result);
+			};       
+		FR.readAsDataURL( file );
+	});
 
 </script>
 </body>
