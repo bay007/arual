@@ -15,7 +15,7 @@ try {
 		if($_GET['accion']=="disponibilidad"){
 		$db = new Database;
 		$db->connect();
-		@$db->select("edicion_cursos","distinct nombre_curso","catalogo_cursos cc","fkidcc=cc.id and edicion_cursos.activo=1 and date(faplicacion) >= date(now())");
+		@$db->select("edicion_cursos","distinct nombre_curso","catalogo_cursos cc",'fkidcc=cc.id and edicion_cursos.activo="Si" and date(faplicacion) >= date(now())');
 		@$cursos_disponibles=$db->getResult();
 		$db->disconnect();
 		$entrada="";
@@ -33,7 +33,7 @@ try {
 		
 		$db = new Database;
 		$db->connect();
-		@$db->select("catalogo_cursos","contenido,duracion,requisitos,publico_dirigido","edicion_cursos ec"," nombre_curso like '%".$nombre_cursos."%' and ec.activo=1 and ec.fkIDCc=catalogo_cursos.id");
+		@$db->select("catalogo_cursos","contenido,duracion,requisitos,publico_dirigido","edicion_cursos ec"," nombre_curso like '%".$nombre_cursos."%' and ec.activo="+'"Si"'+" and ec.fkIDCc=catalogo_cursos.id");
 		@$detalleCurso=$db->getResult();
 		$db->disconnect();
 		echo json_encode($detalleCurso);
@@ -47,7 +47,7 @@ try {
 		
 		$db = new Database;
 		$db->connect();
-		@$db->select("edicion_cursos",'concat(date_format(date(faplicacion),"%a %d de %M del %Y")," a las ",date_format(haplicacion,"%T")," horas.") as faplicacion,hospital,cupo,direccion,lespecifico',"catalogo_centros join catalogo_cursos",'date(faplicacion) >= date(now()) and edicion_cursos.activo=1 and fkIDCh=catalogo_centros.id and catalogo_cursos.nombre_curso like "%'.$nombre_cursos.'%"  and fkIDCc=catalogo_cursos.id');
+		@$db->select("edicion_cursos",'concat(date_format(date(faplicacion),"%a %d de %M del %Y")," a las ",date_format(haplicacion,"%T")," horas.") as faplicacion,hospital,cupo,direccion,lespecifico',"catalogo_centros join catalogo_cursos",'date(faplicacion) >= date(now()) and edicion_cursos.activo="Si" and fkIDCh=catalogo_centros.id and catalogo_cursos.nombre_curso like "%'.$nombre_cursos.'%"  and fkIDCc=catalogo_cursos.id');
 		@$centrosConCurso=$db->getResult();
 		@$db->disconnect();
 		

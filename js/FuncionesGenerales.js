@@ -16,10 +16,10 @@ $.each( fila, function( key, value ) {
 							$(idFormulario+' :input#'+key).val(value);
 					
 							if(key=="activo"){
-							$(idFormulario+' :checkbox#'+key).prop("checked",value=="1"?true:false);
+							$(idFormulario+' :checkbox#'+key).prop("checked",value=="Si"?true:false);
 							}
 							else{
-							$(idFormulario+' :checkbox#'+key).prop("checked",value=="1"?true:false);
+							$(idFormulario+' :checkbox#'+key).prop("checked",value=="No"?true:false);
 							}
 							
 							if(key=="hospital"){
@@ -82,7 +82,7 @@ function GuardarActualizar(idBotonGuardar,idTablaAsociada){
 			var formURL = $("#"+formulario_id).attr("action");
 			
 			var a=$("#"+formulario_id+' :checkbox').is(":checked");
-			postData.push({name: "activo", value:a?1:0});
+			postData.push({name: "activo", value:a?"Si":"No"});
 			var nuevoElemento=0;
 			
 			postData.forEach(function(f){
@@ -262,10 +262,10 @@ var formURL = $(idFormulario).attr("action");
 											//console.log(key + ": " + fila[key]);
 										$(idFormulario+' :input#'+key).val(fila[key]);
 										if(key=="activo"){
-										$(idFormulario+' :checkbox#'+key).prop("checked",fila[key]=="1"?true:false);
+										$(idFormulario+' :checkbox#'+key).prop("checked",fila[key]=="Si"?true:false);
 										}
 										else{
-										$(idFormulario+' :checkbox#'+key).prop("checked",fila[key]=="1"?true:false);
+										$(idFormulario+' :checkbox#'+key).prop("checked",fila[key]=="Si"?true:false);
 										}
 										
 										});
@@ -306,7 +306,7 @@ function GuardarActualizarCentro(idBotonGuardar){
 			
 			var a=$("#"+formulario_id+' :checkbox').is(":checked");
 			var logotipo=$("#frmMapas").find("input[type=file]").val();
-			postData.push({name: "activo", value:a?1:0});
+			postData.push({name: "activo", value:a?"Si":"No"});
 			postData.push({name: "logotipo", value:logotipo});
 			var nuevoElemento=0;
 			
@@ -393,7 +393,7 @@ function GuardarActualizarEdicion(idBotonGuardar,idTablaAsociada){
 			var formURL = $("#"+formulario_id).attr("action");
 			
 			var a=$("#"+formulario_id+' :checkbox').is(":checked");
-			postData.push({name: "activo", value:a?1:0});
+			postData.push({name: "activo", value:a?"Si":"No"});
 			var nuevoElemento=0;
 			
 			postData.forEach(function(e){
