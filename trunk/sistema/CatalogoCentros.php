@@ -370,24 +370,53 @@ $conDatos=true;
 	$db = new Database;
 	$db->connect();
 	$bandera=true;
-
+	
 	function base64ToImage($img,$nombre){
-	$img = str_replace('data:image/jpeg;base64,', '', $img);
-	$img = str_replace(' ', '+', $img);
+	$extension='ERROR';
+	list($type, $img) = explode(';', $img);
+	list(, $img)      = explode(',', $img);
 	$data = base64_decode($img);
-	file_put_contents('../logotipo/'.$nombre.'.jpg', $data,LOCK_EX);
+	
+	if($type=='data:image/gif'){
+	$extension=".gif";}
+	
+	if($type=='data:image/png'){
+	$extension=".png";}
+	
+	if($type=='data:image/jpg'){
+	$extension=".jpg";}
+	
+	if($type=='data:image/jpeg'){
+	$extension=".jpge";}
+		if($extension!='ERROR'){
+		file_put_contents('../logotipo/'.$nombre.$extension, $data,LOCK_EX);
+		}
+		return $extension;
+		
 	}
 	
 	switch ($accion) {
 		case 'update':
 			$bandera=false;
 			$LOGOTIPO=$datos['logotipo'];
+			
+			if($LOGOTIPO!=""){//implica que la actualizacion contiene una imagen
 			$datos['logotipo']=sha1($LOGOTIPO);
-			 base64ToImage($LOGOTIPO,$datos['logotipo']);
+			$ext=base64ToImage($LOGOTIPO,$datos['logotipo']);
+			}else{ // No contiene imagen
+			$db->select("catalogo_centros","logotipo",'',"id=".$id);
+			$r=$db->getResult();
+			$datos['logotipo']=$r[0]['logotipo'];
+			$ext="";
+			}
 			
-			  $db->update("catalogo_centros",$datos,"id=".$id);
-			  echo $db->numRows();
-			
+				if($ext!='ERROR'){
+					$datos['logotipo']=$datos['logotipo'].$ext;
+					$db->update("catalogo_centros",$datos,"id=".$id);
+					echo $db->numRows();
+				}else{
+					echo $ext;
+				}
 			break;
 		case 'delete':
 			  $db->delete("catalogo_centros","id=".$id);
@@ -396,10 +425,20 @@ $conDatos=true;
 			break;
 		case 'create':
 			$LOGOTIPO=$datos['logotipo'];
+			if($LOGOTIPO!=""){//implica que la actualizacion contiene una imagen
 			$datos['logotipo']=sha1($LOGOTIPO);
-			base64ToImage($LOGOTIPO,$datos['logotipo']);
-			$db->insert("catalogo_centros",$datos);
-			echo $db->numRows();
+			$ext=base64ToImage($LOGOTIPO,$datos['logotipo']);
+			}else{ // No contiene imagen
+			$datos['logotipo']="logotipo.png";
+			$ext="";
+			}
+				if($ext!='ERROR'){
+					$datos['logotipo']=$datos['logotipo'].$ext;
+					$db->insert("catalogo_centros",$datos);
+					echo $db->numRows();
+				}else{
+					echo $ext;
+				}
 			$bandera=false;
 			break;
 	 }
