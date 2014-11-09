@@ -532,14 +532,15 @@ autoclose: true,
 todayHighlight: true
     });
 $('.clockpicker').clockpicker();
-	$(":file").change(function(){
-		var file = this.files[0];
-		var FR= new FileReader();
-			FR.onload = function(e) {
-				$("#logotipo").val(e.target.result);
-			};       
-		FR.readAsDataURL( file );
-	});
+	
+$(":file").change(function(){
+	var file = this.files[0];
+	var FR= new FileReader();
+		FR.onload = function(e) {
+			$("#logotipo").val(e.target.result);
+		};       
+	FR.readAsDataURL( file );
+});
 
 </script>
 </body>
