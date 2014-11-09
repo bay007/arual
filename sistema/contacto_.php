@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 //header("Content-Type: text/plain; charset=ISO-8859-1");
 date_default_timezone_set('America/Mexico_City');setlocale(LC_ALL, "es_MX");
 header('Content-Type: text/html; charset=UTF-8'); 
@@ -33,8 +33,8 @@ try {
 		@$db->select("catalogo_centros",'*',"",'activo="Si"');
 		@$centros=$db->getResult();
 		@$db->disconnect();
-		$entrada=null;
-		$detalle_centros=file_get_contents('../pages/contacto_a.html');
+		$entrada="";
+		$detalle_centros=trim(file_get_contents('../pages/contacto_a.html'));
 				foreach($centros as $v){
 				@$entrada=$entrada.str_ireplace('{hospital}',@$v["hospital"],$detalle_centros);
 				@$entrada=str_ireplace('{direccion}',@$v["direccion"],$entrada);
@@ -45,7 +45,8 @@ try {
 				@$entrada=str_ireplace('{c}',$c,$entrada);
 			$c=$c+1;
 			}
-		echo ('<div id="accordion" class="panel-group">'.$entrada."</div>");
+			
+		echo ('<div id="accordion" class="panel-group">'.trim($entrada).'</div>');
 		}
 	}
 }

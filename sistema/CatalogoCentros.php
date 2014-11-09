@@ -347,30 +347,43 @@ return (json_encode(($jTableResult)));
 $conDatos=false;
 if(isset($_GET["accion"])){
 $accion=$_GET['accion'];
+array_shift($_GET);
 $conDatos=true;
 }else{
 $accion=$_POST['accion'];
+array_shift($_POST);
 $conDatos=true;
 }
 
 if(isset($_GET["id"])){
 $id=$_GET['id'];
+array_shift($_GET);
+$datos=$_GET;
 $conDatos=true;
 }else{
 $id=$_POST['id'];
+array_shift($_POST);
+$datos=$_POST;
 $conDatos=true;
 }
 	if($conDatos){
-
 	$db = new Database;
 	$db->connect();
 	$bandera=true;
-	array_shift($_GET);
-	array_shift($_GET);
-	$datos=$_GET;
+
+	function base64ToImage($img,$nombre){
+	$img = str_replace('data:image/jpeg;base64,', '', $img);
+	$img = str_replace(' ', '+', $img);
+	$data = base64_decode($img);
+	file_put_contents('../logotipo/'.$nombre.'.jpg', $data,LOCK_EX);
+	}
+	
 	switch ($accion) {
 		case 'update':
 			$bandera=false;
+			$LOGOTIPO=$datos['logotipo'];
+			$datos['logotipo']=sha1($LOGOTIPO);
+			 base64ToImage($LOGOTIPO,$datos['logotipo']);
 			
 			  $db->update("catalogo_centros",$datos,"id=".$id);
 			  echo $db->numRows();
@@ -382,6 +395,9 @@ $conDatos=true;
 			$bandera=false; 
 			break;
 		case 'create':
+			$LOGOTIPO=$datos['logotipo'];
+			$datos['logotipo']=sha1($LOGOTIPO);
+			base64ToImage($LOGOTIPO,$datos['logotipo']);
 			$db->insert("catalogo_centros",$datos);
 			echo $db->numRows();
 			$bandera=false;
@@ -418,7 +434,8 @@ $conDatos=true;
 	$db->disconnect();
 	echo json_encode($catalogo_centros);
 	}
-
+	
+	
 
  }
 

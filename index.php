@@ -186,7 +186,7 @@ $('#logo').css({ "display":" none" });
 			 
 			$('#contenido').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
 					$.get(url, function( data ) {
-						$( "#contenido" ).replaceWith( data );
+						$("#contenido").replaceWith(data);
 					});
 				});
 			}
