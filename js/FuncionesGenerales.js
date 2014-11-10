@@ -1,5 +1,4 @@
-var timeOut=1000;
-
+﻿var timeOut=1000;
 
 function seleccionaTAGSelect(idSelect,datoABuscar){
 $(idSelect+" option").each(function(){
@@ -11,29 +10,28 @@ $(idSelect+" option").each(function(){
 
 function formularioDesdeTabla(fila,idFormulario){
 $(idFormulario).addClass('animated pulse');
-
-$.each( fila, function( key, value ) {
-							$(idFormulario+' :input#'+key).val(value);
-					
-							if(key=="activo"){
-							$(idFormulario+' :checkbox#'+key).prop("checked",value=="Si"?true:false);
-							}
-							else{
-							$(idFormulario+' :checkbox#'+key).prop("checked",value=="No"?true:false);
-							}
-							
-							if(key=="hospital"){
-							seleccionaTAGSelect(idFormulario+" select#cmbHospitalesCatalogo",value);
-							}
-							
-							if(key=="nombre_curso"){
-							seleccionaTAGSelect(idFormulario+" select#cmbCursosCatalogo",value);
-							}
-					});
-							
-								$(idFormulario).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-					$(idFormulario).removeClass('animated pulse');
-				});
+		$.each( fila, function( key, value ) {
+				$(idFormulario+' :input#'+key).val(value);
+		
+				if(key=="activo"){
+				$(idFormulario+' :checkbox#'+key).prop("checked",value=="Si"?true:false);
+				}
+				else{
+				$(idFormulario+' :checkbox#'+key).prop("checked",value=="No"?true:false);
+				}
+				
+				if(key=="hospital"){
+				seleccionaTAGSelect(idFormulario+" select#cmbHospitalesCatalogo",value);
+				}
+				
+				if(key=="nombre_curso"){
+				seleccionaTAGSelect(idFormulario+" select#cmbCursosCatalogo",value);
+				}
+		});
+				
+					$(idFormulario).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+		$(idFormulario).removeClass('animated pulse');
+	});
 }
 
 ////////EDICION DEL CATALOGO DE CURSOS////////////////////////////////////////////////////////////////////////////////
@@ -74,13 +72,9 @@ function GuardarActualizar(idBotonGuardar,idTablaAsociada){
 	}else{
 	accion="update";
 	}
-		
 		$("#"+formulario_id+' input#accion').val(accion);
-		/*$("#"+formulario_id).submit(function(e)
-		{*/
 			var postData = $("#"+formulario_id).serializeArray();
 			var formURL = $("#"+formulario_id).attr("action");
-			
 			var a=$("#"+formulario_id+' :checkbox').is(":checked");
 			postData.push({name: "activo", value:a?"Si":"No"});
 			var nuevoElemento=0;
@@ -102,12 +96,12 @@ function GuardarActualizar(idBotonGuardar,idTablaAsociada){
 					// console.dir(jqXHR);
 						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
 						{
-							$("#body-mensajes").html('<p class="bg-success">El cambio en el curso fue exitoso</p>');
+							$("#body-mensajes").html('<p class="bg-success">El cambio en el curso fue exitoso.</p>');
 							$('#mensajes').modal('show');
 							resetFormulario("#"+formulario_id);
 							setTimeout('wait("'+idTablaAsociada+'")',timeOut);
 						}else{						//if fails      
-						$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al actualizar el curso</p>');
+						$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al actualizar el curso.</p>');
 						$('#mensajes').modal('show');
 						}
 						//data: return data from server
@@ -150,6 +144,7 @@ function resetFormulario(idFormulario){
 	  $(this).val(null);
 	});
 $(idFormulario+' :checkbox').prop("checked",false);
+recargarCombos();
 $('select').val(-1);
 }
 
@@ -187,11 +182,11 @@ var formURL = $("#"+formulario_id).attr("action");
 				// console.dir(jqXHR);
 					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
 					{
-					 $("#body-mensajes").html('<p class="bg-success">La eliminacion fue exitosa</p>');
+					 $("#body-mensajes").html('<p class="bg-success">La eliminación fue exitosa.</p>');
 					 resetFormulario("#"+formulario_id);
 					 setTimeout('wait("'+idTablaAsociada+'")',timeOut);
 					}else{						//if fails      
-					$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al eliminar el curso,inténtelo de nuevo por favor</p>');
+					$("#body-mensajes").html('<p class="bg-warning">Ocurrió un error al eliminar el curso,inténtelo de nuevo por favor</p>');
 					}
 					$('#mensajes').modal('show');
 					//data: return data from server
@@ -221,7 +216,6 @@ function CargaSelectHospitales(IdSelect){
 		   {
 			options += "<option data-texto='"+data[i].hospital+"' value='"+data[i].id+"'>"+ data[i].hospital+"</option>";              
 		   }
-
 		   select.append(options);
 		}
 	});
@@ -476,7 +470,15 @@ function CargaSelectHospitalesActivos(IdSelect){
 		}
 	});
 }
+
 function wait(idTablaAsociada){
 $(idTablaAsociada).bootstrapTable('refresh');
 console.log('Refreshed...');
+recargarCombos();
 }
+
+function recargarCombos(){
+CargaSelectHospitales("#cmbEdicionHospitales");  
+CargaSelectHospitalesActivos("#cmbHospitalesCatalogo");
+CargaSelectCursos("#cmbCursosCatalogo");
+} 
