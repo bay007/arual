@@ -121,7 +121,7 @@
 									<div  id="googleMap" style="height:440px;"></div>
 											
 						<hr>
-									<label for="cmbEdicionHospitales">Hospitales en el sistema:</label>
+									<label for="cmbEdicionHospitales">Centros en el sistema:</label>
 									<select id="cmbEdicionHospitales" name="edicionHospitales" class="form-control">
 									<!-- 	<option>Seleccion</option>
 										<option>Angeles Lomas</option>
@@ -177,12 +177,12 @@
 
 											<div class="checkbox">
 												<label>
-													<input  id="activo" name="activo" type="checkbox"> Activar hospital.
+													<input  id="activo" name="activo" type="checkbox"> Activar centro.
 												</label>
 											</div>
-											<button id="btnGuardarHospital" type="button" class="btn btn-primary">Guardar</button>
+											<button id="btnGuardarHospital" type="button" class="btn btn-primary">Salvar cambios</button>
 											<button id="btnLimpiarFormularioCentros" class="btn btn-primary" type="button">Nuevo centro</button>
-											<button id="botonEliminarHospital" class="btn btn-danger" type="button">Eliminar hospital</button>
+											<button id="botonEliminarHospital" class="btn btn-danger" type="button">Eliminar</button>
 											
 										<!-- </fieldset> -->
 									</form>
@@ -488,8 +488,7 @@ var centro=new google.maps.LatLng(19.394574923950497,-99.28167567436219);
 	   draggable: true,
        title: 'Posicione en su centro ARUAL'
    });
- function initialize()
- {
+ function initialize(){
   google.maps.event.addListener(marker, 'dragend', function (event) {
      document.getElementById("latitud").value = this.getPosition().lat();
      document.getElementById("longitud").value = this.getPosition().lng();
@@ -518,8 +517,7 @@ iniciarTabla("#tblEdicionCursos","#frmEdicionCursos");
 GuardarActualizarEdicion("#btnGuardarEdicionCursos","#tblEdicionCursos");
 EliminarElemento("#btnEliminarEdicionCursos","#tblEdicionCursos","#btnConfirmacionEliminarEdicionCursos");
 
-
-    $('#faplicacion_ .input-group.date').datepicker({
+$('#faplicacion_ .input-group.date').datepicker({
     weekStart: 1,
 	format: "yyyy-mm-dd",
 startDate: "today",
@@ -534,12 +532,25 @@ todayHighlight: true
 $('.clockpicker').clockpicker();
 	
 $(":file").change(function(){
-	var file = this.files[0];
-	var FR= new FileReader();
+var file = this.files[0];
+var size = file.size;
+var type = file.type;
+
+		var FR= new FileReader();
 		FR.onload = function(e) {
 			$("#logotipo").val(e.target.result);
 		};       
-	FR.readAsDataURL( file );
+			if(size<1024000){
+			if((type=="image/png")||(type=="image/jpg")||(type=="image/jpeg")||(type=="image/gif")){
+			FR.readAsDataURL( file );
+			}else{
+			alert("Los archivos sólo pueden ser gif, jpg ó png, seleccione de nuevo.");
+			$(":file").val(null);
+			}
+		}else{
+			alert("El archivo no debe ser mayor a 1 MB, seleccione de nuevo.");
+			$(":file").val(null);
+		}
 });
 
 </script>

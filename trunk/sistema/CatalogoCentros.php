@@ -387,12 +387,11 @@ $conDatos=true;
 	$extension=".jpg";}
 	
 	if($type=='data:image/jpeg'){
-	$extension=".jpge";}
+	$extension=".jpg";}
 		if($extension!='ERROR'){
 		file_put_contents('../logotipo/'.$nombre.$extension, $data,LOCK_EX);
 		}
 		return $extension;
-		
 	}
 	
 	switch ($accion) {
@@ -419,8 +418,25 @@ $conDatos=true;
 				}
 			break;
 		case 'delete':
-			  $db->delete("catalogo_centros","id=".$id);
-			  echo $db->numRows();
+			$db->select("catalogo_centros","logotipo",'',"id=".$id);
+			$r=$db->getResult();
+			$logo=$r[0]['logotipo'];
+
+			$db->delete("catalogo_centros","id=".$id);
+			if($db->numRows()==1){
+				if(($logo!="logotipo.png")){
+					if(@unlink("../logotipo/".$logo)){
+					echo 1;
+					}
+					else{
+					echo "ERRORdeBorradoArchivo";
+					}
+				}else{	
+					echo 1;
+				}
+			}else{
+			echo "ERRORdeBorrado";
+			}
 			$bandera=false; 
 			break;
 		case 'create':
