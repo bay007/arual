@@ -61,9 +61,6 @@ function getRealIP()
                : 
                "unknown" );
    }
- 
    return $client_ip;
- 
 }
-echo getRealIP();
 ?>

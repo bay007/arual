@@ -83,12 +83,12 @@ public function gen_uuid() {
 		} 
 	}
 }
-//MOSTRANDO EL USO
- $eMail = new mail();
- $eMail->para="tnt.galicia@gmail.com";
-// $eMail->mensaje=$eMail->gen_uuid();
-$mensaje=file_get_contents('../pages/emailAcceso.html');
-$eMail->mensaje=str_ireplace('{GUI}',$eMail->gen_uuid(),$mensaje); 
-echo $eMail->enviar();
+// //MOSTRANDO EL USO
+// $eMail = new mail();
+// $eMail->para="esteban.galicia@axa-assistance.com.mx";
+// // $eMail->mensaje=$eMail->gen_uuid();
+// $mensaje=file_get_contents('../pages/emailAcceso.html');
+// $eMail->mensaje=str_ireplace('{GUI}',$eMail->gen_uuid(),$mensaje); 
+// echo $eMail->enviar();
  
 ?>

@@ -72,7 +72,7 @@
 						<span class="icon-bar"></span>
 					</button>
 					<ul class=" menu">
-						<li class="home-page"><a class="" href="http://localhost/ARUALMR" accesskey="h"><span></span></a></li>
+						<li class="home-page"><a class="" href="index.php" accesskey="h"><span></span></a></li>
 					</ul>
 				</div>
 
@@ -382,8 +382,8 @@
 <!--==============================footer=================================-->
     
 	<footer>
-        <p>Â© 2012 Global</p>
-        <p><a>ARUAL</a> Medicina de reanimación</p>
+        <p id="fecha"></p>
+        <p><a>ARUAL</a> Medicina de reanimación.</p>
     </footer>
     
 <!-- Button to trigger modal -->
@@ -552,7 +552,9 @@ var type = file.type;
 			$(":file").val(null);
 		}
 });
-
+var d = new Date();
+var n = d.getFullYear(); 
+$("#fecha").text("© "+n);
 </script>
 </body>
 </html>

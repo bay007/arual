@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <title>ARUAL</title>
@@ -118,14 +117,6 @@
 </div>
 </div>	
 
-
-
-
-
-
-
-
-
 <div class="modal fade" id="myModal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -145,8 +136,8 @@
 </div><!-- /.modal -->
 
 	<footer>
-        <p>Â© 2012 Global</p>
-        <p><a>ARUAL</a> Medicina de reanimación</p>
+		<p id="fecha"></p>
+        <p><a>ARUAL</a> Medicina de reanimación.</p>
     </footer>
 
 
@@ -202,5 +193,9 @@ $('#logo').css({ "display":" none" });
 	
 	
 	  
-   }); </script>
+   }); 
+  var d = new Date();
+var n = d.getFullYear(); 
+$("#fecha").text("© "+n); 
+  </script>
 </html>
