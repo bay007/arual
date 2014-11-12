@@ -5,17 +5,10 @@ include("mysql_crud.php");
 date_default_timezone_set('America/Mexico_City');setlocale(LC_ALL, "es_MX");
  error_reporting(-1);
 
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
- 
+
 $db = new Database;
 $db->connect();
-
-// if (!isset($_POST["activo"]))
-// {
-    // $_POST['activo'] = '0';
-// }
 
 $accion=$_POST['accion'];
 array_shift($_POST);
@@ -28,9 +21,7 @@ $datos=$_POST;
 $db->disconnect();
   switch ($accion) {
     case 'update':
-		
-		
-         $db->update("catalogo_cursos",$datos,"id=".$id);
+		$db->update("catalogo_cursos",$datos,"id=".$id);
 		 echo $db->numRows();
 		//
         break;
@@ -43,13 +34,7 @@ $db->disconnect();
         $db->insert("catalogo_cursos",$datos);
 		 echo $db->numRows();
         break;
-}
-  
-  
-  
-  
-  
-  
+	}
 }else{
 	if(isset($_GET["accion"])){
 		if($_GET['accion']=="selectCMBPublico"){
@@ -69,5 +54,4 @@ $db->disconnect();
 		echo json_encode($catalogo_cursos);
 		}
 }
-
 ?>

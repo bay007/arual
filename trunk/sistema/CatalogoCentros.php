@@ -408,7 +408,6 @@ $conDatos=true;
 			$datos['logotipo']=$r[0]['logotipo'];
 			$ext="";
 			}
-			
 				if($ext!='ERROR'){
 					$datos['logotipo']=$datos['logotipo'].$ext;
 					$db->update("catalogo_centros",$datos,"id=".$id);
@@ -459,10 +458,8 @@ $conDatos=true;
 			break;
 	 }
 
-
-
 	if(($id!="")&&$bandera){
-	$db->select("catalogo_centros","id, latitud, longitud, hospital, direccion, contacto, telefono, email, activo",'',"id=".$id);//,);		
+	$db->select("catalogo_centros","id, latitud, longitud, hospital, direccion, contacto, telefono, email, activo",'',"id=".$id);
 	$catalogo_centros=$db->getResult();
 	$db->disconnect();
 	echo json_encode($catalogo_centros);

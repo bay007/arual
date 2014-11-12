@@ -5,8 +5,7 @@
  * @Package Database
  */
  date_default_timezone_set('America/Mexico_City');setlocale(LC_ALL, "es_MX");
- 
- error_reporting(-1);
+error_reporting(-1);
 class Database{
 	/* 
 	 * Create variables for credentials to MySQL database
