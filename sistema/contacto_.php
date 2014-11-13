@@ -6,13 +6,6 @@ include("mysql_crud.php");
  error_reporting(-1);
  
 try {
-// if (!isset($_GET["activo"]))
-// {
-    // $_GET['activo'] = '0';
-// }
-
-
-	
 	if(isset($_GET["accion"])){
 		if($_GET['accion']=="UbicacionCurso"){
 		$nombre_hospital=trim(urldecode($_GET['nombre_hospital']));

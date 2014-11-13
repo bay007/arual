@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Administracion</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/reset.css">
+
+<link rel="stylesheet" type="text/css" media="screen" href="../css/animate.css">
+    <link href="http://fonts.googleapis.com/css?family=Condiment" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css">
+   
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+   
+    <!--
+	http://wenzhixin.net.cn/p/bootstrap-table/docs/documentation.html#columns
+	<script src="js/jquery.easing.1.3.js"></script>-->
+
+
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/style.css">
+	
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.2.3/bootstrap-table.min.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.2.3/bootstrap-table.min.css" rel="stylesheet" type="text/css">
+<!-- <script src="js/populate.js"></script> -->
+
+	<!--[if lt IE 8]>
+       <div style=' clear: both; text-align:center; position: relative;'>
+         <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+           <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+        </a>
+      </div>
+    <![endif]-->
+    <!--[if lt IE 9]>
+   		<script type="text/javascript" src="js/html5.js"></script>
+    	<link rel="stylesheet" type="text/css" media="screen" href="css/ie.css">
+	<![endif]-->
+</head>
+<body>
+<div class="container main">
+  <!--==============================header=================================-->
+ 
+	<div class="col-md-6 col-md-offset-0">   
+		<h1><a href="index.html"><img class="img-responsive" src="../images/Imagen1.png" alt="" style="height: 120px;"/></a></h1>
+	</div>
+      
+	<div class="col-md-12"> 
+		<nav class="navbar navbar-inverse" role="navigation">
+			<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<ul class=" menu">
+						<li class="home-page"><a class="" href="../index.php" accesskey="h"><span></span></a></li>
+					</ul>
+				</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class=" menu">
+						<li><a href="#"></a></li>
+						<li><a href="#"></a></li>
+						<li><a href="#"></a></li>
+						<li class="current"><a href="#">Administracion</a></li>
+					</ul>
+
+					<div class="social-icons ">
+						<span></span>
+						<a href="#" class="icon-3 "></a>
+						<a href="#" class="icon-2"></a>
+						<a href="#" class="icon-1"></a>
+					</div>
+		 
+				</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
+	</div>
+
+  <!--==============================content================================-->
+    <div class="row">
+		<div class="col-md-12"> 
+			<div class="panel panel-primary">
+			  <div class="panel-heading">Antes de entrar...</div>
+				<div class="panel-body">
+					<form id="administracion" role="form" method="POST" action="../sistema/administracion.php">
+						Para poder administrar la página de ARUAL, debes introducir tu email, si tu email
+						es válido recibirás un email con un link con el que podras acceder.
+						<!-- <fieldset > -->
+							<div class="form-group">
+								<label for="email">Email:</label>
+								<input type="email" required name="email" id="email" class="form-control">
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-envelope"></span>
+								</span>
+							</div>
+							<button id="btnEmail" type="button" class="btn btn-primary" data-loading-text="Enviando..." autocomplete="off">Enviar solicitud para administración</button>
+						<!-- </fieldset> -->
+					</form>
+				</div>
+			</div>
+						
+		</div>
+	</div>
+<br>
+</div>  
+<!--==============================footer=================================-->
+	<footer>
+        <p id="fecha"></p>
+        <p><a>ARUAL</a> Medicina de reanimación.</p>
+    </footer>
+    
+<!-- Button to trigger modal -->
+	<div class="modal fade" id="mensajes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header" style="background: greenyellow;">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<h4 class="modal-title panel-success" id="myModalLabel">Estimado Usuario:</h4>
+		  </div>
+		  <div class="modal-body" id="body-mensajes">
+		   
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+		  </div>
+		</div>
+	  </div>
+	</div>
+</body>
+<script>
+var d = new Date();
+var n = d.getFullYear(); 
+$("#fecha").text("© "+n);
+
+function SendMail(idBotonGuardar){
+	$(idBotonGuardar).click(function(e){
+	e.preventDefault(); //STOP default action
+	var formulario_id=$(idBotonGuardar).parent().attr('id');
+	var nuevoElemento=0;
+	var formURL = $("#"+formulario_id).attr("action");
+			var postData = $("#"+formulario_id).serializeArray();
+			postData.forEach(function(e){
+				if(e.value==""){
+				nuevoElemento=nuevoElemento+1;
+				}
+			;})
+    var $btn = $(idBotonGuardar).button('loading');
+		if(!(0<nuevoElemento)){
+			$.ajax(
+			{
+				url : formURL,
+				type: "POST",
+				data : postData,
+				success:function(data, textStatus, jqXHR) 
+				{
+				// console.dir(textStatus);
+				// console.dir(data);
+				// console.dir(jqXHR);
+					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
+					{
+						$("#body-mensajes").html('<div class="alert alert-success" role="alert">El email se ha enviado, no olvide revisar su bandeja de spam.</div>');
+					}else{						//if fails      
+						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">No se envió el email, posiblemente su email no esté dado de alta o activo.</div>'+data);
+					}
+					$('#mensajes').modal('show');
+					$btn.button('reset');
+				},
+				error: function(jqXHR, textStatus, errorThrown) 
+				{
+				$("#body-mensajes").html('<p class=bg-warning">'+errorThrown+'</p>');
+				$('#mensajes').modal('show');
+				$btn.button('reset');
+				}
+			});
+			}else{
+			alert("Por favor, complete todos los campos antes de continuar.");
+			$btn.button('reset');
+			}
+	});
+} 
+
+SendMail("#btnEmail");
+
+</script>
+</html>
