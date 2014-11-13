@@ -31,9 +31,10 @@ if(isset($_POST["email"])){
 			$datos['uuid']=$uuid;
 			$fecha = new DateTime();
 			$intervalo = DateInterval::createFromDateString($tiempo_edicion);
-			$datos['fCaducidad']=date_format($fecha->add($intervalo),'Y-M-d H:i:s');
+			$datos['fCaducidad']=date_format($fecha->add($intervalo),'Y-m-d H:i:s');
 			$datos['ip']=getRealIP();
 			$datos['uuid']=$uuid;
+			$datos['editando']=0;
 			$db->update("administradores",$datos,"email='$email'");
 				if($db->numRows()){
 				$eMail->mensaje=str_ireplace('{GUI}',$uuid,$mensaje);

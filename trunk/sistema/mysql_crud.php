@@ -4,7 +4,7 @@
  * @Version 1.3
  * @Package Database
  */
- date_default_timezone_set('America/Mexico_City');setlocale(LC_ALL, "es_MX");
+date_default_timezone_set('America/Mexico_City');setlocale(LC_ALL, "es_MX");
 error_reporting(-1);
 class Database{
 	/* 
