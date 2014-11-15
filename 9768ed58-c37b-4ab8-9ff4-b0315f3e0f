@@ -151,7 +151,7 @@
 											
 											<div class="form-group">
 												<label for="direccion">Direcci贸n:</label>
-												<input type="text" required name="direccion"  id="direccion" class="form-control" placeholder="Calle Rio Bamba 639, Magdalena de Las Salinas, 07760 Ciudad de M閤ico, Distrito Federal">
+												<input type="text" required name="direccion"  id="direccion" class="form-control" placeholder="Calle Rio Bamba 639, Magdalena de Las Salinas, 07760 Ciudad de M茅xico, Distrito Federal">
 											</div>
 											
 											<div class="form-group">
@@ -269,7 +269,7 @@
 													
 										<!-- 	<div class="form-group">
 												<label for="duracion">Duraci贸n:</label>
-												<input type="text" required id="duracion" name="duracion" class="form-control" placeholder="2 d韆s (15 horas aproximadamente).">
+												<input type="text" required id="duracion" name="duracion" class="form-control" placeholder="2 d铆as (15 horas aproximadamente).">
 											</div> -->
 													 
 											<div class="form-group">
@@ -310,7 +310,7 @@
 												<th data-field="id">ID</th>
 												<th data-field="nombre_curso" data-align="right" data-sortable="true">Nombre Curso</th>
 												<th data-field="contenido" data-align="right" >Contenido</th>
-												<th data-field="duracion" data-align="right" data-sortable="true">Duraci髇</th>
+												<th data-field="duracion" data-align="right" data-sortable="true">Duraci贸n</th>
 												<th data-field="requisitos" data-align="center" data-sortable="true">Requisitos</th>
 												<th data-field="publico_dirigido" data-align="left">P煤blico dirigido</th>
 												<th data-field="activo" data-align="left" >Activo</th>
@@ -365,7 +365,7 @@
 												</label>
 											</div>
 											<button type="botton" id="btnGuardarCatalogoCurso" class="btn btn-primary">Salvar cambios</button>
-											<button type="button" id="btnLimpiarCatalogoCurso" class="btn btn-primary">Nueva Edici髇</button>
+											<button type="button" id="btnLimpiarCatalogoCurso" class="btn btn-primary">Nueva Edici贸n</button>
 											<button type="button" id="btnEliminarCatalogoCurso" class="btn btn-danger" >Eliminar</button>
 										<!-- </fieldset> -->
 									</form>
