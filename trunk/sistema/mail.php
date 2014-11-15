@@ -1,7 +1,6 @@
 ﻿<?php
 //header("Content-Type: text/plain; charset=ISO-8859-1");
 header('Content-Type: text/html; charset=UTF-8'); 
-require("../mvc/apps/phpMailer/PHPMailerAutoload.php");
 error_reporting(-1);
 date_default_timezone_set('America/Mexico_City');setlocale(LC_ALL, "es_MX");
 
@@ -11,41 +10,10 @@ public $para = "";
 public $mensaje="";
 public $asunto="";
 private $mail;
-	
-	
- 
- 
 public function __construct()
-  {
-    
-$this->mail=new PHPMailer(true);
-$this->mail->SMTPDebug = 0;
+{
 $this->asunto="Requisición de acceso";
-$this->mail->isSMTP();                                      // Set mailer to use SMTP
-$this->mail->Host = "smtp.gmail.com";  // Specify main and backup SMTP servers
-$this->mail->SMTPAuth = true;                               // Enable SMTP authentication
-$this->mail->Username = 'tnt.galicia@gmail.com';                 // SMTP username
-$this->mail->Password = 'GARE900811.';                           // SMTP password
-$this->mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
-$this->mail->Port = 465;                                   // TCP port to connect to
-
-$this->mail->From = 'sistema@arualmr.com';
-$this->mail->FromName = 'Sistema ARUAL Medicina de Reanimación';
-//$this->mail->addAddress('esteban.galicia@axa-assistance.com.mx');     // Add a recipient
-//$this->mail->addAddress('ellen@example.com');               // Name is optional
-//$this->mail->addReplyTo($this->mail->Username, 'Sistema ARUAL');
-// $this->mail->addCC('cc@example.com');
-// $this->mail->addBCC('bcc@example.com');
-
-$this->mail->WordWrap = 50;                                 // Set word wrap to 50 characters
-// $this->mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-// $this->mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-$this->mail->isHTML(true);                                  // Set email format to HTML
-
-$this->mail->Subject = '';
-$this->mail->Body    = 'SinNada';
-$this->mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-  } 
+} 
   
 public function gen_uuid() {
     return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
@@ -71,21 +39,19 @@ public function gen_uuid() {
   
 	public function enviar(){
 	try {
-	$this->mail->Subject=$this->asunto;
-	$this->mail->Body=$this->mensaje;
-	$this->mail->AltBody=$this->mensaje;
-	$this->mail->addAddress($this->para);
-	$this->mail->CharSet = 'UTF-8';
-		if(($this->mail->Body!="")&&($this->para!="")){
-			if(!$this->mail->send()) {
+$cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+$cabeceras .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+$cabeceras .= 'From: Sistema ARUAL <sistemaArual@arualmr.com>' . "\r\n"; 
+ 
+// enviamos el correo!
+		if(($this->mensaje!="")&&($this->para!="")){
+			if(!mail($this->para, $this->asunto, $this->mensaje, $cabeceras)) {
 				echo 'error';
-				echo 'Mailer Error: ' . $this->mail->ErrorInfo;
 			} else {
 				return '1';
 			}
 		} 
-	} catch (phpmailerException $e) {
-	  echo $e->errorMessage(); //Pretty error messages from PHPMailer
+	
 	} catch (Exception $e) {
 	  echo $e->getMessage(); //Boring error messages from anything else!
 	}
@@ -93,11 +59,11 @@ public function gen_uuid() {
 
 }
 // //MOSTRANDO EL USO
-// $eMail = new mail();
-// $eMail->para="esteban.galicia@axa-assistance.com.mx";
-// // $eMail->mensaje=$eMail->gen_uuid();
-// $mensaje=file_get_contents('../pages/emailAcceso.html');
-// $eMail->mensaje=str_ireplace('{GUI}',$eMail->gen_uuid(),$mensaje); 
-// echo $eMail->enviar();
+ // $eMail = new mail();
+ // $eMail->para="esteban.galicia@axa-assistance.com.mx";
+// // // $eMail->mensaje=$eMail->gen_uuid();
+ // $mensaje=file_get_contents('../pages/emailAcceso.html');
+ // $eMail->mensaje=str_ireplace('{GUI}',$eMail->gen_uuid(),$mensaje); 
+ // echo $eMail->enviar();
  
 ?>

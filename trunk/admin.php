@@ -25,13 +25,11 @@ if(isset($_GET['uuid'])){
 			die("Se debe abrir la página desde la misma pc desde donde se solicitó la administración.");
 			}
 		}else{
-		echo ("No autorizado");
+		echo ("Ésta solicitud de acceso ya fué usada ó bien ha caducado, genere otra de nuevo.");
 		}
 		
 }
 else{ 
 Echo "Acceso no autorizado";
 }
-// session_id();
-// session_start(); 
 ?>
