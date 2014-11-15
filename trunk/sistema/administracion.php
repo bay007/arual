@@ -18,8 +18,10 @@ if(isset($_POST["email"])){
 	$db->connect();
 	@$db->select("administradores","email","","email like '%$email%' and activo='Si'");
 
-	if($db->numRows()==1)
-	$email2=$db->getResult()[0]['email'];
+	if($db->numRows()==1){
+	$a=$db->getResult();
+	$email2=$a[0]['email'];
+	}
 	//echo $db->getSql();
 	//$db->numRows();
 		if(strcmp($email,$email2)==0){//implica que es candidato y está activo este email, por lo que se le puede mandar una requisicion a su email.

@@ -17,13 +17,15 @@ private $mail;
  
 public function __construct()
   {
-    $this->asunto="Requisición de acceso";
-	$this->mail=new PHPMailer;
-	$this->mail->isSMTP();                                      // Set mailer to use SMTP
+    
+$this->mail=new PHPMailer(true);
+$this->mail->SMTPDebug = 0;
+$this->asunto="Requisición de acceso";
+$this->mail->isSMTP();                                      // Set mailer to use SMTP
 $this->mail->Host = "smtp.gmail.com";  // Specify main and backup SMTP servers
 $this->mail->SMTPAuth = true;                               // Enable SMTP authentication
 $this->mail->Username = 'tnt.galicia@gmail.com';                 // SMTP username
-$this->mail->Password = 'GARE900811';                           // SMTP password
+$this->mail->Password = 'GARE900811.';                           // SMTP password
 $this->mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
 $this->mail->Port = 465;                                   // TCP port to connect to
 
@@ -68,6 +70,7 @@ public function gen_uuid() {
 }  
   
 	public function enviar(){
+	try {
 	$this->mail->Subject=$this->asunto;
 	$this->mail->Body=$this->mensaje;
 	$this->mail->AltBody=$this->mensaje;
@@ -81,7 +84,13 @@ public function gen_uuid() {
 				return '1';
 			}
 		} 
+	} catch (phpmailerException $e) {
+	  echo $e->errorMessage(); //Pretty error messages from PHPMailer
+	} catch (Exception $e) {
+	  echo $e->getMessage(); //Boring error messages from anything else!
 	}
+}
+
 }
 // //MOSTRANDO EL USO
 // $eMail = new mail();
