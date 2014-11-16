@@ -450,6 +450,7 @@ $conDatos=true;
 				if($ext!='ERROR'){
 					$datos['logotipo']=$datos['logotipo'].$ext;
 					$db->insert("catalogo_centros",$datos);
+					$db->disconnect();
 					echo $db->numRows();
 				}else{
 					echo $ext;

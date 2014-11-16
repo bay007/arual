@@ -24,22 +24,22 @@ $bandera=false;
 //$db->select("catalogo_cursos","id,nombre_curso,contenido,duracion,requisitos,publico_dirigido,activo");
 //$catalogo_cursos=$db->getResult();
 
-$db->disconnect();
+
 	 switch ($accion) {
 		case 'update':
-			$db->update("edicion_cursos",$datos,"id=".$id);
+			$db->update("edicion_cursos",$datos,"id=".$id);$db->disconnect();
 			//echo $db->getSql();
 			echo $db->numRows();
 			$bandera=true;
 			break;
 		case 'delete':
-			 $db->delete("edicion_cursos","id=".$id);
+			 $db->delete("edicion_cursos","id=".$id);$db->disconnect();
 			$bandera=true; 
 			 echo $db->numRows();
 			 //echo var_dump($id);
 			break;
 		case 'create':
-			$db->insert("edicion_cursos",$datos);
+			$db->insert("edicion_cursos",$datos);$db->disconnect();
 			 echo $db->numRows();
 			 $bandera=true;
 			break;
@@ -55,6 +55,5 @@ $db->select("edicion_cursos","edicion_cursos.id,hospital,lespecifico,cupo,faplic
 $catalogo_cursos=$db->getResult();
 $db->disconnect();
 echo json_encode($catalogo_cursos);
-
 }
 ?>
