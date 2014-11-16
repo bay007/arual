@@ -1,8 +1,8 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <title>Administracion</title>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" media="screen" href="css/reset.css">
 
 <link rel="stylesheet" type="text/css" media="screen" href="css/animate.css">
@@ -104,8 +104,9 @@
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs" role="tablist">
 				  <li class="active"><a href="#catalogo_centros" role="tab" data-toggle="tab">Catálogo centros afiliados</a></li>
-				  <li  ><a href="#edicion_cursos" role="tab" data-toggle="tab">Edición de cursos</a></li>
-				  <li   ><a href="#catalogo_cursos" role="tab" data-toggle="tab">Catalogo de cursos</a></li>
+				  <li><a href="#edicion_cursos" role="tab" data-toggle="tab">Edición de cursos</a></li>
+				  <li><a href="#catalogo_cursos" role="tab" data-toggle="tab">Catalogo de cursos</a></li>
+				  <li><a href="#catalogo_administradores" role="tab" data-toggle="tab">Administradores</a></li>
 				 <!-- <li><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
 				  <li><a href="#settings" role="tab" data-toggle="tab">Settings</a></li> -->
 				</ul>
@@ -373,6 +374,52 @@
 							</div>
 						</div>
 					</div>
+				
+					<div class="tab-pane " id="catalogo_administradores">
+							<div class="col-md-6">
+								<div class="panel panel-primary">
+									<div class="panel-heading">Administradores activos:</div>
+									<div class="panel-body">
+										<table id="tblAdministradores" data-single-select="true" data-url="sistema/administracion.php"  data-height="550" data-show-refresh="true"  data-show-columns="true" data-search="true" data-select-item-name="toolbar1">
+											<thead>
+												<tr>
+													<th data-field="id">ID</th>
+													<th data-field="email" data-align="left">Email</th>
+													<th data-field="activo" data-align="left">Activo</th>
+												</tr>
+											</thead>
+										</table>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-md-6">
+								<div class="panel panel-primary">
+									<div class="panel-heading">Alta/edición:</div>
+									<div class="panel-body">
+										<form id="frmAdministradores" method="post" action="sistema/administracion.php">
+										<input type="hidden" name="accion" id="accion" required>
+										<input type="hidden" id="id" name="id" required value="">
+											<!-- <fieldset> -->
+												<div class="form-group">
+												  <label for="email">Email:</label>
+												  <input type="email" name="email" required id="email" class="form-control">
+												</div>
+
+												<div class="activo_">
+													<label>
+														<input type="checkbox" value="0" name="activo" id="activo"> Activar Administrador.
+													</label>
+												</div>
+												<button type="botton" id="btnGuardarAdministrador" class="btn btn-primary">Salvar</button>
+												<button type="button" id="btnLimpiarAdministrador" class="btn btn-primary">Nuevo Administrador</button>
+												<button type="button" id="btnEliminarAdministrador" class="btn btn-danger" >Eliminar</button>
+											<!-- </fieldset> -->
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
 				</div>
 			</section> 
 		</div>
@@ -473,6 +520,26 @@
 </div><!-- /.modal -->
 
 
+<div class="modal fade"  id="confirmacionesAdministradores">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h2 class="modal-title">Confirme la eliminación.</h2>
+      </div>
+      <div class="modal-body">
+        <h3>¿Está Usted seguro(a) que quiere borrar a éste administrador?</h3>
+		<h4>Si borra a éste administrador no podra editar el contenido de www.arualmr.com.</h4>
+		
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button id="btnConfirmacionEliminarAdministradores" type="button" class="btn btn-primary">Eliminar administrador</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialo -->
+  </div><!-- /.modal -->
+
 <script type='text/javascript'>
 
 // $('#tblEdicionCursos').bootstrapTable({
@@ -516,6 +583,11 @@ resetFormularioBoton("#btnLimpiarFormulario");
 iniciarTabla("#tblEdicionCursos","#frmEdicionCursos");
 GuardarActualizarEdicion("#btnGuardarEdicionCursos","#tblEdicionCursos");
 EliminarElemento("#btnEliminarEdicionCursos","#tblEdicionCursos","#btnConfirmacionEliminarEdicionCursos");
+////////////////////edicion administradores//////////
+resetFormularioBoton("#btnLimpiarAdministrador");
+iniciarTabla("#tblAdministradores","#frmAdministradores");
+EliminarElemento("#btnEliminarAdministrador","#tblAdministradores","#btnConfirmacionEliminarAdministradores");
+GuardarActualizarAdministradores("#btnGuardarAdministrador","#tblAdministradores");
 
 $('#faplicacion_ .input-group.date').datepicker({
     weekStart: 1,

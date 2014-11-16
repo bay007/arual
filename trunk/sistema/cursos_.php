@@ -43,20 +43,22 @@ try {
 		
 		$db = new Database;
 		$db->connect();
-		@$db->select("edicion_cursos",'concat(date_format(date(faplicacion),"%a %d de %M del %Y")," a las ",date_format(haplicacion,"%T")," horas.") as faplicacion,hospital,cupo,direccion,lespecifico',"catalogo_centros join catalogo_cursos",'date(faplicacion) >= date(now()) and edicion_cursos.activo="Si" and fkIDCh=catalogo_centros.id and catalogo_cursos.nombre_curso like "%'.$nombre_cursos.'%"  and fkIDCc=catalogo_cursos.id');
+		@$db->select("edicion_cursos",'concat(date_format(date(faplicacion),"%a %d de %M del %Y")," a las ",date_format(haplicacion,"%T")," horas.") as faplicacion,hospital,cupo,direccion,lespecifico,edicion_cursos.updated',"catalogo_centros join catalogo_cursos",'date(faplicacion) >= date(now()) and edicion_cursos.activo="Si" and fkIDCh=catalogo_centros.id and catalogo_cursos.nombre_curso like "%'.$nombre_cursos.'%"  and fkIDCc=catalogo_cursos.id');
 		@$centrosConCurso=$db->getResult();
 		@$db->disconnect();
 
 		$entrada="";
-		$disponibilidad='<h5><a> <img src="images/gm.png"></img></a><div><strong> Lugar: </strong>{hospital}-({lespecifico})</div> </h5>';
+		$disponibilidad='<sup>Última actualización: {updated}</sup><h5><a> <img src="images/gm.png"></img></a></h5><div><strong> Lugar: </strong>{hospital}-({lespecifico})</div> ';
 		$disponibilidad.='<p><strong><span class="glyphicon glyphicon-map-marker"></span>Dirección:</strong>{direccion}.</p>';
 		$disponibilidad.='<p><a class="link" href="#"><strong>Cupos disponibles en éste momento: {cupo}</strong></a></p>';
 		$disponibilidad.='<strong><span class="glyphicon glyphicon-calendar"></span> Fecha y hora de aplicación :</strong> {faplicacion}';
 		$disponibilidad.='<hr>';
 
 			foreach($centrosConCurso as $v){
+				$a=date('d-M-Y, h:i A', strtotime($v["updated"]));
 				@$entrada=$entrada.str_ireplace('{hospital}',@$v["hospital"],$disponibilidad);
 				@$entrada=str_ireplace('{direccion}',@$v["direccion"],$entrada);
+				@$entrada=str_ireplace('{updated}',$a,$entrada);
 				@$entrada=str_ireplace('{lespecifico}',@$v["lespecifico"],$entrada);
 				@$entrada=str_ireplace('{cupo}',@$v["cupo"],$entrada);
 				@$entrada=str_ireplace('{faplicacion}',@$v["faplicacion"],$entrada);

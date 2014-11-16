@@ -198,3 +198,7 @@ color: #42A8A4;
 background-color: #42A8A4;
 height: 5px;
 }
+
+sup{
+    float: right;
+}

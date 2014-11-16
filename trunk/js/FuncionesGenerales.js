@@ -1,4 +1,4 @@
-﻿var timeOut=1000;
+var timeOut=1000;
 
 function seleccionaTAGSelect(idSelect,datoABuscar){
 $(idSelect+" option").each(function(){
@@ -96,14 +96,14 @@ function GuardarActualizar(idBotonGuardar,idTablaAsociada){
 					// console.dir(jqXHR);
 						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
 						{
-							$("#body-mensajes").html('<p class="bg-success">El cambio en el curso fue exitoso.</p>');
-							$('#mensajes').modal('show');
+							$("#body-mensajes").html('<div class="alert alert-success" role="alert">El cambio en el curso fué exitoso.</div>');
 							resetFormulario("#"+formulario_id);
-							setTimeout('wait("'+idTablaAsociada+'")',timeOut);
 						}else{						//if fails      
-						$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al actualizar el curso.</p>');
-						$('#mensajes').modal('show');
+						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al actualizar el curso.</div>');
+						
 						}
+						setTimeout('wait("'+idTablaAsociada+'")',timeOut);
+						$('#mensajes').modal('show');
 						//data: return data from server
 					},
 					error: function(jqXHR, textStatus, errorThrown) 
@@ -161,7 +161,7 @@ var formURL = $("#"+formulario_id).attr("action");
 	if(postData[1].value!=""){
 		$("#"+modal_id).modal('show');
 		}else{	
-		alert("Debe seleccionar un curso para eliminar.");
+		alert("Debe seleccionar un elemento para eliminar.");
 		}
 	});	
 		
@@ -182,12 +182,12 @@ var formURL = $("#"+formulario_id).attr("action");
 				// console.dir(jqXHR);
 					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
 					{
-					 $("#body-mensajes").html('<p class="bg-success">La eliminación fue exitosa.</p>');
+					 $("#body-mensajes").html('<div class="alert alert-success" role="alert">La eliminación fué exitosa.</div>');
 					 resetFormulario("#"+formulario_id);
-					 setTimeout('wait("'+idTablaAsociada+'")',timeOut);
 					}else{						//if fails      
-					$("#body-mensajes").html('<p class="bg-warning">Ocurrió un error al eliminar el curso,inténtelo de nuevo por favor</p>');
+					$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al eliminar el elemento,inténtelo de nuevo por favor.</div>');
 					}
+					setTimeout('wait("'+idTablaAsociada+'")',timeOut);
 					$('#mensajes').modal('show');
 					//data: return data from server
 				},
@@ -322,13 +322,12 @@ function GuardarActualizarCentro(idBotonGuardar){
 				// console.dir(jqXHR);
 					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
 					{
-						$("#body-mensajes").html('<p class="bg-success">El cambio en el centro afiliado ARUAL fue exitoso</p>');
-						$('#mensajes').modal('show');
+						$("#body-mensajes").html('<div class="alert alert-success" role="alert">El cambio en el centro afiliado ARUAL fue exitoso.</div>');
 						resetFormularioMapas("#"+formulario_id);
 					}else{						//if fails      
-						$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al actualizar el Centro Arual</p>');
-						$('#mensajes').modal('show');
+						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al actualizar el Centro Arual.</div>');
 					}
+						$('#mensajes').modal('show');
 					//data: return data from server
 				},
 				error: function(jqXHR, textStatus, errorThrown) 
@@ -407,14 +406,15 @@ function GuardarActualizarEdicion(idBotonGuardar,idTablaAsociada){
 				// console.dir(jqXHR);
 					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
 					{
-						$("#body-mensajes").html('<p class="bg-success">El cambio en el centro afiliado ARUAL fue exitoso</p>');
+						$("#body-mensajes").html('<div class="alert alert-success" role="alert">El cambio en el centro afiliado ARUAL fue exitoso.</div>');
 						$('#mensajes').modal('show');
-						resetFormulario("#"+formulario_id);
+						
 						setTimeout('wait("'+idTablaAsociada+'")',timeOut);
 					}else{						//if fails      
-					$("#body-mensajes").html('<p class="bg-warning">Ocurrio un error al actualizar la edicion a un curso.</p>'+data);
-					$('#mensajes').modal('show');
+					$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al actualizar la edición a un curso.</div>');
 					}
+					resetFormulario("#"+formulario_id);
+					$('#mensajes').modal('show');
 					//data: return data from server
 				},
 				error: function(jqXHR, textStatus, errorThrown) 
@@ -482,3 +482,61 @@ CargaSelectHospitales("#cmbEdicionHospitales");
 CargaSelectHospitalesActivos("#cmbHospitalesCatalogo");
 CargaSelectCursos("#cmbCursosCatalogo");
 } 
+////////////////Edicion ADMINISTRADORES////////////////////////////////////////////////////
+function GuardarActualizarAdministradores(idBotonGuardar,idTablaAsociada){
+	$(idBotonGuardar).click(function(e){
+	e.preventDefault(); //STOP default action
+	var formulario_id=$(idBotonGuardar).parent().attr('id');
+	var accion="";
+	if ($("#"+formulario_id+" input#id").val()==""){
+	accion="create";
+	}else{
+	accion="update";
+	}
+		$("#"+formulario_id+' input#accion').val(accion);
+			var postData = $("#"+formulario_id).serializeArray();
+			var formURL = $("#"+formulario_id).attr("action");
+			var a=$("#"+formulario_id+' :checkbox').is(":checked");
+			postData.push({name: "activo", value:a?"Si":"No"});
+			var nuevoElemento=0;
+			
+			postData.forEach(function(f){
+				if(f.value==""){
+				nuevoElemento=nuevoElemento+1;
+				}
+			;})
+			
+		if(postData[2].value!=""){
+				$.ajax({
+					url : formURL,
+					type: "POST",
+					data : postData,
+					success:function(data, textStatus, jqXHR){
+					// console.dir(textStatus);
+					// console.dir(data);
+					// console.dir(jqXHR);
+						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
+						{
+							$("#body-mensajes").html('<div class="alert alert-success" role="alert">El cambio en el administrador fué exitoso.</div>');
+							resetFormulario("#"+formulario_id);
+						}else{						//if fails      
+						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al actualizar al administrador.</div>');
+						}
+						setTimeout('wait("'+idTablaAsociada+'")',timeOut);
+						$('#mensajes').modal('show');
+						//data: return data from server
+					},
+					error: function(jqXHR, textStatus, errorThrown) 
+					{
+					$("#body-mensajes").html('<p class=bg-warning">'+errorThrown+'</p>');
+					$('#mensajes').modal('show');
+						//if fails      
+					}
+				});
+			}else{
+			alert("Por favor, complete todos los campos antes de continuar.");
+			}
+		
+		//});
+	});
+}

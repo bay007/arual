@@ -5,7 +5,6 @@ require "sistema/seguridad.php";
 error_reporting(-1);
 date_default_timezone_set('America/Mexico_City');setlocale(LC_ALL, "es_MX");
 
-
 if(isset($_GET['uuid'])){ 
 		$uuid=$_GET['uuid'];
 		$db = new Database;
@@ -27,7 +26,6 @@ if(isset($_GET['uuid'])){
 		}else{
 		echo ("Ésta solicitud de acceso ya fué usada ó bien ha caducado, genere otra de nuevo.");
 		}
-		
 }
 else{ 
 Echo "Acceso no autorizado";

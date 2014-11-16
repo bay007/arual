@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /*
  * @Author Rory Standley <rorystandley@gmail.com>
  * @Version 1.3
