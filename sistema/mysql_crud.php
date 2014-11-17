@@ -274,33 +274,33 @@ class Database{
 	// Public function to return the data to the user
     public function getResult(){
         $val = $this->result;
-	
-        $this->result = array();
-        $respuesta="";
+		// var_dump($val);
+        // $this->result = array();
+        // $respuesta="";
        
-        switch ($val[0]) {
-    case "insertar:ok":
-        $respuesta=$val[1];
-        break;
-	case "update:ok":
-        $respuesta=$val[1];
-        break;
-    case "borrar:ok":
-        	$respuesta=$val[1];
-        break;
-    case "1062":
-        $respuesta="Insert:Ya existe registro";
-        break;
-    case "900811":
-        $respuesta= "No hay tabla";
-        break;
-    case "1054":
-        $respuesta= "No hay atributo";
-        break;
-        default:
-       $respuesta=json_encode($val);
+        // switch ($val[0]) {
+    // case "insertar:ok":
+        // $respuesta=$val[1];
+        // break;
+	// case "update:ok":
+        // $respuesta=$val[1];
+        // break;
+    // case "borrar:ok":
+        	// $respuesta=$val[1];
+        // break;
+    // case "1062":
+        // $respuesta="Insert:Ya existe registro";
+        // break;
+    // case "900811":
+        // $respuesta= "No hay tabla";
+        // break;
+    // case "1054":
+        // $respuesta= "No hay atributo";
+        // break;
+        // default:
+       // $respuesta=json_encode($val);
        
-}
+// }
        return $val; 
         
         
