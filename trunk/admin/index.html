@@ -67,9 +67,9 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class=" menu">
+<!-- 						<li><a href="#"></a></li>
 						<li><a href="#"></a></li>
-						<li><a href="#"></a></li>
-						<li><a href="#"></a></li>
+						<li><a href="#"></a></li> -->
 						<li class="current"><a href="#">Administracion</a></li>
 					</ul>
 
@@ -142,6 +142,15 @@ var d = new Date();
 var n = d.getFullYear(); 
 $("#fecha").text("© "+n);
 
+function resetFormulario(idFormulario){
+	var entradas=$(idFormulario).find(" :input");
+	entradas.each (function(){
+	  //this.reset();
+	  $(this).val(null);
+	});
+}
+
+
 function SendMail(idBotonGuardar){
 	$(idBotonGuardar).click(function(e){
 	e.preventDefault(); //STOP default action
@@ -170,10 +179,11 @@ function SendMail(idBotonGuardar){
 					{
 						$("#body-mensajes").html('<div class="alert alert-success" role="alert">El email se ha enviado, no olvide revisar su bandeja de spam.</div>');
 					}else{						//if fails      
-						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">No se envió el email, posiblemente su email no esté dado de alta o activo.</div>'+data);
+						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">'+data+'.</div>');
 					}
 					$('#mensajes').modal('show');
 					$btn.button('reset');
+					resetFormulario("#"+formulario_id);
 				},
 				error: function(jqXHR, textStatus, errorThrown) 
 				{
@@ -190,6 +200,11 @@ function SendMail(idBotonGuardar){
 } 
 
 SendMail("#btnEmail");
-
+$(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });
 </script>
 </html>

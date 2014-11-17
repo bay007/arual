@@ -1,60 +1,30 @@
-﻿<!-- 
-
-
-
-<div class="panel panel-primary">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a class="accordion-toggle" id="centroArual" data-toggle="collapse" data-parent="#accordion" href="#collapse{c}">
-         {hospital}
-        </a><i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i>
-      </h4>
-    </div>
-    <div id="collapse{c}" class="panel-collapse collapse">
-      <div class="panel-body">
-        <strong><span class="glyphicon glyphicon-user"></span>
-			Persona de contacto:
-			</strong>
-			<div id="duracion" style="display: inline;">
-			{contacto}
-			</div>
-			<br>
-			<strong><span class="glyphicon glyphicon-envelope"></span>
-			Email:
-			</strong>
-			<div id="duracion" style="display: inline;">
-			{email}
-			</div>
-			<br>
-			<strong><span class="glyphicon glyphicon-earphone"></span>
-			Teléfono:
-			</strong>
-			<div id="duracion" style="display: inline;">
-			{telefono}
-			</div>
-			<br>
-			<strong><span class="glyphicon glyphicon-map-marker"></span>
-			Dirección:
-			</strong>
-			<div id="duracion" style="display: inline;">
-			{direccion}
-			</div>
-			<br>
-			<img src="logotipo/{logotipo}" height="50px"></img>
-      </div>
-    </div>
-  </div> -->
-<style type="text/css">
-
-
-</style>
-</head>
+<html lang="es">
+<head>
+	<style type="text/css">
+  .message
+    {
+        background-color: white;
+        color: blue;
+        height: auto;
+        margin-bottom: 5px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .sign
+    {
+        background-color: blue;
+        color: white;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        text-align: center;
+    }
+	</style>
+</head>	
 
 <body>
-<p>Recibimos una solicitud de acceso para administrar la pagina de ARUAL:</p>
-<p>Click  <a href="http://127.0.0.1/mios/arual4.0/admin.php?uuid={GUI}">aquí</a> para acceder.</p>
+<h1><p class="message">Recibimos una solicitud de acceso para administrar la página de ARUAL:</p></h1>
+	<p>Click  <a href="http://127.0.0.1/mios/arual4.0/admin.php?uuid={GUI}">aquí</a> para acceder.</p>
 
-<p>El link de acceso será valido por los proximos 30 minutos ({fCaducidad} horas).</p>
-
+	<p class="sign">El link de acceso será valido por los proximos 30 minutos ({fCaducidad} horas).</p>
 </body>
 </html>

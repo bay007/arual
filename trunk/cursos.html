@@ -1,24 +1,21 @@
 <div id="contenido" class="animated fadeInDown" >
   <!--==============================content================================-->
     <div class="row"> 
-		<div class="col-md-5 col-md-offset-1">
+		<div class="col-md-4 col-md-offset-1">
 			<div class="panel panel-primary">
 					<!-- Default panel contents -->
 				<div class="panel-heading">Ã‰sta es nuestra disponibilidad de cursos:</div>
 					<div class="panel-body">
 						<div id="centros" class="list-group primary">
-						<!-- 	<a href="#" class="list-group-item active"><span class="glyphicon glyphicon-hand-right"></span> SOPORTE VITAL BaSICO (BLS)</a>
-							<a href="#" class="list-group-item "><span class="glyphicon glyphicon-hand-right"></span> SALVACORAZONES PRIMEROS AUXILIOS CON RCP Y DEA</a>
-							<a href="#" class="list-group-item "><span class="glyphicon glyphicon-hand-right"></span> REANIMACIÓN CARDIOPULMONAR AVANZADA (ACLS)</a>
-							<a href="#" class="list-group-item "><span class="glyphicon glyphicon-hand-right"></span> REANIMACIÓN CARDIOPULMONAR AVANZADA  PARA PROFESIONALES EXPERTOS (ACLS PE)</a>-->
+						
 						</div>
 					</div>
 			</div>
 		</div>
                 
-		<div id="block-6" class="col-md-5 ">
+		<div id="block-6" class="col-md-6" style="display:none">
 			<div class="panel panel-primary">
-				<div class="panel-heading"><h2 class="tituloCurso" align="center"><!-- REANIMACIÓN CARDIOPULMONAR AVANZADA (ACLS) --></h2></div>
+				<div class="panel-heading"><h3 class="tituloCurso" align="center"><!-- REANIMACIÃ“N CARDIOPULMONAR AVANZADA (ACLS) --></h3></div>
 				<div class="panel-body">
 					<p class="p6" align="justify" style="display: inline;">
 						<strong>
@@ -26,17 +23,7 @@
 						Contenido:
 						</strong>
 						<div id="contenidoCuerpo" style="display: inline;">
-						<!-- El curso es teórico práctico y da un repaso de RCP con DEA en adultos y manejo
-						de paro respiratorio, revisión de casos de Síndrome coronario agudo y Stroke. También 
-						se realizan estaciones de destreza en donde se enseña la integración del equipo de reanimación 
-						en el manejo del paro cardiorespiratorio repasando los ritmos letales de Fibrilación 
-						ventricular/Taquicardia ventricular sin pulso, Actividad eléctrica sin pulso, Asistolia 
-						además de manejo de taquicardias y bradicardias con pulso estables e inestables.
-						En el transcurso del curso se realizan evaluaciones de habilidades que son requisito 
-						indispensable para la aprobación del mismo, además de una evaluación escrita en donde 
-						la calificación mínima aprobatoria es de 84%. Al final del curso, se entregan tarjetas 
-						avaladas por la American Heart Association a los alumnos 
-						que hayan completado en forma satisfactoria el curso.       -->
+						
 						</div>
 					</p>
 					
@@ -44,7 +31,7 @@
 						<strong>
 						<span class="glyphicon glyphicon-time"></span>
 						DuraciÃ³n:
-						</strong><div id="duracion" style="display: inline;"><!--  2 días (15 horas aproximadamente). --></div>
+						</strong><div id="duracion" style="display: inline;"><!--  2 dÃ­as (15 horas aproximadamente). --></div>
 					</p>
 
 					<p class="p6" align="justify" style="display: inline;">
@@ -53,54 +40,23 @@
 					   Requisitos:
 					   </strong>
 					   <div id="requisitos" style="display: inline;">
-					   <!-- 1.- Tener curso de Apoyo Vital Básico de la AHA vigente y aprobado.
-					   2.- Contestar autoevaluación en línea previamente al día del curso       -->
 					   </div>
 					</p>
-    
+   
 					<p class="p6" align="justify" style="display: inline;">
 						<strong><span class="glyphicon glyphicon-user"></span> PÃºblico dirigido:</strong>
 						 
 							<div id="publicoDirigido" style="display: inline;">
-						<!-- 	Profesionales del area de la salud, médicos, enfermeras, paramedicos, etc. -->
+						<!-- 	Profesionales del area de la salud, mÃ©dicos, enfermeras, paramedicos, etc. -->
 							</div>
 					</p>
 				</div>
 			</div>
-				
-				
+	
 			<div class="panel panel-primary">
 				<div class="panel-heading"><h3 align="center">Ubicaciones donde se puede tomar Ã©ste curso</h3></div>
 				<div class="panel-body" id="ubicacionesCursos">
-									<!-- 
-					<h5 id="h5"><a> <img src="images/gm.png"></img></a><div> Lugar: Hospital Español</div> </h5>
-						<p><strong><span class="glyphicon glyphicon-map-marker"></span>Direccion:</strong> Ejercito Nacional 613, Granada, 11520 Ciudad Mexico, Distrito Federal, México.</p>
-						<p>
-							<a class="link" href="#">
-							<strong>
-							Cupos disponibles en Ã©ste momento: {cupo}
-							</strong>
-							</a>
-						</p>
-						<strong><span class="glyphicon glyphicon-calendar"></span> Fecha y hora de aplicaciÃ³n :</strong> {faplicacion}
-						
-						<hr>
-	
-					<h5 id="h5"><a> <img src="images/gm.png"></img></a><div> Lugar: Hospital Españ¯¬¼ </div> </h5>
-						<p>
-							<strong><span class="glyphicon glyphicon-map-marker"></span>Direccion:
-							</strong> Ejercito Nacional 613, Granada, 11520 Ciudad Mexico, Distrito Federal, Mê¹©co.
-						</p>
-						<p>
-							<a class="link" href="#">
-							<strong>
-							Cupos disponibles en ê´´e momento: 23
-							</strong>
-							</a>
-						</p>
-						<strong><span class="glyphicon glyphicon-calendar"></span> Hora de aplicació® ¹ fecha:</strong> jueves  9 de octubre de 2014 a las 14:00:00 horas
-						<hr> -->
-						
+					
 				</div>
 			</div>
 		</div>
@@ -111,70 +67,31 @@
 <script>
 $(document).ready(function(){
 	$.ajax({
-				url : "sistema/cursos_.php",
-				type: "GET",
-				data : "accion=disponibilidad",
-				success:function(data, textStatus, jqXHR){
-				 //console.dir(textStatus);
-				 //console.dir(data);
-				//console.dir(jqXHR);
-					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data!="error")
-					{
-					$("#centros").html(data);
-						$.ajax({
-						  type: "GET",
-						  url: "js/cursos_.js",
-						  dataType: "script"
-						});
-					}
-				},
-				error: function(jqXHR, textStatus, errorThrown) 
+			url : "sistema/cursos_.php",
+			type: "GET",
+			data : "accion=disponibilidad",
+			success:function(data, textStatus, jqXHR){
+			 //console.dir(textStatus);
+			 //console.dir(data);
+			//console.dir(jqXHR);
+				if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data!="error")
 				{
-				$("#body-mensajes").html('<p class=bg-warning">'+errorThrown+'</p>');
-				$('#mensajes').modal('show');
-					//if fails      
+				$("#centros").html(data);
+					$.ajax({
+					  type: "GET",
+					  url: "js/cursos_.js",
+					  dataType: "script"
+					});
+				}else{
+				$("#centros").html("No hay cursos disponibles por el momento.");
 				}
-			});
+			},
+			error: function(jqXHR, textStatus, errorThrown) 
+			{
+			$("#body-mensajes").html('<p class=bg-warning">'+errorThrown+'</p>');
+			$('#mensajes').modal('show');
+				//if fails      
+			}
+		});
 });
-			
-			
-			
-			
-			
-			
-/*	
-$('.list-group-item').click(function(e){
-alert($(this).text());
-$('.list-group-item').removeClass('active');
-$(this).addClass("active");
-e.preventDefault();
-});
-
-	
-$( document ).ready(function() {
-
-
-$(".list-1").fadeIn("slow");
-	$(".list-1 li").click(function() {
-		var a=$( this ).text();
-
-			
- 	 	});
-
- $.ajax({
- 	url:"services.php?token=ZU5EZGhZelkwT1dJNVpETXdPVFE1Wm1aak9HRmxOMlpqWVRVelpHVXpOR0U9Y2JhMWZmNTRmODhjMTQwMzIyMjFlZmM4MmI5MDZkNzYzY2Y4MTExYmRhY2UwMjZjOTNhNzQ2MTc5NmEzYTIxMDJmNjI4MjAwNDk5MWFmOGVhZTU3ODFkYWVkZDIyMGI0TVRVNVpUY3dNbVJpWVRRMFltWTJZVFEyTm1WbU5XUTBNR0pqTURJNVlqTT0xODZjZTI1YzBjNDdlYTM0M2MyZGU3OGFiOTdhYjI4ZDU2NzQzNmE1NThjNGY3YzliOTBhMTFkNTZjNWZkNDA2MzNmYzk0N2I3ZDYxYTcwMWM4MzdhYmE5YmViYmE3MTk=eNDdhYzY0OWI5ZDMwOTQ5ZmZjOGFlN2ZjYTUzZGUzNGE=cba1ff54f88c14032221efc82b906d763cf8111bdace026c93a7461796a3a2102f6282004991af8eae5781daedd220b4MTU5ZTcwMmRiYTQ0YmY2YTQ2NmVmNWQ0MGJjMDI5YjM=186ce25c0c47ea343c2de78ab97ab28d567436a558c4f7c9b90a11d56c5fd40633fc947b7d61a701c837aba9bebba719&action=tipoCurso&tipo="+a,
- 	success:function(result){
- 	
- 	$("#block-6").slideUp(500,function(){
-			$(this).html(result);
-			$(this).slideDown(800);
- 	 		});		
- 	 	}
-  });
-
-
-
-
-});
-*/	
 </script>

@@ -21,17 +21,23 @@ $datos=$_POST;
 $db->disconnect();
   switch ($accion) {
     case 'update':
-		$db->update("catalogo_cursos",$datos,"id=".$id);
+		$db->update("catalogo_cursos",$datos,"id=".$id);$db->disconnect();
 		 echo $db->numRows();
 		//
         break;
     case 'delete':
-         $db->delete("catalogo_cursos","id=".$id);
-		 echo $db->numRows();
+         $db->delete("edicion_cursos","fkIDCc=".$id);
+		 if($db->numRows()>0){
+		 $db->delete("catalogo_cursos","id=".$id);
+			if($db->numRows()==1){
+			echo 1;
+			}
+		 }
+		 $db->disconnect();
 		 //echo var_dump($id);
         break;
     case 'create':
-        $db->insert("catalogo_cursos",$datos);
+        $db->insert("catalogo_cursos",$datos);$db->disconnect();
 		 echo $db->numRows();
         break;
 	}
@@ -41,9 +47,14 @@ $db->disconnect();
 		$db = new Database;
 		$db->connect();
 		@$db->select("catalogo_cursos","distinct publico_dirigido");
-		@$detalleCurso=$db->getResult();
-		$db->disconnect();
-		echo json_encode($detalleCurso);
+			if(($db->numRows())>1){
+			@$detalleCurso=$db->getResult();
+			$db->disconnect();
+			echo json_encode($detalleCurso);
+			}else{
+			$detalleCurso=array(array("publico_dirigido"=>"Público en general."),array("publico_dirigido"=>"Sólo profesionales del área de la salud."));
+			echo json_encode($detalleCurso);
+			}
 		}
 	}else{ 
 		$db = new Database;
@@ -51,7 +62,11 @@ $db->disconnect();
 		$db->select("catalogo_cursos","id,nombre_curso,contenido,duracion,requisitos,publico_dirigido,activo");
 		$catalogo_cursos=$db->getResult();
 		$db->disconnect();
-		echo json_encode($catalogo_cursos);
+			if(($db->numRows())>0){
+			echo json_encode($catalogo_cursos);
+			}else{
+			echo 1;
+			}
 		}
 }
 ?>

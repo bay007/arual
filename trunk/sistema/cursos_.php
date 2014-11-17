@@ -16,12 +16,16 @@ try {
 		@$db->select("edicion_cursos","distinct nombre_curso","catalogo_cursos cc",'fkidcc=cc.id and edicion_cursos.activo="Si" and date(faplicacion) >= date(now())');
 		@$cursos_disponibles=$db->getResult();
 		$db->disconnect();
-		$entrada="";
-		$disponibilidad='<a class="list-group-item "><span class="glyphicon glyphicon-hand-right"></span> {curso}</a>';
-			foreach($cursos_disponibles as $v){
-			  @$entrada=@$entrada.str_ireplace('{curso}',@$v["nombre_curso"],$disponibilidad);
+		if($db->numRows()>=1){
+			$entrada="";
+			$disponibilidad='<a class="list-group-item "><span class="glyphicon glyphicon-hand-right"></span> {curso}</a>';
+				foreach($cursos_disponibles as $v){
+				  @$entrada=@$entrada.str_ireplace('{curso}',@$v["nombre_curso"],$disponibilidad);
+				}
+				echo @trim($entrada);
+			}else{
+			echo "error";
 			}
-			echo @trim($entrada);
 		}
 
 	if(isset($_GET["accion"])){
@@ -48,7 +52,7 @@ try {
 		@$db->disconnect();
 
 		$entrada="";
-		$disponibilidad='<sup>Última actualización: {updated}</sup><h5><a> <img src="images/gm.png"></img></a></h5><div><strong> Lugar: </strong>{hospital}-({lespecifico})</div> ';
+		$disponibilidad='<sup>Última actualización: {updated}</sup><h5 id="{hospital}"><a> <img src="images/gm.png"></img></a></h5><div><strong> Lugar: </strong>{hospital} - ({lespecifico})</div> ';
 		$disponibilidad.='<p><strong><span class="glyphicon glyphicon-map-marker"></span>Dirección:</strong>{direccion}.</p>';
 		$disponibilidad.='<p><a class="link" href="#"><strong>Cupos disponibles en éste momento: {cupo}</strong></a></p>';
 		$disponibilidad.='<strong><span class="glyphicon glyphicon-calendar"></span> Fecha y hora de aplicación :</strong> {faplicacion}';
@@ -63,7 +67,7 @@ try {
 				@$entrada=str_ireplace('{cupo}',@$v["cupo"],$entrada);
 				@$entrada=str_ireplace('{faplicacion}',@$v["faplicacion"],$entrada);
 			}
-		echo ($entrada.'<script>$("h5").click(function(){var h5=$(this);$.get( "contacto.html", function( data ) {$( "#contenido" ).replaceWith( data.replace("{lugar}",h5.text().split(":")[1].split("-")[0].trim()) );});});</script>');
+		echo ($entrada.'<script>$("h5").click(function(){var h5=$(this);$.get( "contacto.html", function( data ) {$( "#contenido" ).replaceWith( data.replace("{lugar}",h5.attr("id").trim()) );});});</script>');
 		}
 	}
 }

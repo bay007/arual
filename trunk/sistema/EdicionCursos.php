@@ -52,8 +52,12 @@ if(!$bandera){
 $db = new Database;
 $db->connect();
 $db->select("edicion_cursos","edicion_cursos.id,hospital,lespecifico,cupo,faplicacion,haplicacion,nombre_curso,edicion_cursos.activo","catalogo_centros join catalogo_cursos","catalogo_centros.id=edicion_cursos.fkIDCh AND catalogo_cursos.id=edicion_cursos.fkIDCc");
-$catalogo_cursos=$db->getResult();
-$db->disconnect();
-echo json_encode($catalogo_cursos);
+	$db->disconnect();
+	if($db->numRows()>0){
+	$catalogo_cursos=$db->getResult();
+	echo json_encode($catalogo_cursos);
+	}else{
+	echo 1;
+	}	
 }
 ?>

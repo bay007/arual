@@ -1,5 +1,5 @@
-var timeOut=1000;
-
+$.ajaxSetup({ cache:false });
+var timeOut=750;
 function seleccionaTAGSelect(idSelect,datoABuscar){
 $(idSelect+" option").each(function(){
 	if($(this).data("texto")==datoABuscar){
@@ -77,15 +77,32 @@ function GuardarActualizar(idBotonGuardar,idTablaAsociada){
 			var formURL = $("#"+formulario_id).attr("action");
 			var a=$("#"+formulario_id+' :checkbox').is(":checked");
 			postData.push({name: "activo", value:a?"Si":"No"});
-			var nuevoElemento=0;
+			var nuevoElemento=true;
 			
-			postData.forEach(function(f){
-				if(f.value==""){
-				nuevoElemento=nuevoElemento+1;
+			postData.forEach(function(e){
+				if((e.name=="nombre_curso"&&(e.value==""))){
+				nuevoElemento=false;
+				alert('Escriba un nombre para el curso.');
+				}
+				if(e.name=="contenido"&&(e.value=="")){
+				nuevoElemento=false;
+				alert('Escriba el contenido del curso.');
+				}
+				if(e.name=="duracion"&&(e.value=="")){
+				nuevoElemento=false;
+				alert('Escriba la duración del curso.');
+				}
+				if(e.name=="requisitos"&&(e.value=="")){
+				nuevoElemento=false;
+				alert('Esciba los requisitos.');
+				}
+				if(e.name=="publico_dirigido"&&(e.value==""||e.value=="-1")){
+				nuevoElemento=false;
+				alert('Seleccione a quién va dirigido el curso.');
 				}
 			;})
 			
-		if(!(3<=nuevoElemento)){
+		if((nuevoElemento)){
 				$.ajax({
 					url : formURL,
 					type: "POST",
@@ -102,7 +119,11 @@ function GuardarActualizar(idBotonGuardar,idTablaAsociada){
 						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al actualizar el curso.</div>');
 						
 						}
-						setTimeout('wait("'+idTablaAsociada+'")',timeOut);
+						// setTimeout('wait("'+idTablaAsociada+'")',timeOut);
+						var tablaa=$(".tblGENERAL");recargarCombos();
+						tablaa.each(function(){
+							setTimeout('wait("#'+$(this).attr("id")+'")',timeOut);
+						;})
 						$('#mensajes').modal('show');
 						//data: return data from server
 					},
@@ -114,7 +135,7 @@ function GuardarActualizar(idBotonGuardar,idTablaAsociada){
 					}
 				});
 			}else{
-			alert("Por favor, complete todos los campos antes de continuar.");
+			// alert("Por favor, complete todos los campos antes de continuar.");
 			}
 		
 		//});
@@ -144,7 +165,6 @@ function resetFormulario(idFormulario){
 	  $(this).val(null);
 	});
 $(idFormulario+' :checkbox').prop("checked",false);
-recargarCombos();
 $('select').val(-1);
 }
 
@@ -187,7 +207,12 @@ var formURL = $("#"+formulario_id).attr("action");
 					}else{						//if fails      
 					$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al eliminar el elemento,inténtelo de nuevo por favor.</div>');
 					}
-					setTimeout('wait("'+idTablaAsociada+'")',timeOut);
+					// setTimeout('wait("'+idTablaAsociada+'")',timeOut);
+					var tablaa=$(".tblGENERAL");
+					recargarCombos();
+					tablaa.each(function(){
+							setTimeout('wait("#'+$(this).attr("id")+'")',timeOut);
+					;})
 					$('#mensajes').modal('show');
 					//data: return data from server
 				},
@@ -209,9 +234,8 @@ function CargaSelectHospitales(IdSelect){
 		dataType:'json',
 		success: function(data) {
 		   var select = $(IdSelect);
-		   options = '<option value="-1">Seleccion</option>';
-		   select.empty();      
-
+		select.empty();		  
+		  options = '<option value="-1">Seleccion</option>';
 		   for(var i=0;i<data.length; i++)
 		   {
 			options += "<option data-texto='"+data[i].hospital+"' value='"+data[i].id+"'>"+ data[i].hospital+"</option>";              
@@ -302,15 +326,32 @@ function GuardarActualizarCentro(idBotonGuardar){
 			//var logotipo=$("#"+formulario_id).find("input[type=hidden]").val();
 			postData.push({name: "activo", value:a?"Si":"No"});
 			//postData.push({name: "logotipo", value:logotipo});
-			var nuevoElemento=0;
+			var nuevoElemento=true;
 			
 			postData.forEach(function(e){
-				if(e.value==""){
-				nuevoElemento=nuevoElemento+1;
+				if((e.name=="hospital"&&(e.value==""))){
+				nuevoElemento=false;
+				alert('Escriba un nombre para el nuevo centro ARUAL.');
+				}
+				if(e.name=="direccion"&&(e.value=="")){
+				nuevoElemento=false;
+				alert('Proporcione una dirección.');
+				}
+				if(e.name=="contacto"&&(e.value=="")){
+				nuevoElemento=false;
+				alert('Defina una persona de contacto.');
+				}
+				if(e.name=="telefono"&&(e.value=="")){
+				nuevoElemento=false;
+				alert('Defina los numeros telefónicos.');
+				}
+				if(e.name=="email"&&(e.value=="")){
+				nuevoElemento=false;
+				alert('Defina una dirección de e-mail.');
 				}
 			;})
 			
-		if((5>=nuevoElemento)){
+		if((nuevoElemento)){
 			$.ajax({
 				url : formURL,
 				type: "POST",
@@ -338,7 +379,7 @@ function GuardarActualizarCentro(idBotonGuardar){
 				}
 			});
 			}else{
-			alert("Por favor, complete todos los campos del nuevo centro antes de continuar.");
+			// alert("Por favor, complete todos los campos del nuevo centro antes de continuar.");
 			}
 		
 		//});
@@ -384,15 +425,37 @@ function GuardarActualizarEdicion(idBotonGuardar,idTablaAsociada){
 			
 			var a=$("#"+formulario_id+' :checkbox').is(":checked");
 			postData.push({name: "activo", value:a?"Si":"No"});
-			var nuevoElemento=0;
+			var nuevoElemento=true;
 			
 			postData.forEach(function(e){
-				if(e.value==""){
-				nuevoElemento=nuevoElemento+1;
+				if((e.name=="cupo"&&(e.value==""))){
+				nuevoElemento=false;
+				alert('Escriba el cupo de alumnos.');
 				}
+				if(e.name=="fkIDCh"&&(e.value==""||e.value=="-1")){
+				nuevoElemento=false;
+				alert('Seleccione un centro ARUAL.');
+				}
+				if(e.name=="lespecifico"&&(e.value==""||e.value=="-1")){
+				nuevoElemento=false;
+				alert('Escriba un lugar específico.');
+				}
+				if(e.name=="faplicacion"&&(e.value=="Seleccione fecha"||e.value=="-1")){
+				nuevoElemento=false;
+				alert('Seleccione una fecha.');
+				}
+				if(e.name=="haplicacion"&&(e.value=="Seleccione hora"||e.value=="-1")){
+				nuevoElemento=false;
+				alert('Seleccione una hora.');
+				}
+				if(e.name=="fkIDCc"&&(e.value==""||e.value=="-1")){
+				nuevoElemento=false;
+				alert('Seleccione un curso.');}
+				
+				
 			;})
 			
-		if(!(3<=nuevoElemento)){
+		if((nuevoElemento)){
 			$.ajax(
 			{
 				url : formURL,
@@ -408,8 +471,11 @@ function GuardarActualizarEdicion(idBotonGuardar,idTablaAsociada){
 					{
 						$("#body-mensajes").html('<div class="alert alert-success" role="alert">El cambio en el centro afiliado ARUAL fue exitoso.</div>');
 						$('#mensajes').modal('show');
-						
-						setTimeout('wait("'+idTablaAsociada+'")',timeOut);
+						// setTimeout('wait("'+idTablaAsociada+'")',timeOut);
+						var tablaa=$(".tblGENERAL");recargarCombos();
+					tablaa.each(function(){
+						setTimeout('wait("#'+$(this).attr("id")+'")',timeOut);
+					;})
 					}else{						//if fails      
 					$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al actualizar la edición a un curso.</div>');
 					}
@@ -425,7 +491,7 @@ function GuardarActualizarEdicion(idBotonGuardar,idTablaAsociada){
 				}
 			});
 			}else{
-			alert("Por favor, complete todos los campos antes de continuar y seleccione un lugar en el mapa.");
+			// alert("Por favor, complete todos los campos antes de continuar y seleccione un lugar en el mapa.");
 			}
 		
 		//});
@@ -474,12 +540,11 @@ function CargaSelectHospitalesActivos(IdSelect){
 function wait(idTablaAsociada){
 $(idTablaAsociada).bootstrapTable('refresh');
 console.log('Refreshed...');
-recargarCombos();
 }
 
 function recargarCombos(){
-CargaSelectHospitales("#cmbEdicionHospitales");  
 CargaSelectHospitalesActivos("#cmbHospitalesCatalogo");
+CargaSelectHospitales("#cmbEdicionHospitales");  
 CargaSelectCursos("#cmbCursosCatalogo");
 } 
 ////////////////Edicion ADMINISTRADORES////////////////////////////////////////////////////
@@ -522,7 +587,11 @@ function GuardarActualizarAdministradores(idBotonGuardar,idTablaAsociada){
 						}else{						//if fails      
 						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al actualizar al administrador.</div>');
 						}
-						setTimeout('wait("'+idTablaAsociada+'")',timeOut);
+						// setTimeout('wait("'+idTablaAsociada+'")',timeOut);
+						var tablaa=$(".tblGENERAL");recargarCombos();
+						tablaa.each(function(){
+							setTimeout('wait("#'+$(this).attr("id")+'")',timeOut);
+						;})
 						$('#mensajes').modal('show');
 						//data: return data from server
 					},
@@ -536,7 +605,6 @@ function GuardarActualizarAdministradores(idBotonGuardar,idTablaAsociada){
 			}else{
 			alert("Por favor, complete todos los campos antes de continuar.");
 			}
-		
 		//});
 	});
 }
