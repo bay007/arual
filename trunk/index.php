@@ -42,24 +42,17 @@
 			})		
 		});
 	</script>
-	<!--[if lt IE 8]>
-       <div style=' clear: both; text-align:center; position: relative;'>
-         <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
-           <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
-        </a>
-      </div>
-    <![endif]-->
-    <!--[if lt IE 9]>
-   		<script type="text/javascript" src="js/html5.js"></script>
-    	<link rel="stylesheet" type="text/css" media="screen" href="css/ie.css">
-	<![endif]-->
+
 </head>
 <body>
 <div class="container main ">
-<div style="height: 125px;">
-<div id="logo" class="col-md-6 col-md-offset-1 animated zoomIn" >
-<h1><a href="index.php"><img class="img-responsive" src="images/Imagen1.png" alt="" style="height: 120px;position: fixed;"/></a></h1>
-</div>
+<div style="height: 125px;" class="row">
+	<div id="logo" class="col-xs-5 col-xs-offset-0 col-md-5 col-md-offset-1 animated zoomIn" >
+		<h1><a href="index.php"><img class="img-responsive" src="images/Imagen1.png" alt="" style="height: 120px;position:fixed;"/></a></h1>
+	</div>
+	<div id="logo" class="col-xs-5 col-sm-offset-8 animated zoomIn" >
+		<img class="img-responsive" src="images/aha_logo4.png" alt="" style="height: 120px;position:fixed;"/>
+	</div>
 </div>
 
 
@@ -73,7 +66,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-		   <span class="icon-bar"></span>
+		<span class="icon-bar"></span>
       </button>
 	  <ul class=" menu">
       <li data-url="index.php" class="home-page current"><a ><span></span></a></li>
@@ -82,27 +75,22 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class=" menu">
-       
-       <li data-url="nosotros.html"><a >Quienes somos</a></li>
+		<ul class=" menu">
+			<li data-url="nosotros.html"><a >Quienes somos</a></li>
 			<li data-url="cursos.html" ><a>Cursos</a></li>
-			<li data-url="contacto.html" ><a >Contacto</a></li>
-		
-      </ul>
-<div class="social-icons ">
-                    <span></span>
-                    <a href="#" class="icon-3 "></a>
-                    <a href="#" class="icon-2"></a>
-                    <a href="#" class="icon-1"></a>
-                </div>
- 
-    </div><!-- /.navbar-collapse -->
+			<li data-url="contacto.html"><a >Contacto</a></li>
+		</ul>
+		<div class="social-icons ">
+		<!--<a href="#" class="icon-3 "></a>-->
+			<a href="#" class="icon-2"></a>
+			<a href="#" class="icon-1"></a>
+		</div>
+     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
  </div>
-<div id="contenido" class="animated fadeInRight"> 	
-	<div  class="col-md-10 col-md-offset-1"> 	
-		<div class="col-md-8 col-md-offset-2">
+<div id="contenido" class="animated fadeInRight"> 
+		<div class="col-md-8 col-md-offset-0">
 		   <div id="slide" class="box-shadow">
 					<div class="slider">
 						<ul class="items">
@@ -112,62 +100,55 @@
 						</ul>
 					</div>
 				</div>
-		 </div>
-	</div>
+		</div>
+		<div class="logotipos_asociados">
+			<div class="col-xs-2 col-md-offset-0">
+				<img class="img-responsive img-thumbnail" src="logotipo/Angeles Lindavista.jpg" alt="" style="height:78px;"/>
+			</div>
+			<div class="col-xs-2 col-md-offset-0">
+				<img class="img-responsive img-thumbnail" src="logotipo/Hospital Español.JPG" alt="" style="height:78px;"/>
+			</div>
+				
+			<div class="col-xs-2 col-md-offset-0">
+				<img class="img-responsive img-thumbnail" src="logotipo/Angeles Lindavista.jpg" alt="" style="height:78px;"/>
+			</div>
+			<div class="col-xs-2 col-md-offset-0">
+				<img class="img-responsive img-thumbnail" src="logotipo/Hospital Español.JPG" alt="" style="height:78px;"/>
+			</div>
+		
+			<div class="col-xs-2 col-md-offset-0">
+				<img class="img-responsive img-thumbnail" src="logotipo/Angeles Lindavista.jpg" alt="" style="height:78px;"/>
+			</div>
+			<div class="col-xs-2 col-md-offset-0">
+				<img class="img-responsive img-thumbnail" src="logotipo/Hospital Español.JPG" alt="" style="height:78px;"/>
+			</div>
+			<div class="col-xs-2 col-md-offset-0">
+				<img class="img-responsive img-thumbnail" src="logotipo/Hospital Español.JPG" alt="" style="height:78px;"/>
+			</div>
+			<div class="col-xs-2 col-md-offset-0">
+				<img class="img-responsive img-thumbnail" src="logotipo/Hospital Español.JPG" alt="" style="height:78px;"/>
+			</div>
+		</div>
 </div>
 </div>	
 
-<div class="modal fade" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        <p>One fine body&hellip;</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Confirmar</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-	<footer>
-		<p id="fecha"></p>
-        <p><a>ARUAL</a> Medicina de reanimación.</p>
-    </footer>
+<footer style="height:100px">
+	<p id="fecha"></p>
+	<p><a style="font-size:19px;">ARUAL</a> Medicina de reanimación.</p>
+	<p>Centro de entrenamiento internacional.</p>
+</footer>
 
 
 </body>
- <script >$(document).ready(function() {	
-	
-	/* 
-      $('.smooth').click(function() { var $target = $(this.hash);
-      $target = $target.length? $target : $('[name=' + this.hash.slice(1) +']');
-      if ($target.length) { 
-      var targetOffset = $target.offset().top; $('html,body').animate({scrollTop:targetOffset}, 1800); return false; } });
-	 
-$('#logo_footer').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-	  $.get('inicio.html', function( data ) {
-					$( "#contenido" ).replaceWith( data );
-				});
-});		 
-
-	  
-	  $('#logo_footer').addClass('animated rubberBand');
-	  $('#logo').addClass('animated swing'); */
-$('#logo').css({ "display":" none" });
+ <script >
+ var firstVisit=true;
+ $(document).ready(function() {	
+ $('#logo').css({ "display":" none" });
 	 $('.menu li a').click(function(event){
-	
 		var url=$(this).parent().data().url;
-		
 		event.preventDefault();
 		$('.menu li').removeClass("current");
 			$(this).parent().addClass("current");
-			
 			
 			if(url=="index.php"){
 			window.location.href=url;
@@ -181,20 +162,14 @@ $('#logo').css({ "display":" none" });
 					});
 				});
 			}
-			
 	});
-	
-	
 	$('.navbar').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
 				 $('#logo').css({ "display":" inherit" });
 				 $('#logo').addClass('animated zoomIn'); 
 				 
 				});
-	
-	
-	  
-   }); 
-  var d = new Date();
+	}); 
+var d = new Date();
 var n = d.getFullYear(); 
 $("#fecha").text("© "+n); 
   </script>

@@ -7,76 +7,14 @@
 					<div class="panel-heading">Ubicación</div>
 						<div class="panel-body">
 							<div id="map-canvas" style="width:100%;height:480px;"></div>
-							<input id="lugar" type="hidden" value="{lugar}" />
+							<input id="lugar" type="hidden" value="{lugar}"/>
 						</div>
 				</div>
 			</div>
-		
-		
-		
 			<div class="col-md-5">
 				<div class="panel panel-primary">
 					<div class="panel-heading">Centros ARUAL autorizados</div>
 						<div class="panel-body" id="detallesCuerpo">
-						<!-- 	<div id="centros" class="list-group primary">
-								<a href="#" class="list-group-item active"><span class="glyphicon glyphicon-hand-right"></span> Hospital Español </a>
-								<a href="#" class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> Angeles Lindavista</a>
-								<a href="#" class="list-group-item"><span class="glyphicon glyphicon-hand-right"></span> Angeles Lomas</a>
-							</div> -->
-							<!--<div id="accordion" class="panel-group">
-								<div class="panel panel-primary">
-									<div class="panel-heading">
-										<h4 class="panel-title">
-											<a id="centoArual" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Nuevo Hospital</a>
-										</h4>
-									</div>
-									<div id="collapseOne" class="panel-collapse collapse" >
-										<div class="panel-body">
-											<strong><span class="glyphicon glyphicon-user"></span>
-											Persona de contacto:
-											</strong>
-											<div id="duracion" style="display: inline;">
-											{contacto}
-											</div>
-											<br>
-											<strong><span class="glyphicon glyphicon-envelope"></span>
-											Email:
-											</strong>
-											<div id="duracion" style="display: inline;">
-											{email}
-											</div>
-											<br>
-											<strong><span class="glyphicon glyphicon-earphone"></span>
-											TelÃ©fono:
-											</strong>
-											<div id="duracion" style="display: inline;">
-											{telefono}
-											</div>
-											<br>
-											<strong><span class="glyphicon glyphicon-map-marker"></span>
-											DirecciÃ³n:
-											</strong>
-											<div id="duracion" style="display: inline;">
-											{direccion}
-											</div>
-											<br>
-											<img src="{logotipo}" height="50px"></img>
-										</div>
-									</div>
-								</div> 
-								<div class="panel panel-primary">
-									<div class="panel-heading">
-										<h4 class="panel-title">
-											<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">2. What is Twitter Bootstrap?</a>
-										</h4>
-									</div>
-									<div id="collapseTwo" class="panel-collapse collapse ">
-										<div class="panel-body">
-											<p>Twitter Bootstrap is a powerful front-end framework for faster and easier web development. It is a collection of CSS and HTML conventions. <a href="http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/" target="_blank">Learn more.</a></p>
-										</div>
-									</div>
-								</div>
-							</div>		-->		
 						</div>
 				</div>
 			</div>
@@ -111,14 +49,12 @@ $.ajax({
 		}
 	});
 }
-
-
 $.getScript('https://maps.googleapis.com/maps/api/js?v=3.exp&callback=initialize');
 var hospital_ico="data:image_angeles/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAlCAYAAAAjt+tHAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAMnSURBVHjavFi/b9NAFD6fndQkTilCzF1ZoER0iVgjwcgCqBISC7Cy868ABSQooiyoU7uwoSygij+hCwsqgcpN7fjH8d71XXK4tmM7Tk96uvPFft/n957fvRej3+8zGAaISdLQ1rhfxxAgEUmgrYVFIDg3QWySJhHgNRGICXAM4pHgOrQICAFbIMs0LxGpOkcI4oOMQI6UZRQBm8CvcM4HYRgywzCYEILBtZxRcA9lYlchchH1e4MgYL7vM8dxeppVpAUaRKAFDwxut5vsruOw1aZZ6+sfjCP22R2z7Z+/Bp1O5zq5weeaC5aiKALwZu3gOFAn6m610MPSxTLOuBbxFppsEeA6CcuSoaVcLwkYKtp1ny1qxHGslhJ7ZqSfPHvOnGs3SgMdfnrHVvZ2cgOTJb/ztKiuAo7j8r2H6RkpgWHlsaMn8Ae5jB7fn2ybLz6e7scRi55uTPdfbk+fKzAKJZvc733q07PEayGAyafGICwdAwVUljuVEhjzHTZhSAdddQtUPnCiJw+qnct0ptRjgRpGZQtMPrfE5zkXgaxUXC04KxDIAlrkGXHuMZCbBzJTcaVX4zW5QCOlB15WQM71GaYRiL/syjM8zsr5Kec9yvD9Zj2JSGyBoq1TZVEJDyyXsICgClVWwOcYhIgpuNalhFiOY/W6qIG6sfClHkHicq1j8bFux9J5ESRUWU4W8AkzsqhXwxp91G63e1i379g2azQa/yl4dNFmGysXCoF9+HPC3oCo5gZnFcTg5h51R4gZWGQBT7VL1DSo1sxQBz4o/IrzLBII/no4QqBb5HMhfc15sjXzlAWUC1RgeInm1KKeYR1IfMsjgeBv/3oIvk6WDUmymlNJQNBNQmsgzQQBtIgNJLrwdvtpJLQ372I1r1qvBIHU9pxp4OHu6iVfKb1zMDQ0Ao6MWs7XNn8f/9BJIPirQxe7njUysUvik06h6SyeiPBBeCA8k3pNswsk9tU1rBG8Ows8NS/QPyRFKk/dEpjoHNd1v8vmxXFuEuiRDl6kYCxaESkX6VksAOCrdI0BdUwWKAxetiTTSai1lfj3Y1wGHMc/AQYAUQRrpRjmzvIAAAAASUVORK5CYII=";
 var mapa=null;
 var marker=null;
 var centro=null;
-function initialize() {
+function initialize(){
 	centro=new google.maps.LatLng(19.417069662, -99.239308834);
 	var mapOptions = {
 		zoom: 12,
@@ -131,21 +67,23 @@ function initialize() {
 			  map: mapa,
 			  icon: hospital_ico,
 			  //animation: google.maps.Animation.BOUNCE,
-			  title: 'Centro Arual'
+			  title: 'Centro ARUAL afilidado.'
 		  });
 			//mostramos la ubicacion si se carga el mapa desde CURSOS
-		  if($("#lugar").val()!="{lugar}"){
-			var nombre_hospital=$("#lugar").val().trim();
-			detalleUbicacion(nombre_hospital);
+	if($("#lugar").val()!="{lugar}"){
+				var nombre_hospital=$("#lugar").val().trim();
+				detalleUbicacion(nombre_hospital);
 				var entradas=$("#detallesCuerpo").find("a");
 					entradas.each (function(e){
 						if($(this).text().trim()==nombre_hospital){
 							$($(this).attr("href")).collapse('show'); 
 						}  
 					});
+			}
 		}
-}
 
+			
+			
 			$.ajax({
 				url : "sistema/contacto_.php",
 				type: "GET",
@@ -171,7 +109,4 @@ function initialize() {
 					//if fails      
 				}
 			});
-
-
-//google.maps.event.addDomListener(window, 'load', initialize);
 </script>

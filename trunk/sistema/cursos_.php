@@ -5,11 +5,7 @@ header('Content-Type: text/html; charset=UTF-8');
 include("mysql_crud.php");
  error_reporting(-1);
  
-try {
-// if (!isset($_GET["activo"]))
-// {
-    // $_GET['activo'] = '0';
-// }
+try{
 		if($_GET['accion']=="disponibilidad"){
 		$db = new Database;
 		$db->connect();
@@ -30,11 +26,10 @@ try {
 
 	if(isset($_GET["accion"])){
 		if($_GET['accion']=="detalleCurso"){
-		$nombre_cursos=trim(urldecode($_GET['nombre_cursos']));
-		
+		$nombre_cursos=trim(($_GET['nombre_cursos']));
 		$db = new Database;
 		$db->connect();
-		@$db->select("catalogo_cursos","contenido,duracion,requisitos,publico_dirigido","edicion_cursos ec"," nombre_curso like '%".$nombre_cursos."%' and ec.activo="+'"Si"'+" and ec.fkIDCc=catalogo_cursos.id");
+		@$db->select("catalogo_cursos","contenido,duracion,requisitos,publico_dirigido","edicion_cursos ec"," nombre_curso like '%$nombre_cursos%' and ec.fkIDCc=catalogo_cursos.id and ec.activo='Si'");
 		@$detalleCurso=$db->getResult();
 		$db->disconnect();
 		echo json_encode($detalleCurso);
@@ -55,7 +50,7 @@ try {
 		$disponibilidad='<sup>Última actualización: {updated}</sup><h5 id="{hospital}"><a> <img src="images/gm.png"></img></a></h5><div><strong> Lugar: </strong>{hospital} - ({lespecifico})</div> ';
 		$disponibilidad.='<p><strong><span class="glyphicon glyphicon-map-marker"></span>Dirección:</strong>{direccion}.</p>';
 		$disponibilidad.='<p><a class="link" href="#"><strong>Cupos disponibles en éste momento: {cupo}</strong></a></p>';
-		$disponibilidad.='<strong><span class="glyphicon glyphicon-calendar"></span> Fecha y hora de aplicación :</strong> {faplicacion}';
+		$disponibilidad.='<strong><span class="glyphicon glyphicon-calendar"></span> Fecha y hora:</strong> {faplicacion}';
 		$disponibilidad.='<hr>';
 
 			foreach($centrosConCurso as $v){
@@ -67,7 +62,11 @@ try {
 				@$entrada=str_ireplace('{cupo}',@$v["cupo"],$entrada);
 				@$entrada=str_ireplace('{faplicacion}',@$v["faplicacion"],$entrada);
 			}
-		echo ($entrada.'<script>$("h5").click(function(){var h5=$(this);$.get( "contacto.html", function( data ) {$( "#contenido" ).replaceWith( data.replace("{lugar}",h5.attr("id").trim()) );});});</script>');
+		echo ($entrada.'<script>$("h5").click(function(){var h5=$(this);
+		$.get( "contacto.html", function( data ) {
+		$("#contenido").replaceWith( data.replace("{lugar}",h5.attr("id").trim()));
+			});
+		});</script>');
 		}
 	}
 }
