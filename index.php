@@ -45,7 +45,7 @@
 
 </head>
 <body>
-<div class="container main ">
+<div class="container main">
 <div style="height: 125px;" class="row">
 	<div id="logo" class="col-xs-5 col-xs-offset-0 col-md-5 col-md-offset-1 animated zoomIn" >
 		<h1><a href="index.php"><img class="img-responsive" src="images/Imagen1.png" alt="" style="height: 120px;position:fixed;"/></a></h1>
@@ -89,7 +89,7 @@
   </div><!-- /.container-fluid -->
 </nav>
  </div>
-<div id="contenido" class="animated fadeInRight"> 
+<div id="contenido" class="animated fadeInRight" style="min-height:480px;"> 
 		<div class="col-md-8 col-md-offset-0">
 		   <div id="slide" class="box-shadow">
 					<div class="slider">
@@ -101,33 +101,22 @@
 					</div>
 				</div>
 		</div>
-		<div class="logotipos_asociados">
-			<div class="col-xs-2 col-md-offset-0">
-				<img class="img-responsive img-thumbnail" src="logotipo/Angeles Lindavista.jpg" alt="" style="height:78px;"/>
-			</div>
-			<div class="col-xs-2 col-md-offset-0">
-				<img class="img-responsive img-thumbnail" src="logotipo/Hospital Español.JPG" alt="" style="height:78px;"/>
-			</div>
-				
-			<div class="col-xs-2 col-md-offset-0">
-				<img class="img-responsive img-thumbnail" src="logotipo/Angeles Lindavista.jpg" alt="" style="height:78px;"/>
-			</div>
-			<div class="col-xs-2 col-md-offset-0">
-				<img class="img-responsive img-thumbnail" src="logotipo/Hospital Español.JPG" alt="" style="height:78px;"/>
-			</div>
 		
-			<div class="col-xs-2 col-md-offset-0">
-				<img class="img-responsive img-thumbnail" src="logotipo/Angeles Lindavista.jpg" alt="" style="height:78px;"/>
-			</div>
-			<div class="col-xs-2 col-md-offset-0">
-				<img class="img-responsive img-thumbnail" src="logotipo/Hospital Español.JPG" alt="" style="height:78px;"/>
-			</div>
-			<div class="col-xs-2 col-md-offset-0">
-				<img class="img-responsive img-thumbnail" src="logotipo/Hospital Español.JPG" alt="" style="height:78px;"/>
-			</div>
-			<div class="col-xs-2 col-md-offset-0">
-				<img class="img-responsive img-thumbnail" src="logotipo/Hospital Español.JPG" alt="" style="height:78px;"/>
-			</div>
+		<div class="logotipos_asociados">
+		<?php
+		$files = glob("logotipo/*.*");
+		$key = array_search("logotipo/logotipo.png",$files);
+		if($key!==false){
+			unset($files[$key]);
+		}
+		unset($files['logotipo/logotipo.png']);
+		for ($i=0; $i<count($files); $i++){
+		$image = $files[$i];
+		echo '<div class="col-xs-2 col-md-offset-0">';
+		echo '<img class="img-responsive img-thumbnail" src="'.utf8_encode($image) .'" alt="Random image" style="height:82px;" />';
+		echo '</div>';
+		}
+		?>
 		</div>
 </div>
 </div>	
