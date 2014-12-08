@@ -64,6 +64,9 @@ $conDatos=true;
 			if($LOGOTIPO!=""){//implica que la actualizacion contiene una imagen
 			$datos['logotipo']=sha1($LOGOTIPO);
 			$ext=base64ToImage($LOGOTIPO,$datos['logotipo']);
+			$db->select("catalogo_centros","logotipo",'',"id=".$id);
+			$r=$db->getResult();
+			$OLD_LOGO=$r[0]['logotipo'];
 			}else{ // No contiene imagen
 			$db->select("catalogo_centros","logotipo",'',"id=".$id);
 			$r=$db->getResult();
@@ -72,6 +75,7 @@ $conDatos=true;
 			}
 				if($ext!='ERROR'){
 					$datos['logotipo']=$datos['logotipo'].$ext;
+					@unlink("../logotipo/".$OLD_LOGO);
 					$db->update("catalogo_centros",$datos,"id=".$id);
 					echo $db->numRows();
 				}else{
