@@ -1,6 +1,6 @@
 /* Global properties ======================================================== */
 /*html, body {width:98%; padding:0; margin:0}*/
-body {font:14px/25px Arial, Helvetica, sans-serif;color:#000000;min-width:450px;background:#000000}
+body {font:14px/25px Arial, Helvetica, sans-serif;color:#000000;min-width:450px;/* background:#000000 */}
 .ic {border:0;float:right;background:#fff;color:#f00;width:50%;line-height:10px;font-size:10px;margin:-220% 0 0 0;overflow:hidden;padding:0}
 .main {width:99.99%; background:url(../images/main.jpg) center 0 repeat; border-top:#000000 5px solid}
 /***********************************************************************/
@@ -129,7 +129,7 @@ ul.menu li.home-page span {background:url(../images/home-page-img.png) 0 0 no-re
 .box-2 a {display:inline-block; float:left; margin-right:20px}
 
 /****************************footer************************/
-footer {width:100%; position:relative; overflow:hidden; text-align:center; /*padding:32px 0 45px 0*/}
+footer {width:100%; position:relative; overflow:hidden; text-align:center;  background:#000000;/*padding:32px 0 45px 0*/}
 footer p, footer a {color:#fff}
 footer a:hover {text-decoration:underline}
 

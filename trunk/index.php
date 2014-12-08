@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <title>ARUAL</title>
@@ -11,52 +11,55 @@
 <meta http-equiv="pragma" content="no-cache" />
     
 	<link rel="stylesheet" type="text/css" media="screen" href="css/animate.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="css/slider.css">
+	<link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
+    <link rel='stylesheet' id='camera-css'  href='css/camera.css' type='text/css' media='all'> 
     <link href='http://fonts.googleapis.com/css?family=Condiment' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
     <script src="js/jquery-1.7.min.js"></script>
     <script src="js/jquery.easing.1.3.js"></script>
-    <script src="js/tms-0.4.x.js"></script>
+    
+	<script type='text/javascript' src='js/camera.js'></script> 
 	
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
+	<style>
+		
+		.fluid_container {
+			margin: 0 auto;
+			max-width: 1000px;
+			width: 90%;
+		}
+	</style>
+	
     <script>
-		$(document).ready(function(){				   	
-			$('.slider')._TMS({
-				show:0,
-				pauseOnHover:true,
-				prevBu:false,
-				nextBu:false,
-				playBu:false,
-				duration:1000,
-				preset:'fadeThree',
-				pagination:true,
-				pagNums:false,
-				slideshow:4000,
-				numStatus:true,
-				banners:'fromRight',
-				waitBannerAnimation:false,
-				progressBar:false
-			})		
+		jQuery(function(){
+			jQuery('#camera_random').camera({
+				thumbnails:false ,
+				time:2500,
+				loader: 'bar'
+			});
+
 		});
 	</script>
 
 </head>
 <body>
 <div class="container main">
-<div style="height: 125px;" class="row">
-	<div id="logo" class="col-xs-5 col-xs-offset-0 col-md-5 col-md-offset-1 animated zoomIn" >
-		<h1><a href="index.php"><img class="img-responsive" src="images/Imagen1.png" alt="" style="height: 120px;position:fixed;"/></a></h1>
+<div  class="row animated zoomIn" id="logo">
+	<div  class="col-md-4">
+		<img class="img-responsive" src="images/Imagen1.png" alt="" style="height:100px"/>
 	</div>
-	<div id="logo" class="col-xs-5 col-sm-offset-8 animated zoomIn" >
-		<img class="img-responsive" src="images/aha_logo4.png" alt="" style="height: 120px;position:fixed;"/>
+	<div  class="col-md-4">
+		<img class="img-responsive" src="images/FCCS.png" alt="" style="height:80px"/>
+	</div>	
+	<div  class="col-md-4">
+		<img class="img-responsive" src="images/aha_logo4.png" alt="" style="height:80px"/>
 	</div>
 </div>
 
 
-<div class="col-md-10 col-md-offset-1"> 	
+<div class="col-md-12"> 	
 	<nav  class="navbar navbar-default  animated fadeInLeft" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -89,17 +92,28 @@
   </div><!-- /.container-fluid -->
 </nav>
  </div>
-<div id="contenido" class="animated fadeInRight" style="min-height:480px;"> 
-		<div class="col-md-8 col-md-offset-0">
-		   <div id="slide" class="box-shadow">
-					<div class="slider">
-						<ul class="items">
-							<li><img class="img-responsive" src="images/slider-1.jpg" alt="" /><div class="banner lead" >ARUAL medicina de reanimacion&nbsp;</div></li>
-							<li><img class="img-responsive" src="images/slider-2.jpg" alt="" /><div class="banner lead">Centro de entrenamiento internacional&nbsp;</div></li>
-							<li><img class="img-responsive" src="images/slider-3.jpg" alt="" /><div class="banner lead">Centro de enseñanza e investigacion&nbsp;</div></li>
-						</ul>
-					</div>
-				</div>
+ 
+<div id="contenido" class="animated fadeInRight " style="min-height:480px;"> 
+		<div class="col-md-7 col-md-offset-0">
+			 <div class="fluid_container">
+				 <div class="camera_wrap camera_charcoal_skin" id="camera_random">
+							<div data-thumb="images/slider-1.jpg" data-src="images/slider-1.jpg">
+								<div class="camera_caption moveFomRight">
+									<em>ARUAL</em> medicina de reanimacion&nbsp.
+								</div>
+							</div>
+							<div data-thumb="images/slider-2.jpg" data-src="images/slider-2.jpg">
+								<div class="camera_caption moveFomRight">
+									Centro de entrenamiento <em>internacional&nbsp</em>.
+								</div>
+							</div>
+							<div data-thumb="images/slider-3.jpg" data-src="images/slider-3.jpg">
+								<div class="camera_caption moveFomRight">
+									Centro de enseñanza e investigacion&nbsp
+								</div>
+							</div>
+					</div><!-- #camera_random -->
+			</div>			
 		</div>
 		
 		<div class="logotipos_asociados">
@@ -107,13 +121,14 @@
 		$files = glob("logotipo/*.*");
 		$key = array_search("logotipo/logotipo.png",$files);
 		if($key!==false){
+			$files[$key]=utf8_decode($files[$key]);
 			unset($files[$key]);
 		}
 		unset($files['logotipo/logotipo.png']);
 		for ($i=0; $i<count($files); $i++){
 		$image = $files[$i];
 		echo '<div class="col-xs-2 col-md-offset-0">';
-		echo '<img class="img-responsive img-thumbnail" src="'.utf8_encode($image) .'" alt="Random image" style="height:82px;" />';
+		echo '<img class="img-responsive img-thumbnail" src="'.utf8_encode(($image)) .'" alt="Random image" style="height:110px;" />';
 		echo '</div>';
 		}
 		?>
@@ -124,7 +139,7 @@
 <footer style="height:100px">
 	<p id="fecha"></p>
 	<p><a style="font-size:19px;">ARUAL</a> Medicina de reanimación.</p>
-	<p>Centro de entrenamiento internacional.</p>
+	<p>CENTRO DE ENTRENAMIENTO INTERNACIONAL.</p>
 </footer>
 
 
@@ -132,7 +147,7 @@
  <script >
  var firstVisit=true;
  $(document).ready(function() {	
- $('#logo').css({ "display":" none" });
+ // $('#logo').css({ "display":" none" });
 	 $('.menu li a').click(function(event){
 		var url=$(this).parent().data().url;
 		event.preventDefault();
