@@ -9,7 +9,7 @@ $(idSelect+" option").each(function(){
 }
 
 function formularioDesdeTabla(fila,idFormulario){
-$(idFormulario).addClass('animated pulse');
+$(idFormulario).parent().parent().parent().addClass('animated pulse');
 		$.each( fila, function( key, value ) {
 				$(idFormulario+' :input#'+key).val(value);
 		
@@ -28,9 +28,8 @@ $(idFormulario).addClass('animated pulse');
 				seleccionaTAGSelect(idFormulario+" select#cmbCursosCatalogo",value);
 				}
 		});
-				
-					$(idFormulario).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-		$(idFormulario).removeClass('animated pulse');
+	$(idFormulario).parent().parent().parent().one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+		$(idFormulario).parent().parent().parent().removeClass('animated pulse');
 	});
 }
 
@@ -265,7 +264,7 @@ var formURL = $(idFormulario).attr("action");
 							}
 							
 							
-							$(idFormulario).addClass('animated pulse');
+							$(idFormulario).parent().parent().addClass('animated pulse');
 								$.ajax(
 								{
 									url : formURL+"?accion=-&id="+value,
@@ -299,8 +298,8 @@ var formURL = $(idFormulario).attr("action");
 									}
 								});
 
-							$(idFormulario).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-							$(idFormulario).removeClass('animated pulse');
+							$(idFormulario).parent().parent().one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+							$(idFormulario).parent().parent().removeClass('animated pulse');
 							});
 				});
 }

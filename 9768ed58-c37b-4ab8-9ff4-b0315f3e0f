@@ -120,13 +120,11 @@
 							<div class="panel panel-primary">
 							  <div class="panel-heading">Detalles del inmueble</div>
 								<div class="panel-body">
-									<form id="frmMapas" role="form" method="POST" action="sistema/CatalogoCentros.php">
-										
+									<form id="frmMapas" method="POST" action="sistema/CatalogoCentros.php">
 										<input type="hidden" id="accion" name="accion" required value="">
 										<input type="hidden" id="id" name="id" required value="">
 										<input type="hidden" id="latitud" required value="19" name="latitud">
 										<input type="hidden" id="longitud" required value="-99" name="longitud">
-										
 										<!-- <fieldset > -->
 											<div class="form-group">
 												<label for="hospital">Nombre Hospital y/o centro:</label>

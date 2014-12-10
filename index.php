@@ -51,10 +51,10 @@
 		<img class="img-responsive" src="images/Imagen1.png" alt="" style="height:100px"/>
 	</div>
 	<div  class="col-md-4">
-		<img class="img-responsive" src="images/FCCS.png" alt="" style="height:80px"/>
+		<img class="img-responsive" src="images/FCCS.png" alt="" style="height:50px"/>
 	</div>	
 	<div  class="col-md-4">
-		<img class="img-responsive" src="images/aha_logo4.png" alt="" style="height:80px"/>
+		<img class="img-responsive" src="images/aha_logo4.png" alt="" style="height:50px"/>
 	</div>
 </div>
 
@@ -118,18 +118,21 @@
 		
 		<div class="logotipos_asociados">
 		<?php
+		$files=array();
 		$files = glob("logotipo/*.*");
-		$key = array_search("logotipo/logotipo.png",$files);
-		if($key!==false){
-			$files[$key]=utf8_decode($files[$key]);
-			unset($files[$key]);
-		}
-		unset($files['logotipo/logotipo.png']);
-		for ($i=0; $i<count($files); $i++){
-		$image = $files[$i];
-		echo '<div class="col-xs-2 col-md-offset-0">';
-		echo '<img class="img-responsive img-thumbnail" src="'.utf8_encode(($image)) .'" alt="Random image" style="height:110px;" />';
-		echo '</div>';
+        if(0<count($files)){
+            $key = @array_search("logotipo/logotipo.png",$files);
+			if($key!==false){
+				$files[$key]=($files[$key]);
+				unset($files[$key]);
+			}
+			unset($files['logotipo/logotipo.png']);
+			for ($i=0; $i<count($files); $i++){
+			$image = $files[$i];
+			echo '<div class="col-md-2">';
+			echo '<img class="img-responsive img-thumbnail" src="'.$image.'" alt="Random image" style="height:110px;" />';
+			echo '</div>';
+			}
 		}
 		?>
 		</div>
