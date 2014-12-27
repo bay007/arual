@@ -11,7 +11,7 @@
 <meta http-equiv="pragma" content="no-cache" />
     
 	<link rel="stylesheet" type="text/css" media="screen" href="css/animate.css">
-	<link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
+	
     <link rel='stylesheet' id='camera-css'  href='css/camera.css' type='text/css' media='all'> 
     <link href='http://fonts.googleapis.com/css?family=Condiment' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
@@ -23,6 +23,7 @@
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
 	<style>
 		
 		.fluid_container {
@@ -51,10 +52,10 @@
 		<img class="img-responsive" src="images/Imagen1.png" alt="" style="height:100px"/>
 	</div>
 	<div  class="col-md-4">
-		<img class="img-responsive" src="images/FCCS.png" alt="" style="height:50px"/>
+		<img class="img-responsive" src="images/FCCS.png" alt="" style="height:100px"/>
 	</div>	
 	<div  class="col-md-4">
-		<img class="img-responsive" src="images/aha_logo4.png" alt="" style="height:50px"/>
+		<img class="img-responsive" src="images/aha_logo4.png" alt="" style="height:90px"/>
 	</div>
 </div>
 

@@ -368,6 +368,7 @@ function GuardarActualizarCentro(idBotonGuardar){
 						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al actualizar el Centro Arual.</div>');
 					}
 						$('#mensajes').modal('show');
+						recargarCombos();
 					//data: return data from server
 				},
 				error: function(jqXHR, textStatus, errorThrown) 
