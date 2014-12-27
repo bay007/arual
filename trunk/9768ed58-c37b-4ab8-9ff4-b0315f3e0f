@@ -65,15 +65,15 @@
 		<img class="img-responsive" src="images/Imagen1.png" alt="" style="height:100px"/>
 	</div>
 	<div  class="col-md-4">
-		<img class="img-responsive" src="images/FCCS.png" alt="" style="height:80px"/>
+		<img class="img-responsive" src="images/FCCS.png" alt="" style="height:100px"/>
 	</div>	
 	<div  class="col-md-4">
-		<img class="img-responsive" src="images/aha_logo4.png" alt="" style="height:80px"/>
+		<img class="img-responsive" src="images/aha_logo4.png" alt="" style="height:90px"/>
 	</div>
 </div>
       <div class="row">
 	<div class="col-md-6"> 
-	<h1>Administrando la página...</h1>
+	<h3>Administrando la página...</h3>
 	</div>
 	<div class="col-md-6"> 
 	<input type="button" value="Salir"  class="btn btn-primary navbar-btn pull-right" onClick="window.location.reload()" />
