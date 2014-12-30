@@ -365,7 +365,13 @@ function GuardarActualizarCentro(idBotonGuardar){
 						$("#body-mensajes").html('<div class="alert alert-success" role="alert">El cambio en el centro afiliado ARUAL fue exitoso.</div>');
 						resetFormularioMapas("#"+formulario_id);
 					}else{						//if fails      
+					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data=="ya_se_uso_la_imagen")
+					{
+					$("#body-mensajes").html('<div class="alert alert-warning" role="alert">La imagen que intentó usar ya está fué, seleccione otra por favor.</div>');
+					}else
+						{
 						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al actualizar el Centro Arual.</div>');
+						}
 					}
 						$('#mensajes').modal('show');
 						recargarCombos();

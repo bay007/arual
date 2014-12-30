@@ -58,29 +58,34 @@ $conDatos=true;
 	
 	switch ($accion) {
 		case 'update':
-			$bandera=false;
-			$LOGOTIPO=$datos['logotipo'];
-			
-			if($LOGOTIPO!=""){//implica que la actualizacion contiene una imagen
-			$datos['logotipo']=sha1($LOGOTIPO);
-			$ext=base64ToImage($LOGOTIPO,$datos['logotipo']);
-			$db->select("catalogo_centros","logotipo",'',"id=".$id);
-			$r=$db->getResult();
-			$OLD_LOGO=$r[0]['logotipo'];
-			}else{ // No contiene imagen
-			$db->select("catalogo_centros","logotipo",'',"id=".$id);
-			$r=$db->getResult();
-			$datos['logotipo']=$r[0]['logotipo'];
-			$ext="";
-			}
-				if($ext!='ERROR'){
-					$datos['logotipo']=$datos['logotipo'].$ext;
-					@unlink("../logotipo/".$OLD_LOGO);
-					$db->update("catalogo_centros",$datos,"id=".$id);
-					echo $db->numRows();
-				}else{
-					echo $ext;
+		$bandera=false;
+		$LOGOTIPO=$datos['logotipo'];
+		$db->select("catalogo_centros","logotipo",'',"logotipo like '%".sha1($LOGOTIPO)."%'");
+			if($db->numRows()>0){
+			echo "ya_se_uso_la_imagen";
+			}else{
+				
+				if($LOGOTIPO!=""){//implica que la actualizacion contiene una imagen
+				$datos['logotipo']=sha1($LOGOTIPO);
+				$ext=base64ToImage($LOGOTIPO,$datos['logotipo']);
+				$db->select("catalogo_centros","logotipo",'',"id=$id");
+				$r=$db->getResult();
+				$OLD_LOGO=$r[0]['logotipo'];
+				}else{ // No contiene imagen
+				$db->select("catalogo_centros","logotipo",'',"id=".$id);
+				$r=$db->getResult();
+				$datos['logotipo']=$r[0]['logotipo'];
+				$ext="";
 				}
+					if($ext!='ERROR'){
+						$datos['logotipo']=$datos['logotipo'].$ext;
+						@unlink("../logotipo/".$OLD_LOGO);//borramos la imagen si es que hubo imagen cargada en el sistema
+						$db->update("catalogo_centros",$datos,"id=".$id);
+						echo $db->numRows();
+					}else{
+						echo $ext;
+				}
+			}
 			break;
 		case 'delete':
 			$db->select("catalogo_centros","logotipo",'',"id=".$id);
@@ -91,7 +96,9 @@ $conDatos=true;
 				$db->delete("catalogo_centros","id=".$id);
 				if($db->numRows()==1){
 					if(($logo!="logotipo.png")){
+						
 						if(@unlink("../logotipo/".$logo)){
+						
 						echo 1;
 						}
 						else{
@@ -109,6 +116,10 @@ $conDatos=true;
 			break;
 		case 'create':
 			$LOGOTIPO=$datos['logotipo'];
+			$db->select("catalogo_centros","logotipo",'',"logotipo like '%".sha1($LOGOTIPO)."%'");
+			if($db->numRows()>0){
+			echo "ya_se_uso_la_imagen";
+			}else{
 			if($LOGOTIPO!=""){//implica que la actualizacion contiene una imagen
 			$datos['logotipo']=sha1($LOGOTIPO);
 			$ext=base64ToImage($LOGOTIPO,$datos['logotipo']);
@@ -118,14 +129,19 @@ $conDatos=true;
 			}
 				if($ext!='ERROR'){
 					$datos['logotipo']=$datos['logotipo'].$ext;
-					$db->insert("catalogo_centros",$datos);
+					if($db->insert("catalogo_centros",$datos)){
+						echo 1;	
+					}
+					else{
+						@unlink("../logotipo/".$datos['logotipo']);
+					}
 					$db->disconnect();
-					echo $db->numRows();
 				}else{
 					echo $ext;
 				}
 			$bandera=false;
 			break;
+		}
 	 }
 
 	if(($id!="")&&$bandera){
