@@ -1,4 +1,5 @@
 			$("#centros a").click(function(){
+				$('html,body').animate({scrollTop:$(".tituloCurso").parent().offset().top}, 1500);
 				$("#centros a").removeClass("active");
 				$(this).addClass("active");
 				var nombre_cursos=$(this).text().trim();

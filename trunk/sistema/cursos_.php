@@ -9,7 +9,7 @@ try{
 		if($_GET['accion']=="disponibilidad"){
 		$db = new Database;
 		$db->connect();
-		@$db->select("edicion_cursos","distinct nombre_curso","catalogo_cursos cc",'fkidcc=cc.id and edicion_cursos.activo="Si" and date(faplicacion) >= date(now())');
+		@$db->select("edicion_cursos","distinct nombre_curso","catalogo_cursos cc",'fkidcc=cc.id and cupo>0 and edicion_cursos.activo="Si" and date(faplicacion) >= date(now())');
 		@$cursos_disponibles=$db->getResult();
 		$db->disconnect();
 		if($db->numRows()>=1){
@@ -47,9 +47,9 @@ try{
 		@$db->disconnect();
 
 		$entrada="";
-		$disponibilidad='<sup>Última actualización: {updated}</sup><h5 id="{hospital}"><a> <img src="images/gm.png"></img></a></h5><div><strong> Lugar: </strong>{hospital} - ({lespecifico})</div> ';
+		$disponibilidad='<sup>Última actualización: {updated}</sup><h5 id="{hospital}"><a> <img src="images/gm.png"></img></a><button type="button" class="btn btn-info pull-right">Inscribir</button></h5><div><strong> Lugar: </strong>{hospital} - ({lespecifico})</div> ';
 		$disponibilidad.='<p><strong><span class="glyphicon glyphicon-map-marker"></span>Dirección:</strong>{direccion}.</p>';
-		$disponibilidad.='<p><a class="link" href="#"><strong>Cupos disponibles en éste momento: {cupo}</strong></a></p>';
+		$disponibilidad.='<p><strong>Cupos disponibles en éste momento: {cupo}</strong></p>';
 		$disponibilidad.='<strong><span class="glyphicon glyphicon-calendar"></span> Fecha y hora:</strong> {faplicacion}';
 		$disponibilidad.='<hr>';
 
@@ -62,8 +62,11 @@ try{
 				@$entrada=str_ireplace('{cupo}',@$v["cupo"],$entrada);
 				@$entrada=str_ireplace('{faplicacion}',@$v["faplicacion"],$entrada);
 			}
-		echo ($entrada.'<script>$("h5").click(function(){var h5=$(this);
+		echo ($entrada.'<script>
+		$("h5 a").click(function(){var h5=$(this).parent();
 		$.get( "contacto.html", function( data ) {
+			$(".menu li").removeClass("current");
+			$(".contacto_menu_li").addClass("current");
 		$("#contenido").replaceWith( data.replace("{lugar}",h5.attr("id").trim()));
 			});
 		});</script>');

@@ -76,7 +76,7 @@
 	<h3>Administrando la página...</h3>
 	</div>
 	<div class="col-md-6"> 
-	<input type="button" value="Salir"  class="btn btn-primary navbar-btn pull-right" onClick="window.location.reload()" />
+	<input type="button" value="Salir"  class="btn btn-primary navbar-btn pull-right" id="Salir" />
 	</div>
 	</div>
 <hr/>	
@@ -176,7 +176,7 @@
 					</div>
 				  
 					<div class="tab-pane " id="edicion_cursos">
-						<div class="col-md-8">  	  
+						<div class="col-md-7">  	  
 							<div class="panel panel-primary">
 								<div class="panel-heading">Cursos publicados:</div>
 							  
@@ -199,7 +199,7 @@
 							</div>
 						</div>
 						
-						<div class="col-md-4">
+						<div class="col-md-5">
 							<div class="panel panel-primary">
 								<div class="panel-heading">Alta/edición:</div>
 								
@@ -282,7 +282,7 @@
 					</div>
 					
 					<div class="tab-pane " id="catalogo_cursos">
-						<div class="col-md-8">
+						<div class="col-md-7">
 							<div class="panel panel-primary">
 								<div class="panel-heading">Cursos publicados:</div>
 								<div class="panel-body">
@@ -303,7 +303,7 @@
 							</div>
 						</div>
 						
-						<div class="col-md-4">
+						<div class="col-md-5">
 							<div class="panel panel-primary">
 								<div class="panel-heading">Alta/edición:</div>
 								<div class="panel-body">
@@ -445,7 +445,7 @@
         <h2 class="modal-title">Confirme la eliminación.</h2>
       </div>
       <div class="modal-body">
-        <h2>Está usted seguro(a) que quiere borrar éste curso de el catálogo de cursos?</h2>
+        <h2>¿Está usted seguro(a) que quiere borrar éste curso de el catálogo de cursos?</h2>
 		<h3>Si borra éste curso, todos los cursos asociados publicados en la página principal serán eliminados.</h3>
 		
       </div>
@@ -466,7 +466,7 @@
         <h2 class="modal-title">Confirme la eliminación.</h2>
       </div>
       <div class="modal-body">
-        <h2>Está Usted seguro(a) que quiere borrar ésta edicion del curso?</h2>
+        <h2>¿Está Usted seguro(a) que quiere borrar ésta edicion del curso?</h2>
 		<h3>Si borra éste elemento el los interesados no podran ver el curso.</h3>
 		
       </div>
@@ -487,7 +487,7 @@
         <h2 class="modal-title">Confirme la eliminación.</h2>
       </div>
       <div class="modal-body">
-        <h3>Está Usted seguro(a) que quiere borrar éste centro ARUAL?</h3>
+        <h3>¿Está Usted seguro(a) que quiere borrar éste centro ARUAL?</h3>
 		<h4>Si borra éste centro todos los cursos asociados a el centro serán eliminados.</h4>
 		
       </div>
@@ -508,7 +508,7 @@
         <h2 class="modal-title">Confirme la eliminación.</h2>
       </div>
       <div class="modal-body">
-        <h3>Está Usted seguro(a) que quiere borrar a éste administrador?</h3>
+        <h3>¿Está Usted seguro(a) que quiere borrar a éste administrador?</h3>
 		<h4>Si borra a éste administrador no podra editar el contenido de www.arualmr.com.</h4>
 		
       </div>
@@ -520,6 +520,25 @@
   </div><!-- /.modal-dialo -->
   </div><!-- /.modal -->
 
+  <div class="modal fade"  id="confirmacionSalirSistema">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h2 class="modal-title">Confirme la salida.</h2>
+      </div>
+      <div class="modal-body">
+        <h3>¿Está Usted seguro(a) que quiere salir?</h3>
+		<h4>Si sale de la pagina tendrá que volver a generar una nueva solicitud.</h4>
+		<h6>Si acepta será redirigido a la página de inicio de ARUAL.</h6>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button id="btnConfirmacionSalirSistema" type="button" class="btn btn-primary">Salir</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialo -->
+  </div><!-- /.modal -->
 <script type='text/javascript'>
 var centro=new google.maps.LatLng(19.394574923950497,-99.28167567436219);
  var mapProp = {center:centro,zoom:12};
@@ -599,14 +618,28 @@ var type = file.type;
 			$(":file").val(null);
 		}
 });
+
 var d = new Date();
 var n = d.getFullYear(); 
 $("#fecha").text("© "+n);
- window.onbeforeunload = function exitAlert()
-	{
-	var textillo = "Los datos que no se han guardado se perderán.";
-	return textillo;
-	}
+	
+	//window.onbeforeunload = function exitAlert()
+	//{
+	//var textillo = "Los datos que no se han guardado se perderán.";
+	//return textillo;
+	//}
+	
+	$("#Salir").click(function(){
+	$("#confirmacionSalirSistema").modal('show');
+	});
+	
+	
+	$("#btnConfirmacionSalirSistema").click(function(){
+	self.location="index.php";
+	});
+	
+
+	
 </script>
 </body>
 </html>

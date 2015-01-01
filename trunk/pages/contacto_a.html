@@ -34,9 +34,15 @@
 			</strong>
 			<div id="duracion" style="display: inline;">
 			{direccion}
+			<button type="button" class="btn btn-info pull-right visible-xs-block visible-xs-block visible-sm-block">Mapa</button>
 			</div>
 			<br>
 			<img class="img-responsive img-thumbnail" src="logotipo/{logotipo}" style="height:100px"></img>
       </div>
     </div>
   </div>
+	<script>
+	$(".visible-xs-block").click(function(){
+		$('html,body').animate({scrollTop:$(".Ubicacion").offset().top}, 1000);
+		});
+	</script>
