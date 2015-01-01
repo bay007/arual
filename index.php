@@ -25,41 +25,43 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
 	<style>
-		
-		.fluid_container {
-			margin: 0 auto;
-			max-width: 1000px;
-			width: 90%;
-		}
-	</style>
+	.logotipos_asociados {
+	background:oldlace;
+	border: solid 1px silver;
+	max-height: 300px;
+	padding: 10px;
+	overflow-y: scroll;
+}
+</style>
 	
     <script>
 		jQuery(function(){
 			jQuery('#camera_random').camera({
 				thumbnails:false ,
 				time:2500,
-				loader: 'bar'
+				loader: 'bar',
+				height: '55%'
 			});
 
 		});
-	</script>
+</script>
 
 </head>
 <body>
 <div class="container main">
-<div  class="row animated zoomIn" id="logo">
-	<div  class="col-md-4">
+<div  class="row animated zoomIn " id="logo">
+	<div  class="col-md-3 col-md-offset-1">
 		<img class="img-responsive" src="images/Imagen1.png" alt="" style="height:100px"/>
 	</div>
-	<div  class="col-md-4">
-		<img class="img-responsive" src="images/FCCS.png" alt="" style="height:100px"/>
+	<div  class="col-md-3">
+		<img class="img-responsive" src="images/FCCS.png" alt="" style="margin-top: 20px;height:75px;"/>
 	</div>	
-	<div  class="col-md-4">
-		<img class="img-responsive" src="images/aha_logo4.png" alt="" style="height:90px"/>
+	<div  class="col-md-5">
+		<img class="img-responsive" src="images/aha_logo4.png" alt="" style="margin-top: 30px;height:65px"/>
 	</div>
 </div>
 
-
+<div class="row">
 <div class="col-md-12"> 	
 	<nav  class="navbar navbar-default  animated fadeInLeft" role="navigation">
   <div class="container-fluid">
@@ -82,10 +84,10 @@
 		<ul class=" menu">
 			<li data-url="nosotros.html"><a >Quienes somos</a></li>
 			<li data-url="cursos.html" ><a>Cursos</a></li>
-			<li data-url="contacto.html"><a >Contacto</a></li>
+			<li class="contacto_menu_li" data-url="contacto.html"><a >Contacto</a></li>
 		</ul>
 		<div class="social-icons ">
-		<!--<a href="#" class="icon-3 "></a>-->
+			<a href="#" class="icon-3 "></a>
 			<a href="#" class="icon-2"></a>
 			<a href="#" class="icon-1"></a>
 		</div>
@@ -93,31 +95,32 @@
   </div><!-- /.container-fluid -->
 </nav>
  </div>
- 
-<div id="contenido" class="animated fadeInRight " style="min-height:480px;"> 
-		<div class="col-md-7 col-md-offset-0">
+ </div>
+<div id="contenido" class="animated fadeInRight row" style="min-height:480px;"> 
+		<div class="col-md-7" >
 			 <div class="fluid_container">
 				 <div class="camera_wrap camera_charcoal_skin" id="camera_random">
 							<div data-thumb="images/slider-1.jpg" data-src="images/slider-1.jpg">
 								<div class="camera_caption moveFomRight">
-									<em>ARUAL</em> medicina de reanimacion&nbsp.
+									<em>ARUAL</em> medicina de reanimacion&nbsp;.
 								</div>
 							</div>
 							<div data-thumb="images/slider-2.jpg" data-src="images/slider-2.jpg">
 								<div class="camera_caption moveFomRight">
-									Centro de entrenamiento <em>internacional&nbsp</em>.
+									Centro de entrenamiento <em>internacional&nbsp;. </em>.
 								</div>
 							</div>
 							<div data-thumb="images/slider-3.jpg" data-src="images/slider-3.jpg">
 								<div class="camera_caption moveFomRight">
-									Centro de enseñanza e investigacion&nbsp
+									Centro de enseñanza e investigacion&nbsp;.
 								</div>
 							</div>
 					</div><!-- #camera_random -->
 			</div>			
 		</div>
 		
-		<div class="logotipos_asociados">
+		
+		<div class="logotipos_asociados col-md-5">
 		<?php
 		$files=array();
 		$files = glob("logotipo/*.*");
@@ -130,9 +133,10 @@
 			unset($files['logotipo/logotipo.png']);
 			for ($i=0; $i<count($files); $i++){
 			$image = $files[$i];
-			echo '<div class="col-md-2">';
+			echo '<div class="col-md-6">';
 			echo '<img class="img-responsive img-thumbnail" src="'.$image.'" alt="Random image" style="height:110px;" />';
 			echo '</div>';
+			
 			}
 		}
 		?>
@@ -140,14 +144,32 @@
 </div>
 </div>	
 
-<footer style="height:100px">
-	<p id="fecha"></p>
-	<p><a style="font-size:19px;">ARUAL</a> Medicina de reanimación.</p>
-	<p>CENTRO DE ENTRENAMIENTO INTERNACIONAL.</p>
+<footer style="min-height:130px">
+	<p id="fecha" style="margin-bottom: 0px; margin-top: 15px;"></p>
+	<p style="margin-bottom: 0px;"><a style="font-size:19px;">ARUAL</a> Medicina de reanimación.</p>
+	<p style="margin-bottom: 0px;">CENTRO DE ENTRENAMIENTO INTERNACIONAL.</p>
 </footer>
+  <div class="modal fade" id="mensajes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header" style="background: greenyellow;">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<h4 class="modal-title panel-success" id="myModalLabel">Estimado Usuario:</h4>
+		  </div>
+		  <div class="modal-body" id="body-mensajes">
+		   Detectamos que esta tratando de abrir ésta página en Internet Explorer.<br>
+		   y puede que no se visualice apropiadamente.<br>
+		   Ésta página está diseñada para trabajar con Firefox, Google Chrome, Opera ó Safari.<br>
+		   
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+		  </div>
+		</div>
+	  </div>
+	</div>
 
-
-</body>
  <script >
  var firstVisit=true;
  $(document).ready(function() {	
@@ -180,5 +202,11 @@
 var d = new Date();
 var n = d.getFullYear(); 
 $("#fecha").text("© "+n); 
+if (/\bMedia\sCenter\b/.test(navigator.userAgent)) //test for MSIE x.x; True or False
+{
+$("#mensajes").modal('show');
+}
   </script>
+
+  </body>
 </html>
