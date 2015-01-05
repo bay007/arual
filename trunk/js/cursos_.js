@@ -1,5 +1,4 @@
 			$("#centros a").click(function(){
-				$('html,body').animate({scrollTop:$(".tituloCurso").parent().offset().top}, 1500);
 				$("#centros a").removeClass("active");
 				$(this).addClass("active");
 				var nombre_cursos=$(this).text().trim();
@@ -20,6 +19,7 @@
 								$("#requisitos").html(data[0].requisitos);
 								$("#publicoDirigido").html(data[0].publico_dirigido);
 								$("#block-6").attr("style","");
+								$("#block-6_block").attr("style","display:none");
 								
 								$.ajax({
 										url : "sistema/cursos_.php",
@@ -53,5 +53,5 @@
 								//if fails      
 							}
 						});
-
-			});
+						$('html,body').animate({scrollTop:$(".tituloCurso_top").parent().offset().top}, 1500);
+		});

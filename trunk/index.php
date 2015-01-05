@@ -28,7 +28,7 @@
 	.logotipos_asociados {
 	background:oldlace;
 	border: solid 1px silver;
-	max-height: 300px;
+	max-height: 320px;
 	padding: 10px;
 	overflow-y: scroll;
 }
@@ -40,7 +40,7 @@
 				thumbnails:false ,
 				time:2500,
 				loader: 'bar',
-				height: '55%'
+				height: '50%'
 			});
 
 		});
@@ -50,14 +50,14 @@
 <body>
 <div class="container main">
 <div  class="row animated zoomIn " id="logo">
-	<div  class="col-md-3 col-md-offset-1">
-		<img class="img-responsive" src="images/Imagen1.png" alt="" style="height:100px"/>
+	<div class="col-md-3 col-md-offset-1" style="margin-left: 4%;">
+		<img class="img-responsive" src="images/Imagen1.png" alt="" style="height:100px">
 	</div>
-	<div  class="col-md-3">
-		<img class="img-responsive" src="images/FCCS.png" alt="" style="margin-top: 20px;height:75px;"/>
-	</div>	
-	<div  class="col-md-5">
-		<img class="img-responsive" src="images/aha_logo4.png" alt="" style="margin-top: 30px;height:65px"/>
+	<div class="col-md-3" style="margin-left: 13%;width: 16% !important;">
+		<img class="img-responsive" src="images/FCCS.png" alt="" style="margin-top: 20px;height:75px;">
+	</div>
+	<div class="col-md-4" style="margin-left: 11%;width: 29% !important;">
+		<img class="img-responsive" src="images/aha_logo4.png" alt="" style="margin-top: 30px;height:65px">
 	</div>
 </div>
 
@@ -96,7 +96,7 @@
 </nav>
  </div>
  </div>
-<div id="contenido" class="animated fadeInRight row" style="min-height:480px;"> 
+<div id="contenido" class="animated fadeInRight row" style="min-height:400px;"> 
 		<div class="col-md-7" >
 			 <div class="fluid_container">
 				 <div class="camera_wrap camera_charcoal_skin" id="camera_random">
@@ -144,7 +144,7 @@
 </div>
 </div>	
 
-<footer style="min-height:130px">
+<footer style="min-height:130px;">
 	<p id="fecha" style="margin-bottom: 0px; margin-top: 15px;"></p>
 	<p style="margin-bottom: 0px;"><a style="font-size:19px;">ARUAL</a> Medicina de reanimación.</p>
 	<p style="margin-bottom: 0px;">CENTRO DE ENTRENAMIENTO INTERNACIONAL.</p>

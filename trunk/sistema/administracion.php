@@ -7,7 +7,7 @@ include("mail.php");
 error_reporting(-1);
 
 //$tiempo_edicion='00:30:00.999998';
-$tiempo_edicion="+30 minutes";
+$tiempo_edicion="+90 minutes";
 // echo getRealIP();
 // $eMail = new mail();
 // echo $eMail->gen_uuid();
