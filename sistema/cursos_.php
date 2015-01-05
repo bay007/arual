@@ -47,7 +47,7 @@ try{
 		@$db->disconnect();
 
 		$entrada="";
-		$disponibilidad='<sup>Última actualización: {updated}</sup><h5 id="{hospital}"><a> <img src="images/gm.png"></img></a><button type="button" class="btn btn-info pull-right">Inscribir</button></h5><div><strong> Lugar: </strong>{hospital} - ({lespecifico})</div> ';
+		$disponibilidad='<sup>Última actualización: {updated}</sup><h5 id="{hospital}"><a> <img src="images/gm.png"></img></a><button type="button" class="btn btn-info pull-right">Inscripción</button></h5><div><strong> Lugar: </strong>{hospital} - ({lespecifico})</div> ';
 		$disponibilidad.='<p><strong><span class="glyphicon glyphicon-map-marker"></span>Dirección:</strong>{direccion}.</p>';
 		$disponibilidad.='<p><strong>Cupos disponibles en éste momento: {cupo}</strong></p>';
 		$disponibilidad.='<strong><span class="glyphicon glyphicon-calendar"></span> Fecha y hora:</strong> {faplicacion}';

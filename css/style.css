@@ -2,8 +2,9 @@
 /*html, body {width:98%; padding:0; margin:0}*/
 body {font:14px/25px Arial, Helvetica, sans-serif;color:#000000;min-width:450px;/* background:#000000 */}
 .ic {border:0;float:right;background:#fff;color:#f00;width:50%;line-height:10px;font-size:10px;margin:-220% 0 0 0;overflow:hidden;padding:0}
-.main {width:99%; min-height:600px;background:url(../images/main.jpg) center 0 repeat; /* border-top:#000000 5px solid */margin-top: 0.5%;}
+.main {width:99%; min-height:300px;background:url(../images/main.jpg) center 0 repeat; /* border-top:#000000 5px solid */margin-top: 0.5%;}
 /***********************************************************************/
+h6{font-size:16px;margin:0px}
 a {text-decoration:none; cursor:pointer}
 a:hover {text-decoration:none}
 
