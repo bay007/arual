@@ -30,7 +30,7 @@
 	border: solid 1px silver;
 	max-height: 320px;
 	padding: 10px;
-	overflow-y: scroll;
+	
 }
 </style>
 	
@@ -121,25 +121,7 @@
 		
 		
 		<div class="logotipos_asociados col-md-5">
-		<?php
-		$files=array();
-		$files = glob("logotipo/*.*");
-        if(0<count($files)){
-            $key = @array_search("logotipo/logotipo.png",$files);
-			if($key!==false){
-				$files[$key]=($files[$key]);
-				unset($files[$key]);
-			}
-			unset($files['logotipo/logotipo.png']);
-			for ($i=0; $i<count($files); $i++){
-			$image = $files[$i];
-			echo '<div class="col-md-6">';
-			echo '<img class="img-responsive img-thumbnail" src="'.$image.'" alt="Random image" style="height:110px;" />';
-			echo '</div>';
-			
-			}
-		}
-		?>
+		<img class="img-responsive img-thumbnail  center-block" src="images/Angeles Lomas.gif" alt="Random image" style="height:160px;" />
 		</div>
 </div>
 </div>	
