@@ -1,0 +1,97 @@
+
+<div id="contenido" class="animated fadeInDown"  style="min-height:480px;">
+  <!--==============================content================================-->
+    <div class="row"> 
+		<div class="col-md-4 col-md-offset-1">
+			<div class="panel panel-primary">
+					<!-- Default panel contents -->
+				<div class="panel-heading tituloCurso_top">Ésta es nuestra disponibilidad de cursos:</div>
+					<div class="panel-body">
+						<div id="centros" class="list-group primary">
+						
+						</div>
+					</div>
+			</div>
+		</div>
+		<img id="block-6_block" class="img-responsive center-block img-thumbnail img-rounded" src="images/CPR.jpg" alt="" style="height:150px;">
+		<div id="block-6" class="col-md-6" style="display:none">
+			<div class="panel panel-primary">
+				<div class="panel-heading"><h6 class="tituloCurso" align="center"></h6></div>
+				<div class="panel-body">
+					<p class="p6" align="justify" style="display: inline;">
+						<strong>
+						<span class="glyphicon glyphicon-eye-open"></span>
+						Contenido:
+						</strong>
+						<div id="contenidoCuerpo" style="display: inline;">
+						
+						</div>
+					</p>
+					
+					<p class="p6" align="justify" style="display: inline;">
+						<strong>
+						<span class="glyphicon glyphicon-time"></span>
+						Duración:
+						</strong><div id="duracion" style="display: inline;"><!--  2 días (15 horas aproximadamente). --></div>
+					</p>
+
+					<p class="p6" align="justify" style="display: inline;">
+					   <strong>
+					   <span class="glyphicon glyphicon-list-alt"></span> 
+					   Requisitos:
+					   </strong>
+					   <div id="requisitos" style="display: inline;">
+					   </div>
+					</p>
+   
+					<p class="p6" align="justify" style="display: inline;">
+						<strong><span class="glyphicon glyphicon-user"></span> Público dirigido:</strong>
+							<div id="publicoDirigido" style="display: inline;">
+						<!-- 	Profesionales del area de la salud, médicos, enfermeras, paramedicos, etc. -->
+							</div>
+					</p>
+				</div>
+			</div>
+	
+			<div class="panel panel-primary">
+				<div class="panel-heading"><h6 align="center">Lugar(es):</h6></div>
+				<div class="panel-body" id="ubicacionesCursos">
+					
+				</div>
+			</div>
+		</div>
+	</div> 
+</div>    
+<!--==============================footer=================================-->
+  
+<script>
+$(document).ready(function(){
+	$.ajax({
+			url : "sistema/cursos_.php",
+			type: "GET",
+			data : "accion=disponibilidad",
+			success:function(data, textStatus, jqXHR){
+			 //console.dir(textStatus);
+			 //console.dir(data);
+			//console.dir(jqXHR);
+				if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data!="error")
+				{
+				$("#centros").html(data);
+					$.ajax({
+					  type: "GET",
+					  url: "js/cursos_.js",
+					  dataType: "script"
+					});
+				}else{
+				$("#centros").html("No hay cursos disponibles por el momento.");
+				}
+			},
+			error: function(jqXHR, textStatus, errorThrown) 
+			{
+			$("#body-mensajes").html('<p class=bg-warning">'+errorThrown+'</p>');
+			$('#mensajes').modal('show');
+				//if fails      
+			}
+		});
+});
+</script>

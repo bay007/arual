@@ -1,0 +1,116 @@
+<div id="contenido" class="animated fadeInDown">
+  <!--==============================content================================-->
+    <section>
+		<div class="row">
+		<div class="col-md-4 col-md-offset-1">
+				<div class="panel panel-primary">
+					<div class="panel-heading">Centros ARUAL autorizados</div>
+						<div class="panel-body" id="detallesCuerpo">
+						</div>
+				</div>
+			</div>
+			<div class="col-md-6 Ubicacion"> 
+				<div class="panel panel-primary">
+					<div class="panel-heading">Ubicación</div>
+						<div class="panel-body">
+							<div id="map-canvas" style="width:100%;height:480px;"></div>
+							<input id="lugar" type="hidden" value="{lugar}"/>
+						</div>
+				</div>
+			</div>
+		</div>
+    </section> 
+</div> 
+<!--==============================footer=================================-->
+
+<script>
+function detalleUbicacion(nombre_hospital){
+$.ajax({
+		url : "sistema/contacto_.php",
+		type: "GET",
+		data : "accion=UbicacionCurso&nombre_hospital="+nombre_hospital,
+		dataType: 'json',
+		success:function(data2, textStatus2, jqXHR2){
+		//console.dir(textStatus);
+		//console.dir(data1);
+		//console.dir(jqXHR);
+			if(jqXHR2.status==200&&jqXHR2.statusText=="OK"&&data2!="error")
+			{
+			centro={lat: Number(data2[0].lat), lng:Number(data2[0].lng)};
+			mapa.setCenter(centro);
+			marker.setPosition(centro);
+			}
+		},
+		error: function(jqXHR2, textStatus2, errorThrown2) 
+		{
+		$("#body-mensajes").html('<p class=bg-warning">'+errorThrown1+'</p>');
+		$('#mensajes').modal('show');
+			//if fails      
+		}
+	});
+	
+}
+
+
+$.getScript('https://maps.googleapis.com/maps/api/js?v=3.exp&callback=initialize');
+var hospital_ico="data:image_angeles/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAlCAYAAAAjt+tHAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAMnSURBVHjavFi/b9NAFD6fndQkTilCzF1ZoER0iVgjwcgCqBISC7Cy868ABSQooiyoU7uwoSygij+hCwsqgcpN7fjH8d71XXK4tmM7Tk96uvPFft/n957fvRej3+8zGAaISdLQ1rhfxxAgEUmgrYVFIDg3QWySJhHgNRGICXAM4pHgOrQICAFbIMs0LxGpOkcI4oOMQI6UZRQBm8CvcM4HYRgywzCYEILBtZxRcA9lYlchchH1e4MgYL7vM8dxeppVpAUaRKAFDwxut5vsruOw1aZZ6+sfjCP22R2z7Z+/Bp1O5zq5weeaC5aiKALwZu3gOFAn6m610MPSxTLOuBbxFppsEeA6CcuSoaVcLwkYKtp1ny1qxHGslhJ7ZqSfPHvOnGs3SgMdfnrHVvZ2cgOTJb/ztKiuAo7j8r2H6RkpgWHlsaMn8Ae5jB7fn2ybLz6e7scRi55uTPdfbk+fKzAKJZvc733q07PEayGAyafGICwdAwVUljuVEhjzHTZhSAdddQtUPnCiJw+qnct0ptRjgRpGZQtMPrfE5zkXgaxUXC04KxDIAlrkGXHuMZCbBzJTcaVX4zW5QCOlB15WQM71GaYRiL/syjM8zsr5Kec9yvD9Zj2JSGyBoq1TZVEJDyyXsICgClVWwOcYhIgpuNalhFiOY/W6qIG6sfClHkHicq1j8bFux9J5ESRUWU4W8AkzsqhXwxp91G63e1i379g2azQa/yl4dNFmGysXCoF9+HPC3oCo5gZnFcTg5h51R4gZWGQBT7VL1DSo1sxQBz4o/IrzLBII/no4QqBb5HMhfc15sjXzlAWUC1RgeInm1KKeYR1IfMsjgeBv/3oIvk6WDUmymlNJQNBNQmsgzQQBtIgNJLrwdvtpJLQ372I1r1qvBIHU9pxp4OHu6iVfKb1zMDQ0Ao6MWs7XNn8f/9BJIPirQxe7njUysUvik06h6SyeiPBBeCA8k3pNswsk9tU1rBG8Ows8NS/QPyRFKk/dEpjoHNd1v8vmxXFuEuiRDl6kYCxaESkX6VksAOCrdI0BdUwWKAxetiTTSai1lfj3Y1wGHMc/AQYAUQRrpRjmzvIAAAAASUVORK5CYII=";
+var mapa=null;
+var marker=null;
+var centro=null;
+function initialize(){
+	centro=new google.maps.LatLng(19.417069662, -99.239308834);
+	var mapOptions = {
+		zoom: 12,
+		center: centro
+	};
+
+	mapa = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+		marker = new google.maps.Marker({
+			  position: new google.maps.LatLng(0,0),
+			  map: mapa,
+			  icon: hospital_ico,
+			  //animation: google.maps.Animation.BOUNCE,
+			  title: 'Centro ARUAL afilidado.'
+		  });
+			//mostramos la ubicacion si se carga el mapa desde CURSOS
+	if($("#lugar").val()!="{lugar}"){
+				var nombre_hospital=$("#lugar").val().trim();
+				detalleUbicacion(nombre_hospital);
+				var entradas=$("#detallesCuerpo").find("a");
+					entradas.each (function(e){
+						if($(this).text().trim()==nombre_hospital){
+							$($(this).attr("href")).collapse('show'); 
+						}  
+					});
+			}
+		}
+
+			
+			
+			$.ajax({
+				url : "sistema/contacto_.php",
+				type: "GET",
+				data : "accion=detalleCentros",
+				success:function(data, textStatus, jqXHR){
+				 //console.dir(textStatus);
+				 //console.dir(data);
+				//console.dir(jqXHR);
+					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data!="error")
+					{
+					$("#detallesCuerpo").html(data);
+						$.ajax({
+						  type: "GET",
+						  url: "js/contacto_.js",
+						  dataType: "script"
+						});
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) 
+				{
+				$("#body-mensajes").html('<p class=bg-warning">'+errorThrown+'</p>');
+				$('#mensajes').modal('show');
+					//if fails      
+				}
+			});
+		
+</script>

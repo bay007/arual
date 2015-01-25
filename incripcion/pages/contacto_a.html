@@ -1,0 +1,48 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="accordion-toggle" id="centroArual" data-toggle="collapse" data-parent="#accordion" href="#collapse{c}">
+         {hospital}
+        <i class="indicator glyphicon glyphicon-chevron-down  pull-right"></i></a>
+      </h4>
+    </div>
+    <div id="collapse{c}" class="panel-collapse collapse">
+      <div class="panel-body">
+        <strong><span class="glyphicon glyphicon-user"></span>
+			Persona de contacto:
+			</strong>
+			<div id="duracion" style="display: inline;">
+			{contacto}
+			</div>
+			<br>
+			<strong><span class="glyphicon glyphicon-envelope"></span>
+			Email:
+			</strong>
+			<div id="duracion" style="display: inline;">
+			{email}
+			</div>
+			<br>
+			<strong><span class="glyphicon glyphicon-earphone"></span>
+			Teléfono:
+			</strong>
+			<div id="duracion" style="display: inline;">
+			{telefono}
+			</div>
+			<br>
+			<strong><span class="glyphicon glyphicon-map-marker"></span>
+			Dirección:
+			</strong>
+			<div id="duracion" style="display: inline;">
+			{direccion}
+			<button type="button" class="btn btn-info pull-right visible-xs-block visible-xs-block visible-sm-block">Mapa</button>
+			</div>
+			<br>
+			<img class="img-responsive img-thumbnail" src="logotipo/{logotipo}" style="height:100px"></img>
+      </div>
+    </div>
+  </div>
+	<script>
+	$(".visible-xs-block").click(function(){
+		$('html,body').animate({scrollTop:$(".Ubicacion").offset().top}, 1000);
+		});
+	</script>
