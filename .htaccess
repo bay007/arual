@@ -7,5 +7,10 @@ RewriteBase /
 		Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
 		Header set Pragma "no-cache"
 		Header set Expires "Wed, 08 Jan 1975 05:00:00 GMT"
+		# compress text, html, javascript, css, xml:
+SetEnvIfNoCase User-Agent "^libwww-perl*" block_bad_bots
+Deny from env=block_bad_bots
 	</ifModule>
 </filesMatch>
+
+
