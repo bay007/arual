@@ -27,6 +27,37 @@ $(idFormulario).parent().parent().parent().addClass('animated pulse');
 				if(key=="nombre_curso"){
 				seleccionaTAGSelect(idFormulario+" select#cmbCursosCatalogo",value);
 				}
+				
+				if(key=="idadministrandoInscripciones"){
+						$.ajax({
+							url : $(idFormulario).attr("action")+"?idadministrandoInscripciones="+ $("#idadministrandoInscripciones").val(),
+							type: "GET",
+							dataType:'json',
+							success:function(data, textStatus, jqXHR) 
+							{
+								if(jqXHR.status==200&&jqXHR.statusText=="OK")
+								{
+									if(data[0].credencial_aspirante!=""){
+										$("#credencial_aspirante").attr("href","inscripciones/aspirantes/"+data[0].credencial_aspirante);
+										$("#credencial_aspirante").removeAttr("disabled");
+									}else{
+										$("#credencial_aspirante").attr("disabled","true");
+										alert("Sin credencial presentada");	
+									}
+								}else{						//if fails      
+
+								}
+								// setTimeout('wait("'+idTablaAsociada+'")',timeOut);
+							},
+							error: function(jqXHR, textStatus, errorThrown) 
+							{
+							$("#body-mensajes").html('<p class=bg-warning">'+errorThrown+'</p>');
+							$('#mensajes').modal('show');
+								//if fails      
+							}
+						});
+//				
+				}
 		});
 	$(idFormulario).parent().parent().parent().one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
 		$(idFormulario).parent().parent().parent().removeClass('animated pulse');
@@ -44,12 +75,23 @@ $(idTabla).bootstrapTable({
 	  $(idTabla+' tr').each(function(index, element){
 	  //$(idTabla+' tr').removeClass("info");
         Referencia = $(element).find("td").eq(0).html();
-			if(Referencia==row_.id){
-			// console.log(Referencia);
-			// console.log(row_.id);
-			$(element).addClass("info");
+			//if(Referencia==row_.id||Referencia==row_.idadministrandoInscripciones||Referencia==row_.idadministrandoPagos){
+			if(index>=1){
+				if(Referencia==row_.id){
+					$(element).addClass("info");
+				}else{
+						if(Referencia==row_.idadministrandoInscripciones){
+							$(element).addClass("info");
+						}else{
+							if(Referencia==row_.idadministrandoPagos){
+							$(element).addClass("info");
+							}else{
+								$(element).removeClass("info");
+							}
+						}
+				}
 			}else{
-			$(element).removeClass("info");
+				$(element).removeClass("info");
 			}
 		});
 	
@@ -590,6 +632,67 @@ function GuardarActualizarAdministradores(idBotonGuardar,idTablaAsociada){
 						{
 							$("#body-mensajes").html('<div class="alert alert-success" role="alert">El cambio en el administrador fué exitoso.</div>');
 							resetFormulario("#"+formulario_id);
+						}else{						//if fails      
+						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al actualizar al administrador.</div>');
+						}
+						// setTimeout('wait("'+idTablaAsociada+'")',timeOut);
+						var tablaa=$(".tblGENERAL");recargarCombos();
+						tablaa.each(function(){
+							setTimeout('wait("#'+$(this).attr("id")+'")',timeOut);
+						;})
+						$('#mensajes').modal('show');
+						//data: return data from server
+					},
+					error: function(jqXHR, textStatus, errorThrown) 
+					{
+					$("#body-mensajes").html('<p class=bg-warning">'+errorThrown+'</p>');
+					$('#mensajes').modal('show');
+						//if fails      
+					}
+				});
+			}else{
+			alert("Por favor, complete todos los campos antes de continuar.");
+			}
+		//});
+	});
+}
+////////////////////////////////////Administrando SolicitudesInscripcion///////////////////////////////////////////
+function aceptarSolicitud(idBotonGuardar,idTablaAsociada){
+	$(idBotonGuardar).click(function(e){
+	e.preventDefault(); //STOP default action
+	var formulario_id=$(idBotonGuardar).parent().attr('id');
+	var accion="";
+	if ($("#"+formulario_id+" input#id").val()==""){
+	accion="aceptarSolicitud";
+	}else{
+	accion="aceptarSolicitud";
+	}
+		$("#"+formulario_id+' input#accion').val(accion);
+			var postData = $("#"+formulario_id).serializeArray();
+			var formURL = $("#"+formulario_id).attr("action");
+			var a=$("#"+formulario_id+' :checkbox').is(":checked");
+			postData.push({name: "activo", value:a?"Si":"No"});
+			var nuevoElemento=0;
+			
+			postData.forEach(function(f){
+				if(f.value==""){
+				nuevoElemento=nuevoElemento+1;
+				}
+			;})
+			
+		if(postData[2].value!=""){
+				$.ajax({
+					url : formURL,
+					type: "POST",
+					data : postData,
+					success:function(data, textStatus, jqXHR){
+					// console.dir(textStatus);
+					// console.dir(data);
+					// console.dir(jqXHR);
+					resetFormulario("#"+formulario_id);
+						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data=="OK")
+						{
+							$("#body-mensajes").html('<div class="alert alert-success" role="alert">Se ha aceptado la solicitud, se ha enviado un email al solicitante..</div>');
 						}else{						//if fails      
 						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al actualizar al administrador.</div>');
 						}

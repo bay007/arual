@@ -24,14 +24,28 @@ if(isset($_GET['uuid'])){
 			die("Se debe abrir la página desde la misma pc desde donde se solicitó la administración.");
 			}
 		}else{
-		
 		header("Location: index.php");
 		die();
 		}
 }
 else{ 
-header("Location: index.php");
-die();
-Echo "Acceso no autorizado";
+	if(isset($_GET['sello'])){ 
+		$sello=$_GET['sello'];
+			$db = new Database;
+			$db->connect();
+			@$db->select("edicion_cursos",
+	"sello,nombres_aspirante,apellidos_aspirante,edicion_cursos.faplicacion,edicion_cursos.haplicacion,catalogo_cursos.nombre_curso,catalogo_centros.hospital,catalogo_centros.direccion",
+	"catalogo_cursos join catalogo_centros join solicitudes_inscripcion",
+	"idcursoSolicitado=edicion_cursos.id and fkIDCh=catalogo_centros.id and fkIDCc=catalogo_cursos.id and sello like '$sello'");
+			@$resultado=$db->getResult();$db->disconnect();
+			if($db->numRows()==0){
+				header("Location: index.php");
+			}
+			include("sistema/comprobante.php");
+			$pdf = new PDF();
+			$pdf->InfoPago($resultado[0]);
+	}else{
+		header("Location: index.php");
+	}
 }
 ?>

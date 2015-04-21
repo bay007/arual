@@ -1,4 +1,3 @@
-
 <div id="contenido" class="animated fadeInDown"  style="min-height:480px;">
   <!--==============================content================================-->
     <div class="row"> 
@@ -13,7 +12,9 @@
 					</div>
 			</div>
 		</div>
-		<img id="block-6_block" class="img-responsive center-block img-thumbnail img-rounded" src="images/CPR.jpg" alt="" style="height:150px;">
+		<div id="block-6_block">
+		<img class="img-responsive center-block img-thumbnail img-rounded" src="images/CPR.jpg" alt="" style="height:150px;">
+		<h5><button type="button" class="btn btn-info center-block">Concluir inscripción</button></h5></div>
 		<div id="block-6" class="col-md-6" style="display:none">
 			<div class="panel panel-primary">
 				<div class="panel-heading"><h6 class="tituloCurso" align="center"></h6></div>
@@ -62,6 +63,67 @@
 		</div>
 	</div> 
 </div>    
+
+<!-- Modal -->
+<div class="modal fade" id="usuario_inscripcion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title" id="myModalLabel">Inscripción al curso</h2>
+      </div>
+      <div class="modal-body" id="inscripcionCurso">
+		  <h4>Formulario de inscripción</h4>
+		  <form id="frmInscripcion" method="POST" action="sistema/inscripcion.php">
+		  <input type="hidden" id="idcursoSolicitado" name="idcursoSolicitado" required value="">
+			<div class="form-group">
+			  <label for="email_aspirante">Email:</label>
+			  <input type="email" required class="form-control" name="email_aspirante" id="email_aspirante" placeholder="Necesario para contactarlo" value="">
+			</div>
+			
+			<div class="form-group">
+			  <label for="nombres_aspirante">Nombre(s):</label>
+			  <input type="text" class="form-control" id="nombres_aspirante" name="nombres_aspirante" placeholder="Nombre(s)" value=""/>
+			</div>
+			
+			<div class="form-group">
+			  <label for="	apellidos_aspirante">Apellido(s):</label>
+			  <input type="text" class="form-control" id="apellidos_aspirante" name="apellidos_aspirante" placeholder="Apellidos" value="">
+			</div>
+			
+			
+			<div class="form-group">
+				<label for="telefono_aspirante">Teléfono:</label>
+				<input type="telephone" class="form-control" id="telefono_aspirante" name="telefono_aspirante"  placeholder="55 11 44 55 88" value="">
+			</div>
+			
+			<div class="form-group">
+				<label for="titulo_aspirante">Título:</label>
+				<select type="text" class="form-control" id="titulo_aspirante" name="titulo_aspirante" value="0">
+					<option value="Dr(a)">Dr(a)</option>
+					<option value="Lic.Enfermería">Lic. Enfermería</option>
+					<option value="Aux.Enfermería">Aux. Enfermería</option>
+					<option value="Otros">Otros</option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label for="credencial_aspirante">Credencial</label>
+				<input accept=".gif,.jpg,.jpeg,.png,.pdf" class="form-control" type="file">
+				<input type="hidden" id="credencial_aspirante" name="credencial_aspirante">
+			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				<button id="enviarSolicitud" type="button" class="btn btn-primary" data-loading-text="Enviando..." autocomplete="off">Enviar solicitud</button>
+			</div>
+			
+		  </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
 <!--==============================footer=================================-->
   
 <script>
@@ -93,5 +155,26 @@ $(document).ready(function(){
 				//if fails      
 			}
 		});
+		
+$(":file").change(function(){
+var file = this.files[0];
+var size = file.size;
+var type = file.type;
+		var FR= new FileReader();
+		FR.onload = function(e) {
+			$("#credencial_aspirante").val(e.target.result);
+		};       
+			if(size<1024000){
+			if((type=="image/png")||(type=="image/jpg")||(type=="image/jpeg")||(type=="image/gif")){
+			FR.readAsDataURL( file );
+			}else{
+			alert("Los archivos sólo pueden ser gif, jpg ó png, seleccione de nuevo.");
+			$(":file").val(null);
+			}
+		}else{
+			alert("El archivo no debe ser mayor a 1 MB, seleccione de nuevo.");
+			$(":file").val(null);
+		}
+});		
 });
 </script>

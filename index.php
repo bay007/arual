@@ -114,7 +114,7 @@
 		
 		<div class="col-md-5 col-sm-2">
 		<img class="img-responsive img-thumbnail  center-block" src="images/Angeles Lomas.gif" alt="Random image" style="height:160px;" />
-		<h5 id="Lomas"><button type="button" class="btn btn-info center-block">Inscripción</button></h5>
+		
 		</div>
 		</div>
 		

@@ -64,6 +64,7 @@ if(isset($_POST["accion"])){
 					$db->update("administradores",$datos,"email='$email'");
 						if($db->numRows()==1){
 						$eMail->mensaje=str_ireplace('{GUI}',$uuid,$mensaje);
+						$eMail->mensaje=str_ireplace('{SERVERNAME}',$_SERVER['SERVER_NAME'],$eMail->mensaje);
 						$eMail->mensaje=str_ireplace('{fCaducidad}',$datos['fCaducidad'],$eMail->mensaje);
 						echo $eMail->enviar();
 						}else{

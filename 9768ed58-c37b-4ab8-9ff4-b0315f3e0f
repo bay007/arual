@@ -13,7 +13,7 @@
     <link href="http://fonts.googleapis.com/css?family=Condiment" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css">
    
-   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
    
@@ -33,15 +33,14 @@
 	<link rel="stylesheet" type="text/css" media="screen" href="css/animate.css">
 <!-- <script src="js/populate.js"></script> -->
 <link  href="css/datepicker3.css" rel="stylesheet" type="text/css">
+<link  href="css/magnific-popup.css" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet" type="text/css" href="css/bootstrap-clockpicker.min.css">
 <script type="text/javascript" src="js/bootstrap-clockpicker.min.js"></script>
 <script src="js/bootstrap-datepicker.js"></script>
 <script src="js/bootstrap-datepicker.es.js"></script>
 <script src="js/FuncionesGenerales.js"></script>
-	
-	
-
+<script src="js/jquery.magnific-popup.min.js"></script>
 
 
 	<!--[if lt IE 8]>
@@ -90,6 +89,8 @@
 				  <li><a href="#edicion_cursos" role="tab" data-toggle="tab">Edición de cursos</a></li>
 				  <li><a href="#catalogo_cursos" role="tab" data-toggle="tab">Catalogo de cursos</a></li>
 				  <li><a href="#catalogo_administradores" role="tab" data-toggle="tab">Administradores</a></li>
+				  <li><a href="#administrando_inscripciones" role="tab" data-toggle="tab">Solicitudes de inscripción</a></li>
+				  
 				 <!-- <li><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
 				  <li><a href="#settings" role="tab" data-toggle="tab">Settings</a></li> -->
 				</ul>
@@ -133,7 +134,7 @@
 											
 											<div class="form-group">
 												<label for="direccion">Dirección:</label>
-												<input type="text" required name="direccion"  id="direccion" class="form-control" placeholder="Calle Rio Bamba 639, Magdalena de Las Salinas, 07760 Ciudad de M茅xico, Distrito Federal">
+												<input type="text" required name="direccion"  id="direccion" class="form-control" placeholder="Calle Rio Bamba 639, Magdalena de Las Salinas, 07760 Ciudad de México, Distrito Federal">
 											</div>
 											
 											<div class="form-group">
@@ -159,7 +160,7 @@
 
 											<div class="checkbox">
 												<label>
-													<input  id="activo" name="activo" type="checkbox"> Activar centro.
+													<input  id="activo" name="activo" type="checkbox"> Activar centro.</input>
 												</label>
 											</div>
 											<button id="btnGuardarHospital" type="button" class="btn btn-primary">Salvar cambios</button>
@@ -176,9 +177,9 @@
 					</div>
 				  
 					<div class="tab-pane " id="edicion_cursos">
-						<div class="col-md-7">  	  
+						<div class="col-md-8">  	  
 							<div class="panel panel-primary">
-								<div class="panel-heading">Cursos publicados:</div>
+								<div class="panel-heading">Edición de cursos:</div>
 							  
 								<div class="panel-body">
 									<table id="tblEdicionCursos" class="tblGENERAL" data-single-select="true"  data-height="550" data-show-refresh="true"  data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-url="sistema/EdicionCursos.php">
@@ -199,7 +200,7 @@
 							</div>
 						</div>
 						
-						<div class="col-md-5">
+						<div class="col-md-4">
 							<div class="panel panel-primary">
 								<div class="panel-heading">Alta/edición:</div>
 								
@@ -343,7 +344,7 @@
 
 											<div class="checkbox">
 												<label>
-													<input type="checkbox" value="0" name="activo" id="activo" > Activar curso.
+													<input type="checkbox" value="0" name="activo" id="activo" > Activar curso.</input>
 												</label>
 											</div>
 											<button type="botton" id="btnGuardarCatalogoCurso" class="btn btn-primary">Salvar cambios</button>
@@ -400,7 +401,242 @@
 									</div>
 								</div>
 							</div>
-						</div>
+					</div>
+					<div class="tab-pane " id="administrando_inscripciones">
+					<div class="row">
+							<div class="col-md-6">
+								<div class="panel panel-primary">
+									<div class="panel-heading">Solicitudes de inscripción:</div>
+									<div class="panel-body">
+										<table id="tbladministrandoInscripciones" class="tblGENERAL" data-single-select="true" data-url="sistema/administrandoInscripciones.php"  data-height="393" data-show-refresh="true"  data-show-columns="true" data-search="true" data-select-item-name="toolbar1">
+											<thead>
+												<tr>
+													<th data-field="idadministrandoInscripciones">ID</th>
+													<th data-field="titulo_aspirante" data-align="left">Titulo</th>
+													<th data-field="sello" data-align="left">Sello</th>
+													<th data-field="email_aspirante" data-align="left">E-mail</th>
+													<th data-field="nombres_aspirante" data-align="left">Nombre</th>
+													<th data-field="apellidos_aspirante" data-align="left">Apellidos</th>
+													<th data-field="telefono_aspirante" data-align="left">Teléfono</th>
+													<th data-field="nombre_curso" data-align="left">Curso Solicitado</th>													
+													<th data-field="hospital" data-align="left">Lugar</th>
+													<th data-field="fhora_programada" data-align="left">Hora y fecha aplicación</th>													
+												</tr>
+											</thead>
+										</table>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-md-6">
+								<div class="panel panel-primary">
+									<div class="panel-heading">Alta/edición:</div>
+									<div class="panel-body">
+										<form id="frmadministrandoInscripciones" method="post" action="sistema/administrandoInscripciones.php">
+										<input type="hidden" name="accion" id="accion" required>
+										<input type="hidden" id="idadministrandoInscripciones" name="idadministrandoInscripciones" required value="">
+											<!-- <fieldset> -->
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+												  <label for="email">Email:</label>
+												  <input disabled type="email" name="email_aspirante" required id="email_aspirante" class="form-control">
+												</div>
+											</div>	
+											<div class="col-md-6">
+												<div class="form-group">
+												  <label for="telefono_aspirante">Teléfono:</label>
+												  <input disabled type="tel" name="telefono_aspirante" required id="telefono_aspirante" class="form-control">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+												  <label for="nombres_aspirante">Nombre(s):</label>
+												  <input disabled type="text" name="nombres_aspirante" required id="nombres_aspirante" class="form-control">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+												  <label for="apellidos_aspirante">Apellido(s):</label>
+												  <input disabled type="text" name="apellidos_aspirante" required id="apellidos_aspirante" class="form-control">
+												</div>
+											</div>
+										</div>	
+												
+										<div class="row">
+											<div class="col-md-4">		
+												<div class="form-group">
+												  <label for="titulo_aspirante">Título:</label>
+												  <input disabled type="text" name="titulo_aspirante" required id="titulo_aspirante" class="form-control">
+												</div>
+											</div>
+											<div class="col-md-4">		
+												<div class="form-group">
+												  <label for="sello">Sello:</label>
+												  <input disabled type="text" name="sello" required id="sello" class="form-control">
+												</div>
+											</div>
+											<div class="col-md-4">		
+												<div class="form-group">
+												<label for="credencial_aspirante">Credencial presentada:</label><br>
+												<!-- <a class='ajax' href="http://www.cabel.name/images-post/2008/02/mwsf-2.jpg" title="Homer Defined">Outside HTML (Ajax)</a> -->
+												<a class="btn btn-info ajax" href="" role="button" id="credencial_aspirante">Click para ver</a>
+												</div>
+											</div>
+										</div>			
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<label for="nombre_curso">Curso Solicitado:</label>
+													<input disabled type="text" name="nombre_curso" required id="nombre_curso" class="form-control">
+												</div>
+											</div>
+										</div>	
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="fhora_programada">Hora y fecha aplicación:</label>
+													<input disabled type="text" name="fhora_programada" required id="fhora_programada" class="form-control">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="hospital">Lugar aplicación:</label>
+													<input disabled type="text" name="hospital" required id="hospital" class="form-control">
+												</div>
+										  
+											</div>
+										</div>
+												<button type="botton" id="btnAceptaradministrandoInscripciones" class="btn btn-primary">Aceptar solicitud</button>
+												<button type="button" id="btnEliminaradministrandoInscripciones" class="btn btn-danger" >Rechazar solicitud</button>
+												<button type="button" id="btnLimpiaradministrandoInscripciones" class="btn btn-primary">Eliminar</button>
+											<!-- </fieldset> -->
+										</form>
+									</div>
+								</div>
+							</div>
+					</div>
+					<div class="row">
+							<div class="col-md-6">
+								<div class="panel panel-primary">
+									<div class="panel-heading">Personas pendientes de pago:</div>
+									<div class="panel-body">
+										<table id="tbladministrandoInscripciones_pago" class="tblGENERAL" data-single-select="true" data-url="sistema/administrandoInscripciones_pago.php"  data-height="372" data-show-refresh="true"  data-show-columns="true" data-search="true" data-select-item-name="toolbar1">
+											<thead>
+												<tr>
+													<th data-field="idadministrandoInscripciones_pago">ID</th>
+													<th data-field="sello_solicitud" data-align="left">Sello</th>
+													<th data-field="titulo_pago" data-align="left">Titulo</th>
+													<th data-field="email_pago" data-align="left">E-mail</th>
+													<th data-field="nombres_pago" data-align="left">Nombre</th>
+													<th data-field="apellidos_pago" data-align="left">Apellidos</th>
+													<th data-field="telefono_pago" data-align="left">Teléfono</th>
+													<th data-field="curso_pago" data-align="left">Curso Solicitado</th>													
+													<th data-field="hospital" data-align="left">Lugar</th>
+													<th data-field="fhora_programada_pago" data-align="left">Hora y fecha aplicación</th>	
+													<th data-field="descarga_instrucciones" data-align="left">Descarga</th>	
+												</tr>
+											</thead>
+										</table>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-md-6">
+								<div class="panel panel-primary">
+									<div class="panel-heading">Alta/edición:</div>
+									<div class="panel-body">
+										<form id="frmadministrandoInscripciones_pago" method="post" action="sistema/administrandoInscripciones_pago.php">
+										<input type="hidden" name="accion" id="accion" required>
+										<input type="hidden" id="idadministrandoInscripciones_pago" name="idadministrandoInscripciones_pago" required value="">
+											<!-- <fieldset> -->
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+												  <label for="email_pago">Email:</label>
+												  <input disabled type="email" name="email_pago" required id="email_pago" class="form-control">
+												</div>
+											</div>	
+											<div class="col-md-6">
+												<div class="form-group">
+												  <label for="telefono_pago">Teléfono:</label>
+												  <input disabled type="tel" name="telefono_pago" required id="telefono_pago" class="form-control">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+												  <label for="nombres_pago">Nombre(s):</label>
+												  <input disabled type="text" name="nombres_pago" required id="nombres_pago" class="form-control">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+												  <label for="apellidos_pago">Apellido(s):</label>
+												  <input disabled type="text" name="apellidos_pago" required id="apellidos_pago" class="form-control">
+												</div>
+											</div>
+										</div>	
+												
+										<div class="row">
+											<div class="col-md-4">		
+												<div class="form-group">
+												  <label for="titulo_pago">Título:</label>
+												  <input disabled type="text" name="titulo_pago" required id="titulo_pago" class="form-control">
+												</div>
+											</div>
+											<div class="col-md-4">		
+												<div class="form-group">
+												  <label for="sello_solicitud">Sello:</label>
+												  <input disabled type="text" name="sello_solicitud" required id="sello_solicitud" class="form-control">
+												</div>
+											</div>
+											<div class="col-md-4">		
+												<div class="form-group">
+												<label for="boucher_pago">Boucher de pago:</label><br>
+												<!-- <a class='ajax' href="http://www.cabel.name/images-post/2008/02/mwsf-2.jpg" title="Homer Defined">Outside HTML (Ajax)</a> -->
+												<a class="btn btn-info ajax" href="#" role="button" id="boucher_pago">Click para ver</a>
+												</div>
+											</div>
+										</div>			
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<label for="curso_pago">Curso Solicitado:</label>
+													<input disabled type="text" name="curso_pago" required id="curso_pago" class="form-control">
+												</div>
+											</div>
+										</div>	
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="fhora_programada_pago">Hora y fecha aplicación:</label>
+													<input disabled type="text" name="fhora_programada_pago" required id="fhora_programada_pago" class="form-control">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="hospital">Lugar aplicación:</label>
+													<input disabled type="text" name="hospital" required id="hospital" class="form-control">
+												</div>
+										  
+											</div>
+										</div>
+												<button type="botton" id="btnAceptaradministrandoInscripciones" class="btn btn-primary">Aceptar solicitud</button>
+												<button type="button" id="btnEliminaradministrandoInscripciones" class="btn btn-danger" >Rechazar solicitud</button>
+												<button type="button" id="btnLimpiaradministrandoInscripciones" class="btn btn-primary">Eliminar</button>
+											<!-- </fieldset> -->
+										</form>
+									</div>
+								</div>
+							</div>
+					</div>
+					
+					</div>
+					
 				</div>
 			</section> 
 		</div>
@@ -539,11 +775,38 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialo -->
   </div><!-- /.modal -->
+  
+  <div class="modal fade"  id="confirmacionesRechazarSolicitud">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h2 class="modal-title">Confirme el rechazo a la solicitud.</h2>
+      </div>
+      <div class="modal-body">
+        <h3>¿Está Usted seguro(a) que quiere rechazar ésta solicitud?</h3>
+		<h4>Por favor, especifique el motivo por el cual rechaza ésta solicitud.</h4>
+			<div class="form-group">
+				<label for="motivo">Contenido</label>
+				<textarea id="motivo" name="motivo" class="form-control" style="resize: vertical; height: 120px;"></textarea>
+			</div>
+	   </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button id="btnConfirmacionRechazarSolicitud" type="button" class="btn btn-primary">Rechazar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+  
+  
 <script type='text/javascript'>
+$(".ajax").magnificPopup({type:'image',removalDelay: 100,  preloader: true});
+/*
 var centro=new google.maps.LatLng(19.394574923950497,-99.28167567436219);
- var mapProp = {center:centro,zoom:12};
- var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
- var marker = new google.maps.Marker({
+var mapProp = {center:centro,zoom:12};
+var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+var marker = new google.maps.Marker({
        position: centro,
        map: map,
 	   draggable: true,
@@ -556,7 +819,7 @@ var centro=new google.maps.LatLng(19.394574923950497,-99.28167567436219);
 	}); 
  }
  google.maps.event.addDomListener(window, 'load', initialize);
-
+*/
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //Edicion CATALOGO de cursos
 iniciarTabla("#tblCatalogoCursos","#frmCatalogoCursos");
@@ -582,7 +845,14 @@ resetFormularioBoton("#btnLimpiarAdministrador");
 iniciarTabla("#tblAdministradores","#frmAdministradores");
 EliminarElemento("#btnEliminarAdministrador","#tblAdministradores","#btnConfirmacionEliminarAdministradores");
 GuardarActualizarAdministradores("#btnGuardarAdministrador","#tblAdministradores");
-
+/////////////administrandoInscripciones////////////////////////////
+iniciarTabla("#tbladministrandoInscripciones","#frmadministrandoInscripciones");
+resetFormularioBoton("#btnLimpiaradministrandoInscripciones");
+EliminarElemento("#btnEliminaradministrandoInscripciones","#tbladministrandoInscripciones","#btnConfirmacionRechazarSolicitud");
+aceptarSolicitud("#btnAceptaradministrandoInscripciones","#tbladministrandoInscripciones");
+//////////////////esperando el pago////////
+iniciarTabla("#tbladministrandoInscripciones_pago","#frmadministrandoInscripciones_pago");
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $('#faplicacion_ .input-group.date').datepicker({
     weekStart: 1,
 	format: "yyyy-mm-dd",
@@ -596,7 +866,7 @@ autoclose: true,
 todayHighlight: true
     });
 $('.clockpicker').clockpicker();
-	
+
 $(":file").change(function(){
 var file = this.files[0];
 var size = file.size;
@@ -618,7 +888,7 @@ var type = file.type;
 			$(":file").val(null);
 		}
 });
-
+	
 var d = new Date();
 var n = d.getFullYear(); 
 $("#fecha").text("© "+n);
