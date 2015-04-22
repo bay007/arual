@@ -98,6 +98,14 @@ $(idTabla).bootstrapTable({
 	var obj=JSON.stringify(row);
 	//var frm = $("#formularioCursos");
 		formularioDesdeTabla(row,idFormulario);
+		if($(idFormulario+" input#sello").val()==""){
+						$("#btnAceptaradministrandoInscripciones").text("Aceptar solicitud");
+						$("#btnEliminaradministrandoInscripciones").removeAttr("disabled");
+					}else{
+						$("#btnAceptaradministrandoInscripciones").text("Reenviar email");
+						$("#btnEliminaradministrandoInscripciones").attr("disabled","true");
+						
+					}
 			//console.dir(response);      // for debug
 	}
 });
@@ -191,7 +199,7 @@ $("tr").removeClass("info");
 	var entradas=formulario.find(":input");
 	entradas.each (function(){
 	  //this.reset();
-	  $(this).val(null);
+	  $(this).val("");
 	});
 $("#"+formulario.attr('id')+' :checkbox').prop("checked",false);
 $('select').val(-1);
@@ -662,11 +670,17 @@ function aceptarSolicitud(idBotonGuardar,idTablaAsociada){
 	e.preventDefault(); //STOP default action
 	var formulario_id=$(idBotonGuardar).parent().attr('id');
 	var accion="";
-	if ($("#"+formulario_id+" input#id").val()==""){
-	accion="aceptarSolicitud";
+	if ($("#"+formulario_id+" input#idadministrandoInscripciones").val()==""){
+	//accion="aceptarSolicitud";
+	alert("Seleccione un registro de la tabla");
 	}else{
-	accion="aceptarSolicitud";
-	}
+	accion="ReenviarEmail";
+	
+		if($("#btnAceptaradministrandoInscripciones").text()=="Aceptar solicitud"){
+		accion="aceptarSolicitud";		
+		}
+	
+	
 		$("#"+formulario_id+' input#accion').val(accion);
 			var postData = $("#"+formulario_id).serializeArray();
 			var formURL = $("#"+formulario_id).attr("action");
@@ -690,9 +704,16 @@ function aceptarSolicitud(idBotonGuardar,idTablaAsociada){
 					// console.dir(data);
 					// console.dir(jqXHR);
 					resetFormulario("#"+formulario_id);
-						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data=="OK")
+						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&(data=="OK"||data=="OKr"))
 						{
-							$("#body-mensajes").html('<div class="alert alert-success" role="alert">Se ha aceptado la solicitud, se ha enviado un email al solicitante..</div>');
+							if(data=="OKr"){
+								$("#body-mensajes").html('<div class="alert alert-success" role="alert">Se ha re-envíado un email al solicitante..</div>');
+							}else{
+							$("#body-mensajes").html('<div class="alert alert-success" role="alert">Se ha aceptado la solicitud, se ha envíado un email al solicitante..</div>');	
+							}
+							
+							
+							
 						}else{						//if fails      
 						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al actualizar al administrador.</div>');
 						}
@@ -715,5 +736,6 @@ function aceptarSolicitud(idBotonGuardar,idTablaAsociada){
 			alert("Por favor, complete todos los campos antes de continuar.");
 			}
 		//});
+	}	
 	});
 }

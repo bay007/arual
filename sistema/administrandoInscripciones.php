@@ -28,6 +28,33 @@ if(isset($_GET["idadministrandoInscripciones"])){
 }
 
 if(isset($_POST["accion"])){
+	if($_POST["accion"]=="ReenviarEmail"){
+		$bandera=false;
+		$id	=$_POST["idadministrandoInscripciones"];
+		$db3 = new Database;
+		$db3->connect();
+		@$db3->select("solicitudes_inscripcion","*","","idadministrandoInscripciones=$id and sello is not null");
+		$result=$db3->getResult();
+		$email=$result[0]["email_aspirante"];
+		$eMail = new mail();
+		$eMail->para=$email;
+		$eMail->asunto="Solicitud para toma de curso";
+		$sello=$result[0]["sello"];
+		$mensaje=file_get_contents('../pages/emailPreinscripcion.html');
+		$eMail->mensaje=str_ireplace('{GUI}',$sello,$mensaje);
+		$eMail->mensaje=str_ireplace('{SERVERNAME}',$_SERVER['SERVER_NAME'],$eMail->mensaje);
+		if($eMail->enviar()==1){
+			if($db3->numRows()>0){
+				echo "OKr";
+			}else{
+				echo "ERROR";
+			}
+		}
+		//@$db3->delete("solicitudes_inscripcion","idadministrandoInscripciones=$id");	
+	}			
+}
+
+if(isset($_POST["accion"])){
 	if($_POST["accion"]=="aceptarSolicitud"){
 		$bandera=false;
 		$id	=$_POST["idadministrandoInscripciones"];

@@ -625,9 +625,9 @@
 										  
 											</div>
 										</div>
-												<button type="botton" id="btnAceptaradministrandoInscripciones" class="btn btn-primary">Aceptar solicitud</button>
-												<button type="button" id="btnEliminaradministrandoInscripciones" class="btn btn-danger" >Rechazar solicitud</button>
-												<button type="button" id="btnLimpiaradministrandoInscripciones" class="btn btn-primary">Eliminar</button>
+												<button type="botton" id="btnAceptaradministrandoInscripciones_pago" class="btn btn-primary">Aceptar solicitud</button>
+												<button type="button" id="btnEliminaradministrandoInscripciones_pago" class="btn btn-danger" >Rechazar solicitud</button>
+												<button type="button" id="btnLimpiaradministrandoInscripciones_pago" class="btn btn-primary">Eliminar</button>
 											<!-- </fieldset> -->
 										</form>
 									</div>
