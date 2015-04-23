@@ -50,7 +50,36 @@ if(isset($_POST["accion"])){
 				echo "ERROR";
 			}
 		}
-		//@$db3->delete("solicitudes_inscripcion","idadministrandoInscripciones=$id");	
+	}			
+}
+
+if(isset($_POST["accion"])){
+	if($_POST["accion"]=="delete"){
+		$bandera=false;
+		$id	=$_POST["idadministrandoInscripciones"];
+		$motivo	=$_POST["motivo"];
+		$db3 = new Database;
+		$db3->connect();
+		@$db3->select("solicitudes_inscripcion","email_aspirante,nombres_aspirante","","idadministrandoInscripciones=$id and sello is null");
+		$result=$db3->getResult();
+		$email=$result[0]["email_aspirante"];
+		$nombres_aspirante=$result[0]["nombres_aspirante"];
+		$eMail = new mail();
+		$eMail->asunto="Solicitud Declinada";
+		$eMail->para=$email;
+		$mensaje=file_get_contents('../pages/emailRechazo.html');
+		$eMail->mensaje=str_ireplace('{NOMBRE}',$nombres_aspirante,$mensaje);
+		$eMail->mensaje=str_ireplace('{MOTIVO}',$motivo,$eMail->mensaje);
+		
+		if($eMail->enviar()==1){
+		@$db3->delete("solicitudes_inscripcion","idadministrandoInscripciones=$id");
+		$db3->disconnect();
+				if($db3->numRows()>0){
+					echo "OK";
+				}else{
+					echo "ERROR";
+				}
+		}
 	}			
 }
 
@@ -78,7 +107,6 @@ if(isset($_POST["accion"])){
 					echo "ERROR";
 				}
 		}
-		//@$db3->delete("solicitudes_inscripcion","idadministrandoInscripciones=$id");	
 	}			
 }
 
@@ -93,6 +121,4 @@ if($bandera){
 	$db2->disconnect();
 	echo (utf8_decode(json_encode($adminis)));
 }
-				
-
 ?>

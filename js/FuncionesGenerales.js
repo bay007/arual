@@ -239,6 +239,11 @@ var formURL = $("#"+formulario_id).attr("action");
 	$('#'+modal_id).modal('hide');
 		$("#"+formulario_id+' input#accion').val(accion);
 			postData = $("#"+formulario_id).find("input[type=hidden]").serializeArray();
+			if(modal_id=="confirmacionesRechazarSolicitud"){
+			postData.push({name:'motivo',value:$('#motivo').val()});	
+			}
+			
+			
 			$.ajax(
 			{
 				url : formURL,
@@ -255,6 +260,12 @@ var formURL = $("#"+formulario_id).attr("action");
 					 resetFormulario("#"+formulario_id);
 					}else{						//if fails      
 					$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al eliminar el elemento,inténtelo de nuevo por favor.</div>');
+						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data=="OK"){
+							 $("#body-mensajes").html('<div class="alert alert-success" role="alert">La eliminación fué exitosa.</div>');
+						 resetFormulario("#"+formulario_id);
+						}else{
+						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al declinar la solicitud,inténtelo de nuevo por favor.</div>');
+						}
 					}
 					// setTimeout('wait("'+idTablaAsociada+'")',timeOut);
 					var tablaa=$(".tblGENERAL");

@@ -624,6 +624,7 @@
 												</div>
 										  
 											</div>
+											
 										</div>
 												<button type="botton" id="btnAceptaradministrandoInscripciones_pago" class="btn btn-primary">Aceptar solicitud</button>
 												<button type="button" id="btnEliminaradministrandoInscripciones_pago" class="btn btn-danger" >Rechazar solicitud</button>
@@ -903,13 +904,12 @@ $("#fecha").text("© "+n);
 	$("#confirmacionSalirSistema").modal('show');
 	});
 	
-	
+	$("input").val();
+	$("textarea").val();
 	$("#btnConfirmacionSalirSistema").click(function(){
 	self.location="index.php";
 	});
-	
 
-	
 </script>
 </body>
 </html>
