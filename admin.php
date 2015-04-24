@@ -34,16 +34,23 @@ else{
 			$db = new Database;
 			$db->connect();
 			@$db->select("edicion_cursos",
-	"sello,nombres_aspirante,apellidos_aspirante,edicion_cursos.faplicacion,edicion_cursos.haplicacion,catalogo_cursos.nombre_curso,catalogo_centros.hospital,catalogo_centros.direccion",
+	"sello,nombres_aspirante,NoDescargas,apellidos_aspirante,edicion_cursos.faplicacion,edicion_cursos.haplicacion,catalogo_cursos.nombre_curso,catalogo_centros.hospital,catalogo_centros.direccion",
 	"catalogo_cursos join catalogo_centros join solicitudes_inscripcion",
 	"idcursoSolicitado=edicion_cursos.id and fkIDCh=catalogo_centros.id and fkIDCc=catalogo_cursos.id and sello like '$sello'");
-			@$resultado=$db->getResult();$db->disconnect();
-			if($db->numRows()==0){
+			
+			@$resultado=$db->getResult();
+			if($db->numRows()>0){
+				$descargas=$resultado[0]["NoDescargas"];
+				$descargas++;							//aumentar el numero de descargas que se generan en la solicitud
+				@$db->update("solicitudes_inscripcion",array("NoDescargas"=>"$descargas"),"sello like '$sello'");
+				$db->disconnect();
+			}else{
 				header("Location: index.php");
 			}
 			include("sistema/comprobante.php");
 			$pdf = new PDF();
 			$pdf->InfoPago($resultado[0]);
+			header("Location: index.php");
 	}else{
 		header("Location: index.php");
 	}

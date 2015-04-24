@@ -408,7 +408,7 @@
 								<div class="panel panel-primary">
 									<div class="panel-heading">Solicitudes de inscripción:</div>
 									<div class="panel-body">
-										<table id="tbladministrandoInscripciones" class="tblGENERAL" data-single-select="true" data-url="sistema/administrandoInscripciones.php"  data-height="393" data-show-refresh="true"  data-show-columns="true" data-search="true" data-select-item-name="toolbar1">
+										<table id="tbladministrandoInscripciones" class="tblGENERAL" data-single-select="true" data-url="sistema/administrandoInscripciones.php"  data-height="420" data-show-refresh="true"  data-show-columns="true" data-search="true" data-select-item-name="toolbar1">
 											<thead>
 												<tr>
 													<th data-field="idadministrandoInscripciones">ID</th>
@@ -420,7 +420,8 @@
 													<th data-field="telefono_aspirante" data-align="left">Teléfono</th>
 													<th data-field="nombre_curso" data-align="left">Curso Solicitado</th>													
 													<th data-field="hospital" data-align="left">Lugar</th>
-													<th data-field="fhora_programada" data-align="left">Hora y fecha aplicación</th>													
+													<th data-field="fhora_programada" data-align="left">Hora y fecha aplicación</th>
+													<th data-field="NoDescargas" data-align="left">Descargass</th>
 												</tr>
 											</thead>
 										</table>
@@ -877,7 +878,7 @@ var type = file.type;
 		FR.onload = function(e) {
 			$("#logotipo").val(e.target.result);
 		};       
-			if(size<1024000){
+			if(size<=2097152){
 			if((type=="image/png")||(type=="image/jpg")||(type=="image/jpeg")||(type=="image/gif")){
 			FR.readAsDataURL( file );
 			}else{
@@ -885,7 +886,7 @@ var type = file.type;
 			$(":file").val(null);
 			}
 		}else{
-			alert("El archivo no debe ser mayor a 1 MB, seleccione de nuevo.");
+			alert("El archivo no debe ser mayor a 2 MB, seleccione de nuevo.");
 			$(":file").val(null);
 		}
 });

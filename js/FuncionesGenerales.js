@@ -715,16 +715,17 @@ function aceptarSolicitud(idBotonGuardar,idTablaAsociada){
 					// console.dir(data);
 					// console.dir(jqXHR);
 					resetFormulario("#"+formulario_id);
-						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&(data=="OK"||data=="OKr"))
+						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&(data=="OK"||data=="OKr"||data=="OKSinCupos"))
 						{
 							if(data=="OKr"){
 								$("#body-mensajes").html('<div class="alert alert-success" role="alert">Se ha re-envíado un email al solicitante..</div>');
 							}else{
-							$("#body-mensajes").html('<div class="alert alert-success" role="alert">Se ha aceptado la solicitud, se ha envíado un email al solicitante..</div>');	
+								if(data=="OKSinCupos"){
+								$("#body-mensajes").html('<div class="alert alert-danger" role="alert">Lamentablemente el numero de cupos para el curso solicitado ya es 0.<p>La solicitud debe ser rechazada con el comentario pertinente.</p></div>');
+								}else{
+								$("#body-mensajes").html('<div class="alert alert-success" role="alert">Se ha aceptado la solicitud, se ha envíado un email al solicitante..</div>');	
+								}
 							}
-							
-							
-							
 						}else{						//if fails      
 						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al actualizar al administrador.</div>');
 						}

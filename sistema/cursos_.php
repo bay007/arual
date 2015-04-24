@@ -44,7 +44,7 @@ try{
 		$db = new Database;
 		$db2 = new Database;
 		$db->connect();
-		@$db->select("edicion_cursos",'hospital,telefono,direccion,edicion_cursos.updated',"catalogo_centros join catalogo_cursos",'date(faplicacion) >= date(now()) and edicion_cursos.activo="Si" and fkIDCh=catalogo_centros.id and catalogo_cursos.nombre_curso like "%'.$nombre_cursos.'%"  and fkIDCc=catalogo_cursos.id group by hospital');
+		@$db->select("edicion_cursos",'hospital,telefono,direccion,edicion_cursos.updated',"catalogo_centros join catalogo_cursos",'date(faplicacion) >= date(now()) and edicion_cursos.activo="Si" and fkIDCh=catalogo_centros.id and catalogo_cursos.nombre_curso like "%'.$nombre_cursos.'%"  and fkIDCc=catalogo_cursos.id and cupo>0 group by hospital');
 		@$centrosConCurso=$db->getResult();
 		@$db->disconnect();
 		$DetallesDeCentro=array();
