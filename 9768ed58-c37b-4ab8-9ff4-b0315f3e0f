@@ -528,16 +528,17 @@
 											<thead>
 												<tr>
 													<th data-field="idadministrandoInscripciones_pago">ID</th>
-													<th data-field="sello_solicitud" data-align="left">Sello</th>
-													<th data-field="titulo_pago" data-align="left">Titulo</th>
-													<th data-field="email_pago" data-align="left">E-mail</th>
-													<th data-field="nombres_pago" data-align="left">Nombre</th>
-													<th data-field="apellidos_pago" data-align="left">Apellidos</th>
-													<th data-field="telefono_pago" data-align="left">Teléfono</th>
-													<th data-field="curso_pago" data-align="left">Curso Solicitado</th>													
+													<th data-field="verificado" data-align="left">Verificado</th>
+													<th data-field="nombres_aspirante_pago" data-align="left">Nombre</th>
+													<th data-field="apellidos_aspirante_pago" data-align="left">Apellidos</th>
+													<th data-field="telefono_aspirante_pago" data-align="left">Teléfono</th>
+													<th data-field="email_aspirante_pago" data-align="left">E-mail</th>
+													<th data-field="sello_pago" data-align="left">Sello</th>
+													<th data-field="titulo_aspirante_pago" data-align="left">Titulo</th>
+													<th data-field="nombre_curso" data-align="left">Curso Solicitado</th>													
 													<th data-field="hospital" data-align="left">Lugar</th>
-													<th data-field="fhora_programada_pago" data-align="left">Hora y fecha aplicación</th>	
-													<th data-field="descarga_instrucciones" data-align="left">Descarga</th>	
+													<th data-field="fhora_programada_pago" data-align="left">Hora y fecha aplicaciónn</th>	
+													
 												</tr>
 											</thead>
 										</table>
@@ -556,28 +557,28 @@
 										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group">
-												  <label for="email_pago">Email:</label>
-												  <input disabled type="email" name="email_pago" required id="email_pago" class="form-control">
+												  <label for="email_aspirante_pago">Email:</label>
+												  <input disabled type="email" name="email_aspirante_pago" required id="email_aspirante_pago" class="form-control">
 												</div>
 											</div>	
 											<div class="col-md-6">
 												<div class="form-group">
-												  <label for="telefono_pago">Teléfono:</label>
-												  <input disabled type="tel" name="telefono_pago" required id="telefono_pago" class="form-control">
+												  <label for="telefono_aspirante_pago">Teléfono:</label>
+												  <input disabled type="tel" name="telefono_aspirante_pago" required id="telefono_aspirante_pago" class="form-control">
 												</div>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group">
-												  <label for="nombres_pago">Nombre(s):</label>
-												  <input disabled type="text" name="nombres_pago" required id="nombres_pago" class="form-control">
+												  <label for="nombres_aspirante_pago">Nombre(s):</label>
+												  <input disabled type="text" name="nombres_aspirante_pago" required id="nombres_aspirante_pago" class="form-control">
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group">
-												  <label for="apellidos_pago">Apellido(s):</label>
-												  <input disabled type="text" name="apellidos_pago" required id="apellidos_pago" class="form-control">
+												  <label for="apellidos_aspirante_pago">Apellido(s):</label>
+												  <input disabled type="text" name="apellidos_aspirante_pago" required id="apellidos_aspirante_pago" class="form-control">
 												</div>
 											</div>
 										</div>	
@@ -585,29 +586,29 @@
 										<div class="row">
 											<div class="col-md-4">		
 												<div class="form-group">
-												  <label for="titulo_pago">Título:</label>
-												  <input disabled type="text" name="titulo_pago" required id="titulo_pago" class="form-control">
+												  <label for="titulo_aspirante_pago">Título:</label>
+												  <input disabled type="text" name="titulo_aspirante_pago" required id="titulo_aspirante_pago" class="form-control">
 												</div>
 											</div>
 											<div class="col-md-4">		
 												<div class="form-group">
-												  <label for="sello_solicitud">Sello:</label>
-												  <input disabled type="text" name="sello_solicitud" required id="sello_solicitud" class="form-control">
+												  <label for="sello_pago">Sello:</label>
+												  <input disabled type="text" name="sello_pago" required id="sello_pago" class="form-control">
 												</div>
 											</div>
 											<div class="col-md-4">		
 												<div class="form-group">
-												<label for="boucher_pago">Boucher de pago:</label><br>
+												<label for="boucher_aspirante_pago">Boucher de pago:</label><br>
 												<!-- <a class='ajax' href="http://www.cabel.name/images-post/2008/02/mwsf-2.jpg" title="Homer Defined">Outside HTML (Ajax)</a> -->
-												<a class="btn btn-info ajax" href="#" role="button" id="boucher_pago">Click para ver</a>
+												<a class="btn btn-info ajax" href="#" role="button" id="boucher_aspirante_pago">Click para ver</a>
 												</div>
 											</div>
 										</div>			
 										<div class="row">
 											<div class="col-md-12">
 												<div class="form-group">
-													<label for="curso_pago">Curso Solicitado:</label>
-													<input disabled type="text" name="curso_pago" required id="curso_pago" class="form-control">
+													<label for="nombre_curso">Curso Solicitado:</label>
+													<input disabled type="text" name="nombre_curso" required id="nombre_curso" class="form-control">
 												</div>
 											</div>
 										</div>	
@@ -627,8 +628,8 @@
 											</div>
 											
 										</div>
-												<button type="botton" id="btnAceptaradministrandoInscripciones_pago" class="btn btn-primary">Aceptar solicitud</button>
-												<button type="button" id="btnEliminaradministrandoInscripciones_pago" class="btn btn-danger" >Rechazar solicitud</button>
+												<button type="botton" id="btnAceptaradministrandoInscripciones_pago" class="btn btn-primary">Aceptar Boucher</button>
+												<button type="button" id="btnEliminaradministrandoInscripciones_pago" class="btn btn-danger" >Rechazar Boucher</button>
 												<button type="button" id="btnLimpiaradministrandoInscripciones_pago" class="btn btn-primary">Eliminar</button>
 											<!-- </fieldset> -->
 										</form>
@@ -803,7 +804,7 @@
   
   
 <script type='text/javascript'>
-$(".ajax").magnificPopup({type:'image',removalDelay: 100,  preloader: true});
+$(".ajax").magnificPopup({type:'image',removalDelay: 250,  preloader: true});
 /*
 var centro=new google.maps.LatLng(19.394574923950497,-99.28167567436219);
 var mapProp = {center:centro,zoom:12};
@@ -854,6 +855,9 @@ EliminarElemento("#btnEliminaradministrandoInscripciones","#tbladministrandoInsc
 aceptarSolicitud("#btnAceptaradministrandoInscripciones","#tbladministrandoInscripciones");
 //////////////////esperando el pago////////
 iniciarTabla("#tbladministrandoInscripciones_pago","#frmadministrandoInscripciones_pago");
+resetFormularioBoton("#btnLimpiaradministrandoInscripciones_pago");
+aceptarSolicitud("#btnAceptaradministrandoInscripciones_pago","#tbladministrandoInscripciones_pago");
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $('#faplicacion_ .input-group.date').datepicker({
     weekStart: 1,
@@ -873,7 +877,6 @@ $(":file").change(function(){
 var file = this.files[0];
 var size = file.size;
 var type = file.type;
-
 		var FR= new FileReader();
 		FR.onload = function(e) {
 			$("#logotipo").val(e.target.result);
@@ -905,8 +908,8 @@ $("#fecha").text("© "+n);
 	$("#confirmacionSalirSistema").modal('show');
 	});
 	
-	$("input").val();
-	$("textarea").val();
+	$("input").val("");
+	$("textarea").val("");
 	$("#btnConfirmacionSalirSistema").click(function(){
 	self.location="index.php";
 	});

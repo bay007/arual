@@ -58,6 +58,36 @@ $(idFormulario).parent().parent().parent().addClass('animated pulse');
 						});
 //				
 				}
+				if(key=="idadministrandoInscripciones_pago"){
+						$.ajax({
+							url : $(idFormulario).attr("action")+"?idadministrandoInscripciones_pago="+ $("#idadministrandoInscripciones_pago").val(),
+							type: "GET",
+							dataType:'json',
+							success:function(data, textStatus, jqXHR) 
+							{
+								if(jqXHR.status==200&&jqXHR.statusText=="OK")
+								{
+									if(data[0].credencial_aspirante!=""){
+										$("#boucher_aspirante_pago").attr("href","inscripciones/comprobantes_pago/"+data[0].boucher_aspirante_pago);
+										$("#boucher_aspirante_pago").removeAttr("disabled");
+									}else{
+										$("#boucher_aspirante_pago").attr("disabled","true");
+										alert("Sin credencial presentada");	
+									}
+								}else{						//if fails      
+
+								}
+								// setTimeout('wait("'+idTablaAsociada+'")',timeOut);
+							},
+							error: function(jqXHR, textStatus, errorThrown) 
+							{
+							$("#body-mensajes").html('<p class=bg-warning">'+errorThrown+'</p>');
+							$('#mensajes').modal('show');
+								//if fails      
+							}
+						});
+//				
+				}
 		});
 	$(idFormulario).parent().parent().parent().one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
 		$(idFormulario).parent().parent().parent().removeClass('animated pulse');
@@ -83,7 +113,7 @@ $(idTabla).bootstrapTable({
 						if(Referencia==row_.idadministrandoInscripciones){
 							$(element).addClass("info");
 						}else{
-							if(Referencia==row_.idadministrandoPagos){
+							if(Referencia==row_.idadministrandoInscripciones_pago){
 							$(element).addClass("info");
 							}else{
 								$(element).removeClass("info");

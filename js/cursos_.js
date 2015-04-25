@@ -32,7 +32,6 @@
 											if(jqXHR1.status==200&&jqXHR1.statusText=="OK"&&data1!="error")
 											{
 											$("#ubicacionesCursos").html(data1);
-											
 											}
 										},
 										error: function(jqXHR1, textStatus1, errorThrown1) 
@@ -70,12 +69,12 @@
 							/*alert(textStatus);
 							alert(data);
 							alert(jqXHR);*/
-								if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data=="OK")
+								if(jqXHR.status==200&&jqXHR.statusText=="OK"&&JSON.parse(data).e=="OK")
 								{
-								$("#inscripcionCurso").html("<h4>Hemos recibido su solicitud, una vez procesada (máximo en 24 horas) le enviaremos un email con los pasos a seguir para completar su inscripcion a éste curso.</h4>");
+								$("#inscripcionCurso").html(JSON.parse(data).m);
 								$("#inscripcionCurso").append("<p>Por favor revise su bandeja de entrada asi como su bandeja de correo no deseado.</p>");
 								}else{
-								$("#inscripcionCurso").html("<h4>Por el momento no podemos procesar tu solicitud, por favor intentalo más tarde..</h4>");
+								$("#inscripcionCurso").html(JSON.parse(data).m);
 								}
 							},
 							error: function(jqXHR, textStatus, errorThrown) 
@@ -83,6 +82,36 @@
 							$("#body-mensajes").html('<p class=bg-warning">'+errorThrown+'</p>');
 							$('#mensajes').modal('show');
 							$("#enviarSolicitud").button('reset');
+								//if fails      
+							}
+						});
+		});
+		
+		$("#enviarBoucher").click(function(boton){
+			var postData=$("#frmConclusion").serializeArray();
+			$(this).button('loading');
+			var formURL = $(this).parent().parent().attr("action");
+			$.ajax({
+							url : formURL,
+							type: "POST",
+							data : postData,
+							success:function(data, textStatus, jqXHR){
+							/*alert(textStatus);
+							alert(data);
+							alert(jqXHR);*/
+								if(jqXHR.status==200&&jqXHR.statusText=="OK"&&JSON.parse(data).e=="OK")
+								{
+								$("#conclusionCurso").html(JSON.parse(data).m);
+								$("#conclusionCurso").append("<p>Por favor revise su bandeja de entrada asi como su bandeja de correo no deseado.</p>");
+								}else{
+								$("#conclusionCurso").html(JSON.parse(data).m);
+								}
+							},
+							error: function(jqXHR, textStatus, errorThrown) 
+							{
+							$("#body-mensajes").html('<p class=bg-warning">'+errorThrown+'</p>');
+							$('#mensajes').modal('show');
+							$("#enviarBoucher").button('reset');
 								//if fails      
 							}
 						});

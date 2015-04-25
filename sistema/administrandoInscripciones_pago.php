@@ -11,80 +11,35 @@ $tiempo_edicion="+90 minutes";
 // echo getRealIP();
 // $eMail = new mail();
 // echo $eMail->gen_uuid();
-if(isset($_POST["accion"])){
-				$accion=$_POST['accion'];
-				array_shift($_POST);
-				$id=$_POST['id'];
-				array_shift($_POST);
-				$datos=$_POST;
+if(isset($_GET["idadministrandoInscripciones_pago"])){
+	if($_GET["idadministrandoInscripciones_pago"]!=""){
+		$bandera=false;
+	$id	=$_GET["idadministrandoInscripciones_pago"];
+		$db = new Database;
+					$db->connect();
+					@$db->select("solicitudes_inscripcion_pago",
+					"boucher_aspirante_pago",
+					"",
+					"idadministrandoInscripciones_pago=$id");	
+					$result=$db->getResult();
+					$db->disconnect();
+					echo (utf8_decode(json_encode($result)));
+		}
+}else{
 				$db = new Database;
 				$db->connect();
-
-
-			if($accion=="create"){
-				$db->insert("administradores",$datos);
-				$db->disconnect();
-				echo $db->numRows();
-			}else if($accion=="delete"){
-				$db->delete("administradores","id='$id'");
-				$db->disconnect();
-				echo $db->numRows();
-			}else if($accion=="update"){
-				$db->update("administradores",$datos,"id='$id'");
-				$db->disconnect();
-				echo $db->numRows();
-			}
-		}else{
-
-		if(isset($_POST["email"])){
-			$email=htmlentities(trim($_POST["email"]));
-			$email2='ai7rbawynv4o5caw$B%SVCAW$5';
-			$db = new Database;
-			$db->connect();
-			@$db->select("administradores","email","","email like '%$email%' and activo='Si'");
-
-			if($db->numRows()==1){
-			$a=$db->getResult();
-			$email2=$a[0]['email'];
-			}
-				if(strcmp($email,$email2)==0){//implica que es candidato y está activo este email, por lo que se le puede mandar una requisicion a su email.
-					$eMail = new mail();
-					$eMail->para=$email;
-					$uuid=$eMail->gen_uuid();
-					$mensaje=file_get_contents('../pages/emailAcceso.html');
-					$datos=array();
-					$datos['uuid']=$uuid;
-
-					$fecha = new DateTime();
-					$fecha->modify($tiempo_edicion);
-					$datos['fCaducidad']=$fecha->format('Y-m-d H:i:s');
-					$datos['ip']=getRealIP();
-					$datos['uuid']=$uuid;
-					$datos['editando']=0;
-					$db->update("administradores",$datos,"email='$email'");
-						if($db->numRows()==1){
-						$eMail->mensaje=str_ireplace('{GUI}',$uuid,$mensaje);
-						$eMail->mensaje=str_ireplace('{fCaducidad}',$datos['fCaducidad'],$eMail->mensaje);
-						echo $eMail->enviar();
-						}else{
-						echo "No fue posible actualizar una tabla,no se envió el mail.";
-						$db->disconnect();
-						}
-				$db->disconnect();
-				}else{
-				echo "No encontramos su mail o bien no está activo";
-				$db->disconnect();
-				}		
-		}else{
-			//$db = new Database;
-			//$db->connect();
-			//$db->select("administradores","id,email,activo");
-				//if($db->numRows()!=0){
-				$adminis=array("0"=>array("id"=>"18","sello_solicitud"=>"0c224cc4","titulo_aspirante"=>"Dr","email_aspirante"=>"a@a.com","nombres_aspirante"=>"nombre_aspirante","apellidos_aspirante"=>"apellidos_aspirante","telefono_aspirante"=>"telefono_aspirante","lugar_aplicacion"=>"Pedregal Angeles","fhora_programada"=>"2015-10-22/16:20:00","curso_solicitado"=>"SALVACORAZONES PRIMEROS AUXILIOS CON RCP Y DEA","descarga_instrucciones"=>"No"));
-				//=$db->getResult();
-				//$db->disconnect();
-				echo (utf8_decode(json_encode($adminis)));
+				$db->select("edicion_cursos","idadministrandoInscripciones_pago
+				,email_aspirante_pago,nombres_aspirante_pago,apellidos_aspirante_pago,telefono_aspirante_pago,titulo_aspirante_pago,titulo_aspirante_pago,sello_pago,verificado,concat(edicion_cursos.faplicacion,' / ',edicion_cursos.haplicacion) as fhora_programada_pago,catalogo_cursos.nombre_curso,catalogo_centros.hospital",
+				"catalogo_cursos join catalogo_centros join solicitudes_inscripcion_pago",
+				"idcursoSolicitado_pago=edicion_cursos.id and fkIDCh=catalogo_centros.id and fkIDCc=catalogo_cursos.id","verificado desc");
+				
+					if($db->numRows()>0){
+					//$adminis=array("0"=>array("id"=>"18","sello_solicitud"=>"0c224cc4","titulo_aspirante"=>"Dr","email_aspirante"=>"a@a.com","nombres_aspirante"=>"nombre_aspirante","apellidos_aspirante"=>"apellidos_aspirante","telefono_aspirante"=>"telefono_aspirante","lugar_aplicacion"=>"Pedregal Angeles","fhora_programada"=>"2015-10-22/16:20:00","curso_solicitado"=>"SALVACORAZONES PRIMEROS AUXILIOS CON RCP Y DEA","descarga_instrucciones"=>"No"));
+					$Resp=$db->getResult();
+					$db->disconnect();
+					echo (utf8_decode(json_encode($Resp)));
+					}
+				
 				}
-			
-			}
-	?>
+		
+?>

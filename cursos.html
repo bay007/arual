@@ -14,7 +14,8 @@
 		</div>
 		<div id="block-6_block">
 		<img class="img-responsive center-block img-thumbnail img-rounded" src="images/CPR.jpg" alt="" style="height:150px;">
-		<h5><button type="button" class="btn btn-info center-block">Concluir inscripción</button></h5></div>
+		<h5><button id="btnConcluirInscripcion" type="button" class="btn btn-info center-block" data-toggle="modal" data-target="#usuario_conclusion">Concluir inscripción</button></h5></div>
+		
 		<div id="block-6" class="col-md-6" style="display:none">
 			<div class="panel panel-primary">
 				<div class="panel-heading"><h6 class="tituloCurso" align="center"></h6></div>
@@ -123,8 +124,41 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="usuario_conclusion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Concluye tu inscripción</h4>
+      </div>
+      <div class="modal-body" id="conclusionCurso">
+		  <form id="frmConclusion" method="POST" action="sistema/inscripcion.php">
+		  <input type="hidden" id="accionConclusion" name="accionConclusion" required value="accionConclusion">
+			<div class="form-group">
+			  <label for="sello_aspirante">Sello:</label>
+			  <input type="text" required class="form-control" name="sello_aspirante" id="sello_aspirante" placeholder="" value="">
+			</div>
+			
+			<div class="form-group">
+				<label for="boucher_aspirante">Boucher</label>
+				<input accept=".gif,.jpg,.jpeg,.png,.pdf" class="form-control" type="file">
+				<input type="hidden" id="boucher_aspirante" name="boucher_aspirante">
+			</div>
+			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+				<button id="enviarBoucher" type="button" class="btn btn-primary" data-loading-text="Enviando..." autocomplete="off">Enviar solicitud</button>
+			</div>
+			
+		  </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
 <!--==============================footer=================================-->
-  
+ 
 <script>
 $(document).ready(function(){
 	$.ajax({
@@ -159,11 +193,12 @@ $(":file").change(function(){
 var file = this.files[0];
 var size = file.size;
 var type = file.type;
+var x=$(this).next();
 		var FR= new FileReader();
 		FR.onload = function(e) {
-			$("#credencial_aspirante").val(e.target.result);
+			$("#"+x.attr("id")).val(e.target.result);
 		};       
-			if(size<1024000){
+			if(size<2097152){
 			if((type=="image/png")||(type=="image/jpg")||(type=="image/jpeg")||(type=="image/gif")){
 			FR.readAsDataURL( file );
 			}else{
@@ -171,7 +206,7 @@ var type = file.type;
 			$(":file").val(null);
 			}
 		}else{
-			alert("El archivo no debe ser mayor a 1 MB, seleccione de nuevo.");
+			alert("El archivo no debe ser mayor a 2 MB, seleccione de nuevo.");
 			$(":file").val(null);
 		}
 });		

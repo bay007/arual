@@ -5,7 +5,26 @@ header('Content-Type: text/html; charset=UTF-8');
 include("mysql_crud.php");
  error_reporting(-1);
  
- function base64ToImage($img,$nombre){
+ 
+ function responder($mensaje,$estado="OK"){
+	 if($estado=="OK"){
+	 $mensaje="<h4><div class='alert alert-success text-justify' role='alert'>
+				<span class='glyphicon glyphicon-ok' aria-hidden='true'></span>
+				<span class='sr-only'>Error:</span>
+				$mensaje
+				</div></h4>";	
+	return json_encode(array("e"=>$estado,"m"=>$mensaje),JSON_FORCE_OBJECT);	 
+	 }else{
+		 $mensaje="<h4><div class='alert alert-danger' role='alert'>
+					<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
+					<span class='sr-only'>Error:</span>
+					$mensaje</div></h4>";
+	return json_encode(array("e"=>$estado,"m"=>$mensaje),JSON_FORCE_OBJECT);	 
+	}
+	 
+ }
+ 
+ function base64ToImage($img,$nombre,$ruta='../inscripciones/aspirantes/'){
 	$extension='ERROR';
 	list($type, $img) = explode(';', $img);
 	list(, $img)      = explode(',', $img);
@@ -23,7 +42,7 @@ include("mysql_crud.php");
 	if($type=='data:image/jpeg'){
 	$extension=".jpg";}
 		if($extension!='ERROR'){
-		file_put_contents('../inscripciones/aspirantes/'.$nombre.$extension, $data,LOCK_EX);
+		file_put_contents($ruta.$nombre.$extension, $data,LOCK_EX);
 		}
 		return $nombre.$extension;
 	}
@@ -43,14 +62,62 @@ try{
 				}
 				//var_dump($datos);
 				if($db->insert("solicitudes_inscripcion",$datos)){
-					echo "OK";	
+					echo responder("Hemos recibido su solicitud, una vez procesada (máximo en 24 horas) le enviaremos un email con los pasos a seguir para completar su inscripcion a éste curso.");
 				}
 			$db->disconnect();
 			}else{
-			echo "error";
+			echo responder("Debe adjuntar su última credencial de la AHA para continuar.","error");	
 			}
 		}else{
 
+		
+		
+	if(isset($_POST["accionConclusion"])){
+		if($_POST['accionConclusion']=="accionConclusion"){
+			$sello_aspirante=trim(($_POST['sello_aspirante']));
+			if($sello_aspirante!=""){
+				if(trim($_POST['boucher_aspirante'])!=""){
+				$boucher_aspirante=trim($_POST['boucher_aspirante']);
+				$db = new Database;
+				$db->connect();
+				@$db->select("solicitudes_inscripcion","idcursoSolicitado as idcursoSolicitado_pago
+				,email_aspirante as email_aspirante_pago
+				,nombres_aspirante as nombres_aspirante_pago
+				,apellidos_aspirante as apellidos_aspirante_pago
+				,telefono_aspirante as telefono_aspirante_pago
+				,titulo_aspirante as titulo_aspirante_pago
+				,credencial_aspirante as boucher_aspirante_pago
+				,sello as sello_pago","","sello='$sello_aspirante'");
+	
+				@$pendientedePago=$db->getResult();
+					if(count($pendientedePago,COUNT_RECURSIVE)>0){
+						$nombreBoucher=base64ToImage($boucher_aspirante,sha1($boucher_aspirante),'../inscripciones/comprobantes_pago/');
+						$OLD_Image=$pendientedePago[0]["boucher_aspirante_pago"];
+						$pendientedePago[0]["boucher_aspirante_pago"]=$nombreBoucher;
+						$db->insert("solicitudes_inscripcion_pago",$pendientedePago[0]);
+						if($db->numRows()>0){
+						$db->delete("solicitudes_inscripcion","sello='$sello_aspirante'");
+							unlink("../inscripciones/aspirantes/".$OLD_Image);
+							if($db->numRows()>0){
+							echo responder("Hemos recibido su boucher de pago, una vez procesado (máximo en 24 horas) le enviaremos un email con una liga de acceso para descargar el material didáctico previo al curso.");
+							}
+						}else{
+							echo responder("No fue posible procesar la solicitud en éste momento.","error");
+						}
+					}else{
+						echo responder("Su comprobante de pago no es el que tenemos registrado.","error");
+					}
+				$db->disconnect();
+				}else{
+				echo responder("Debe adjuntar una imagen con su boucher de pago para poder continuar.","error");
+				}
+			}else{
+			echo responder("Por favor, proporcionenos su número de comprobante.","error");	
+			}
+		}
+	}
+	
+	
 	if(isset($_GET["accion"])){
 		if($_GET['accion']=="detalleCurso"){
 		$nombre_cursos=trim(($_GET['nombre_cursos']));
@@ -89,9 +156,7 @@ try{
 		@$db2->select("edicion_cursos",'edicion_cursos.id,concat(date_format(date(faplicacion),"%a %d de %M del %Y")," a las ",date_format(haplicacion,"%T")," horas.") as faplicacion,cupo,lespecifico',"catalogo_centros join catalogo_cursos",'date(faplicacion) >= date(now()) and edicion_cursos.activo="Si" and fkIDCh=catalogo_centros.id and catalogo_cursos.nombre_curso like "%'.$nombre_cursos.'%" and fkIDCc=catalogo_cursos.id and hospital like"%'.$v["hospital"].'%" order by faplicacion asc');
 		$DetallesDeCentro=array();
 		@$DetallesDeCentro=$db2->getResult();
-		
 		@$db2->disconnect();
-				
 				$a=date('d-M-Y, h:i A', strtotime($v["updated"]));
 				@$entrada=$entrada.str_ireplace('{hospital}',@$v["hospital"],$disponibilidad);
 				@$entrada=str_ireplace('{direccion}',@$v["direccion"],$entrada);
