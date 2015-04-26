@@ -10,6 +10,23 @@ function gen_uuid() {
     return sprintf( '%04x%04x',mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ));
 }  
 
+function responder($mensaje,$estado="OK"){
+	 if(preg_match("/(OK).*/",$estado)==1){
+	 $mensaje="<h4><div class='alert alert-success text-justify' role='alert'>
+				<span class='glyphicon glyphicon-ok' aria-hidden='true'></span>
+				<span class='sr-only'>Error:</span>
+				$mensaje
+				</div></h4>";	
+	return json_encode(array("e"=>$estado,"m"=>$mensaje),JSON_FORCE_OBJECT);	 
+	 }else{
+		$mensaje="<h4><div class='alert alert-danger' role='alert'>
+					<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
+					<span class='sr-only'>Error:</span>
+					$mensaje</div></h4>";
+		return json_encode(array("e"=>$estado,"m"=>$mensaje),JSON_FORCE_OBJECT);	 
+	}
+}
+
 $bandera=true;
 if(isset($_GET["idadministrandoInscripciones"])){
 	if($_GET["idadministrandoInscripciones"]!=""){
@@ -47,9 +64,9 @@ if(isset($_POST["accion"])){
 		$eMail->mensaje=str_ireplace('{NOMBRE}',$nombres_aspirante,$eMail->mensaje);
 		if($eMail->enviar()==1){
 			if($db3->numRows()>0){
-				echo "OKr";
+				echo responder("Se ha re-envíado un email al solicitante..","OKrenvio");
 			}else{
-				echo "ERROR";
+				echo responder("Ocurrió un error al actualizar al administrador.","error");
 			}
 		}
 	}			
@@ -105,6 +122,7 @@ if(isset($_POST["accion"])){
 				$nombres_aspirante=$result[0]["nombres_aspirante"];
 				$eMail = new mail();
 				$eMail->para=$email;
+				$eMail->asunto="Solicitud Aceptada";
 				$sello=gen_uuid();
 				$mensaje=file_get_contents('../pages/emailPreinscripcion.html');
 				$eMail->mensaje=str_ireplace('{GUI}',$sello,$mensaje);
@@ -113,12 +131,13 @@ if(isset($_POST["accion"])){
 				if($eMail->enviar()==1){//se genera un pdf con la solicitud y x horas para que pague.
 					@$db3->update("solicitudes_inscripcion",array("sello"=>"$sello","fcaducidadSolicitud"=>$fcaducidadSolicitud),"sello is null and idadministrandoInscripciones=$id");
 					@$db3->update("edicion_cursos",array("cupo"=>"$cupo"),"id=$idcursoSolicitado");
+				echo responder("Se ha aceptado la solicitud, se ha envíado un email al solicitante.");
 				}
 				$db3->disconnect();
-				echo "OK";
+				
 		}else{		
 				$db3->disconnect();
-				echo "OKSinCupos";
+				echo responder("Lamentablemente el numero de cupos para el curso solicitado ya es 0.<p>La solicitud debe ser rechazada con el comentario pertinente.</p>","OKSinCupos");
 		}
 	}
 }			

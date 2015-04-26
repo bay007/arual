@@ -483,7 +483,7 @@
 												<div class="form-group">
 												<label for="credencial_aspirante">Credencial presentada:</label><br>
 												<!-- <a class='ajax' href="http://www.cabel.name/images-post/2008/02/mwsf-2.jpg" title="Homer Defined">Outside HTML (Ajax)</a> -->
-												<a class="btn btn-info ajax" href="" role="button" id="credencial_aspirante">Click para ver</a>
+												<a class="btn btn-info ajax" href="#" role="button" id="credencial_aspirante">Click para ver</a>
 												</div>
 											</div>
 										</div>			
@@ -802,6 +802,29 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
   
+<div class="modal fade"  id="confirmacionesRechazarPago">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h2 class="modal-title">Confirme el rechazo del pago.</h2>
+      </div>
+      <div class="modal-body">
+        <h3>¿Está Usted seguro(a) que quiere rechazar éste pago?</h3>
+		<h4>Por favor, especifique el motivo por el cual rechaza éste pago.</h4>
+			<div class="form-group">
+				<label for="motivo">Contenido</label>
+				<textarea id="motivo" name="motivo" class="form-control" style="resize: vertical; height: 120px;"></textarea>
+			</div>
+	   </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button id="confirmacionesRechazarPago_pago" type="button" class="btn btn-primary">Rechazar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal --> 
+  
   
 <script type='text/javascript'>
 $(".ajax").magnificPopup({type:'image',removalDelay: 250,  preloader: true});
@@ -857,7 +880,7 @@ aceptarSolicitud("#btnAceptaradministrandoInscripciones","#tbladministrandoInscr
 iniciarTabla("#tbladministrandoInscripciones_pago","#frmadministrandoInscripciones_pago");
 resetFormularioBoton("#btnLimpiaradministrandoInscripciones_pago");
 aceptarSolicitud("#btnAceptaradministrandoInscripciones_pago","#tbladministrandoInscripciones_pago");
-
+EliminarElementoPago("#btnEliminaradministrandoInscripciones_pago","#tbladministrandoInscripciones_pago","#confirmacionesRechazarPago_pago");
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $('#faplicacion_ .input-group.date').datepicker({
     weekStart: 1,

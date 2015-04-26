@@ -34,9 +34,9 @@ else{
 			$db = new Database;
 			$db->connect();
 			@$db->select("edicion_cursos",
-	"sello,nombres_aspirante,NoDescargas,apellidos_aspirante,edicion_cursos.faplicacion,edicion_cursos.haplicacion,catalogo_cursos.nombre_curso,catalogo_centros.hospital,catalogo_centros.direccion",
-	"catalogo_cursos join catalogo_centros join solicitudes_inscripcion",
-	"idcursoSolicitado=edicion_cursos.id and fkIDCh=catalogo_centros.id and fkIDCc=catalogo_cursos.id and sello like '$sello'");
+			"sello,date_format((fcaducidadSolicitud),'%a %d de %M del %Y a las %h:%i %p') as fcaducidadSolicitud,nombres_aspirante,NoDescargas,apellidos_aspirante,date_format(date(edicion_cursos.faplicacion),'%a %d de %M del %Y') as faplicacion,edicion_cursos.haplicacion,catalogo_cursos.nombre_curso,catalogo_centros.hospital,catalogo_centros.direccion,lespecifico",
+			"catalogo_cursos join catalogo_centros join solicitudes_inscripcion",
+			"idcursoSolicitado=edicion_cursos.id and fkIDCh=catalogo_centros.id and fkIDCc=catalogo_cursos.id and sello like '$sello'");
 			
 			@$resultado=$db->getResult();
 			if($db->numRows()>0){
@@ -44,13 +44,26 @@ else{
 				$descargas++;							//aumentar el numero de descargas que se generan en la solicitud
 				@$db->update("solicitudes_inscripcion",array("NoDescargas"=>"$descargas"),"sello like '$sello'");
 				$db->disconnect();
+				include("sistema/comprobante.php");
+				$pdf = new PDF();
+				$pdf->InfoPago($resultado[0]);
 			}else{
-				header("Location: index.php");
+			
+			@$db->select("edicion_cursos",
+			"sello_pago as sello,nombres_aspirante_pago as nombres_aspirante,apellidos_aspirante_pago as apellidos_aspirante,
+			date_format(date(edicion_cursos.faplicacion),'%a %d de %M del %Y') as faplicacion,edicion_cursos.haplicacion,catalogo_cursos.nombre_curso,catalogo_centros.hospital,catalogo_centros.direccion,lespecifico",
+			"catalogo_cursos join catalogo_centros join solicitudes_inscripcion_pago",
+			"idcursoSolicitado_pago=edicion_cursos.id and fkIDCh=catalogo_centros.id and fkIDCc=catalogo_cursos.id and sello_pago like '$sello'");
+			@$resultado=$db->getResult();
+				if($db->numRows()>0){
+					$db->disconnect();
+					include("sistema/comprobante.php");
+					$pdf = new PDF();
+					$pdf->InfoPago($resultado[0],$db->numRows()>0);
+				}else{
+					header("Location: index.php");
+				}
 			}
-			include("sistema/comprobante.php");
-			$pdf = new PDF();
-			$pdf->InfoPago($resultado[0]);
-			header("Location: index.php");
 	}else{
 		header("Location: index.php");
 	}

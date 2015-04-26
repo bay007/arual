@@ -6,7 +6,7 @@ include("mysql_crud.php");
  error_reporting(-1);
  
  
- function responder($mensaje,$estado="OK"){
+function responder($mensaje,$estado="OK"){
 	 if($estado=="OK"){
 	 $mensaje="<h4><div class='alert alert-success text-justify' role='alert'>
 				<span class='glyphicon glyphicon-ok' aria-hidden='true'></span>
@@ -21,8 +21,7 @@ include("mysql_crud.php");
 					$mensaje</div></h4>";
 	return json_encode(array("e"=>$estado,"m"=>$mensaje),JSON_FORCE_OBJECT);	 
 	}
-	 
- }
+}
  
  function base64ToImage($img,$nombre,$ruta='../inscripciones/aspirantes/'){
 	$extension='ERROR';

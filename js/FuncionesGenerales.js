@@ -232,6 +232,7 @@ $("tr").removeClass("info");
 	  $(this).val("");
 	});
 $("#"+formulario.attr('id')+' :checkbox').prop("checked",false);
+$("#"+formulario.attr('id')+' a').attr("href","#");
 $('select').val(-1);
 });
 
@@ -272,10 +273,7 @@ var formURL = $("#"+formulario_id).attr("action");
 			if(modal_id=="confirmacionesRechazarSolicitud"){
 			postData.push({name:'motivo',value:$('#motivo').val()});	
 			}
-			
-			
-			$.ajax(
-			{
+			$.ajax({
 				url : formURL,
 				type: "POST",
 				data : postData,
@@ -719,6 +717,10 @@ function aceptarSolicitud(idBotonGuardar,idTablaAsociada){
 	
 		if($("#btnAceptaradministrandoInscripciones").text()=="Aceptar solicitud"){
 		accion="aceptarSolicitud";		
+		}else{
+			if($("#btnAceptaradministrandoInscripciones_pago").text()=="Aceptar Boucher"){
+			accion="aceptarBoucher";		
+			}
 		}
 	
 	
@@ -745,19 +747,23 @@ function aceptarSolicitud(idBotonGuardar,idTablaAsociada){
 					// console.dir(data);
 					// console.dir(jqXHR);
 					resetFormulario("#"+formulario_id);
-						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&(data=="OK"||data=="OKr"||data=="OKSinCupos"))
+						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&(JSON.parse(data).e=="OK"||JSON.parse(data).e=="OKrenvio"||JSON.parse(data).e=="OKSinCupos"))
 						{
-							if(data=="OKr"){
-								$("#body-mensajes").html('<div class="alert alert-success" role="alert">Se ha re-envíado un email al solicitante..</div>');
+							if(JSON.parse(data).e=="OKrenvio"){
+								$("#body-mensajes").html(JSON.parse(data).m);
 							}else{
-								if(data=="OKSinCupos"){
-								$("#body-mensajes").html('<div class="alert alert-danger" role="alert">Lamentablemente el numero de cupos para el curso solicitado ya es 0.<p>La solicitud debe ser rechazada con el comentario pertinente.</p></div>');
+								if(JSON.parse(data).e=="OKSinCupos"){
+								$("#body-mensajes").html(JSON.parse(data).m);
 								}else{
-								$("#body-mensajes").html('<div class="alert alert-success" role="alert">Se ha aceptado la solicitud, se ha envíado un email al solicitante..</div>');	
+									if(JSON.parse(data).e=="OK"){
+									$("#body-mensajes").html(JSON.parse(data).m);
+									}else{
+									$("#body-mensajes").html(JSON.parse(data).m);	
+									}
 								}
 							}
 						}else{						//if fails      
-						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al actualizar al administrador.</div>');
+						$("#body-mensajes").html();
 						}
 						// setTimeout('wait("'+idTablaAsociada+'")',timeOut);
 						var tablaa=$(".tblGENERAL");recargarCombos();
@@ -781,3 +787,66 @@ function aceptarSolicitud(idBotonGuardar,idTablaAsociada){
 	}	
 	});
 }
+
+function EliminarElementoPago(idBotonEliminar,idTablaAsociada,idBotonEliminarModal){
+var formulario_id=$(idBotonEliminar).parent().attr('id');
+var modal_id=$(idBotonEliminarModal).parent().parent().parent().parent().attr("id");
+var postData = $("#"+formulario_id).find("input[type=hidden]").serializeArray();
+var formURL = $("#"+formulario_id).attr("action");
+
+	$(idBotonEliminar).click(function(e){
+		postData = $("#"+formulario_id).find("input[type=hidden]").serializeArray();
+		e.preventDefault(); //STOP default action
+	
+	if(postData[1].value!=""){
+		$("#"+modal_id).modal('show');
+		}else{	
+		alert("Debe seleccionar un elemento para eliminar.");
+		}
+	});	
+		
+	$(idBotonEliminarModal).click(function(e){	
+	var accion="delete";
+	$('#'+modal_id).modal('hide');
+		$("#"+formulario_id+' input#accion').val(accion);
+			postData = $("#"+formulario_id).find("input[type=hidden]").serializeArray();
+			if(modal_id=="confirmacionesRechazarSolicitud"){
+			postData.push({name:'motivo',value:$('#'+modal_id+' textarea#motivo').val()});	
+			}
+			if(modal_id=="confirmacionesRechazarPago"){
+			postData.push({name:'motivo',value:$('#'+modal_id+' textarea#motivo').val()});	
+			}
+			$.ajax({
+				url : formURL,
+				type: "POST",
+				data : postData,
+				success:function(data, textStatus, jqXHR) 
+				{
+				// console.dir(textStatus);
+				// console.dir(data);
+				// console.dir(jqXHR);
+					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&JSON.parse(data).e=="OK"){
+					 $("#body-mensajes").html(JSON.parse(data).m);
+					 resetFormulario("#"+formulario_id);
+					}else{//if fails      
+					$("#body-mensajes").html(JSON.parse(data).m);
+					}
+					// setTimeout('wait("'+idTablaAsociada+'")',timeOut);
+					var tablaa=$(".tblGENERAL");
+					recargarCombos();
+					tablaa.each(function(){
+						etTimeout('wait("#'+$(this).attr("id")+'")',timeOut);
+					;})
+					$('#mensajes').modal('show');
+					//data: return data from server
+				},
+				error: function(jqXHR, textStatus, errorThrown) 
+				{
+				$("#body-mensajes").html('<p class=bg-warning">'+errorThrown+'</p>');
+				$('#mensajes').modal('show');
+					//if fails      
+				}
+			});
+		});
+} 
+
