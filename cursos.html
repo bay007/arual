@@ -77,28 +77,29 @@
 		  <form id="frmInscripcion" method="POST" action="sistema/inscripcion.php">
 		  <input type="hidden" id="idcursoSolicitado" name="idcursoSolicitado" required value="">
 			<div class="form-group">
-			  <label for="email_aspirante">Email:</label>
+			  <span class="input-group-addon" id="sizing-addon1"><label for="email_aspirante"><span tabindex="0" data-toggle="popover" data-trigger="focus" title="Ayuda" data-content="A su email le haremos llegar los materiales de el curso que desee inscribirse." class="glyphicon glyphicon glyphicon-play-circle" aria-hidden="true"></span>-Email:</label></span> 
 			  <input type="email" required class="form-control" name="email_aspirante" id="email_aspirante" placeholder="Necesario para contactarlo" value="">
 			</div>
 			
 			<div class="form-group">
-			  <label for="nombres_aspirante">Nombre(s):</label>
-			  <input type="text" class="form-control" id="nombres_aspirante" name="nombres_aspirante" placeholder="Nombre(s)" value=""/>
+				<span class="input-group-addon" id="sizing-addon1"><label for="nombres_aspirante">Nombre(s):</label></span> 
+				<input type="text" class="form-control" id="nombres_aspirante" name="nombres_aspirante" placeholder="Nombre(s)" value=""/>
 			</div>
 			
 			<div class="form-group">
-			  <label for="	apellidos_aspirante">Apellido(s):</label>
+			  
+			  <span class="input-group-addon" id="sizing-addon1"><label for="apellidos_aspirante">Apellido(s):</label></span> 
 			  <input type="text" class="form-control" id="apellidos_aspirante" name="apellidos_aspirante" placeholder="Apellidos" value="">
 			</div>
 			
 			
 			<div class="form-group">
-				<label for="telefono_aspirante">Teléfono:</label>
+				<span class="input-group-addon" id="sizing-addon1"><label for="telefono_aspirante">Teléfono:<span tabindex="0" data-toggle="popover" data-trigger="focus" title="Ayuda" data-content="Nos comunicaremos con usted si tenemos alguna duda respecto a los datos que nos proporcione." class="glyphicon glyphicon glyphicon-play-circle" aria-hidden="true"></span></label></span> 
 				<input type="telephone" class="form-control" id="telefono_aspirante" name="telefono_aspirante"  placeholder="55 11 44 55 88" value="">
 			</div>
 			
 			<div class="form-group">
-				<label for="titulo_aspirante">Título:</label>
+				<span class="input-group-addon" id="sizing-addon1"><label for="titulo_aspirante">Título:<span tabindex="0" data-toggle="popover" data-trigger="focus" title="Ayuda" data-content="La mayoría de nuestros cursos requieren conocimientos en medicina, si no tiene estudios en ésta área debería seleccionar 'Otros'." class="glyphicon glyphicon glyphicon-play-circle" aria-hidden="true"></span></label></span>
 				<select type="text" class="form-control" id="titulo_aspirante" name="titulo_aspirante" value="0">
 					<option value="Dr(a)">Dr(a)</option>
 					<option value="Lic.Enfermería">Lic. Enfermería</option>
@@ -108,7 +109,7 @@
 			</div>
 			
 			<div class="form-group">
-				<label for="credencial_aspirante">Credencial</label>
+				<span class="input-group-addon" id="sizing-addon1"><label for="credencial_aspirante">Credencial:<span tabindex="0" data-toggle="popover" data-trigger="focus" title="Ayuda" data-content="Fotografía o escaneo de la última credencial de la AHA con la que cuente, si es su primera vez deje en blanco éste campo." class="glyphicon glyphicon glyphicon-play-circle" aria-hidden="true"></span></label></span>
 				<input accept=".gif,.jpg,.jpeg,.png,.pdf" class="form-control" type="file">
 				<input type="hidden" id="credencial_aspirante" name="credencial_aspirante">
 			</div>
@@ -136,12 +137,12 @@
 		  <form id="frmConclusion" method="POST" action="sistema/inscripcion.php">
 		  <input type="hidden" id="accionConclusion" name="accionConclusion" required value="accionConclusion">
 			<div class="form-group">
-			  <label for="sello_aspirante">Sello:</label>
+			  <span class="input-group-addon" id="sizing-addon1"><label for="sello_aspirante" >Codigo identificación:   <span tabindex="0" data-toggle="popover" data-trigger="focus" title="Ayuda" data-content="Lo puede encontrar en el PDF con las instrucciones de pago." class="glyphicon glyphicon glyphicon-play-circle" aria-hidden="true"></span></label></span> 
 			  <input type="text" required class="form-control" name="sello_aspirante" id="sello_aspirante" placeholder="" value="">
 			</div>
 			
 			<div class="form-group">
-				<label for="boucher_aspirante">Boucher</label>
+				<span class="input-group-addon" id="sizing-addon1"><label for="boucher_aspirante">Boucher: <span tabindex="0" data-toggle="popover" data-trigger="focus" title="Ayuda" data-content="Fotografía o escaneo de su comprobante de pago." class="glyphicon glyphicon glyphicon-play-circle" aria-hidden="true"></span></label></span> 
 				<input accept=".gif,.jpg,.jpeg,.png,.pdf" class="form-control" type="file">
 				<input type="hidden" id="boucher_aspirante" name="boucher_aspirante">
 			</div>
@@ -189,26 +190,33 @@ $(document).ready(function(){
 			}
 		});
 		
-$(":file").change(function(){
-var file = this.files[0];
-var size = file.size;
-var type = file.type;
-var x=$(this).next();
-		var FR= new FileReader();
-		FR.onload = function(e) {
-			$("#"+x.attr("id")).val(e.target.result);
-		};       
-			if(size<2097152){
-			if((type=="image/png")||(type=="image/jpg")||(type=="image/jpeg")||(type=="image/gif")){
-			FR.readAsDataURL( file );
+	$(":file").change(function(){
+	var file = this.files[0];
+	var size = file.size;
+	var type = file.type;
+	var x=$(this).next();
+			var FR= new FileReader();
+			FR.onload = function(e) {
+				$("#"+x.attr("id")).val(e.target.result);
+			};       
+				if(size<2097152){
+				if((type=="image/png")||(type=="image/jpg")||(type=="image/jpeg")||(type=="image/gif")){
+				FR.readAsDataURL( file );
+				}else{
+				alert("Los archivos sólo pueden ser gif, jpg ó png, seleccione de nuevo.");
+				$(":file").val(null);
+				}
 			}else{
-			alert("Los archivos sólo pueden ser gif, jpg ó png, seleccione de nuevo.");
-			$(":file").val(null);
+				alert("El archivo no debe ser mayor a 2 MB, seleccione de nuevo.");
+				$(":file").val(null);
 			}
-		}else{
-			alert("El archivo no debe ser mayor a 2 MB, seleccione de nuevo.");
-			$(":file").val(null);
-		}
-});		
+	});	
+	
+	 $('[data-toggle="popover"]').popover({
+	 trigger:'hover',
+	 placement:'top',
+	 delay: { "show": 100, "hide": 1000 }
+	 });
+	
 });
 </script>

@@ -97,48 +97,65 @@ $(idFormulario).parent().parent().parent().addClass('animated pulse');
 ////////EDICION DEL CATALOGO DE CURSOS////////////////////////////////////////////////////////////////////////////////
 
 function iniciarTabla(idTabla,idFormulario){
-$(idTabla).bootstrapTable({
-    //url: 'data.json'
-		onClickRow: function (row) {
-		var row_=row;
-		var Referencia;
-	  $(idTabla+' tr').each(function(index, element){
-	  //$(idTabla+' tr').removeClass("info");
-        Referencia = $(element).find("td").eq(0).html();
-			//if(Referencia==row_.id||Referencia==row_.idadministrandoInscripciones||Referencia==row_.idadministrandoPagos){
-			if(index>=1){
-				if(Referencia==row_.id){
-					$(element).addClass("info");
-				}else{
-						if(Referencia==row_.idadministrandoInscripciones){
-							$(element).addClass("info");
-						}else{
-							if(Referencia==row_.idadministrandoInscripciones_pago){
-							$(element).addClass("info");
+	$(idTabla).bootstrapTable({
+		//url: 'data.json'
+			onClickRow: function (row) {
+					var row_=row;
+					var Referencia;
+				  $(idTabla+' tr').each(function(index, element){
+				  //$(idTabla+' tr').removeClass("info");
+					Referencia = $(element).find("td").eq(0).html();
+						//if(Referencia==row_.id||Referencia==row_.idadministrandoInscripciones||Referencia==row_.idadministrandoPagos){
+						if(index>=1){
+							if(Referencia==row_.id){
+								$(element).addClass("info");
 							}else{
-								$(element).removeClass("info");
+									if(Referencia==row_.idadministrandoInscripciones){
+										$(element).addClass("info");
+									}else{
+										if(Referencia==row_.idadministrandoInscripciones_pago){
+										$(element).addClass("info");
+										}else{
+											$(element).removeClass("info");
+										}
+									}
 							}
+						}else{
+							$(element).removeClass("info");
 						}
-				}
-			}else{
-				$(element).removeClass("info");
-			}
-		});
-	
-	var obj=JSON.stringify(row);
-	//var frm = $("#formularioCursos");
-		formularioDesdeTabla(row,idFormulario);
-		if($(idFormulario+" input#sello").val()==""){
+					});
+				
+				var obj=JSON.stringify(row);
+				//var frm = $("#formularioCursos");
+				formularioDesdeTabla(row,idFormulario);
+				if(idFormulario=="#frmadministrandoInscripciones"){
+					if($(idFormulario+" input#sello").val()==""){
 						$("#btnAceptaradministrandoInscripciones").text("Aceptar solicitud");
 						$("#btnEliminaradministrandoInscripciones").removeAttr("disabled");
 					}else{
 						$("#btnAceptaradministrandoInscripciones").text("Reenviar email");
 						$("#btnEliminaradministrandoInscripciones").attr("disabled","true");
-						
 					}
-			//console.dir(response);      // for debug
-	}
-});
+				}else{
+					if($(idFormulario+" input#verificado").val()=="Si"){
+					$("#btnAceptaradministrandoInscripciones_pago").text("Reenviar email");
+					$("#btnEliminaradministrandoInscripciones_pago").attr("disabled","true");
+					$("#btnAceptaradministrandoInscripciones_pago").removeAttr("disabled");
+					}else{
+						if($(idFormulario+" input#verificado").val()=="No"){
+						$("#btnAceptaradministrandoInscripciones_pago").text("Aceptar Boucher");
+						$("#btnEliminaradministrandoInscripciones_pago").removeAttr("disabled");
+						$("#btnAceptaradministrandoInscripciones_pago").removeAttr("disabled");
+						}else{
+							$("#btnAceptaradministrandoInscripciones_pago").attr("disabled","true")
+							$("#btnEliminaradministrandoInscripciones_pago").attr("disabled","true")
+						}
+					}
+				}
+				
+						//console.dir(response);      // for debug
+		}
+	});
 }
 
 function GuardarActualizar(idBotonGuardar,idTablaAsociada){
@@ -708,22 +725,30 @@ function aceptarSolicitud(idBotonGuardar,idTablaAsociada){
 	$(idBotonGuardar).click(function(e){
 	e.preventDefault(); //STOP default action
 	var formulario_id=$(idBotonGuardar).parent().attr('id');
+	
 	var accion="";
 	if ($("#"+formulario_id+" input#idadministrandoInscripciones").val()==""){
 	//accion="aceptarSolicitud";
 	alert("Seleccione un registro de la tabla");
 	}else{
-	accion="ReenviarEmail";
-	
-		if($("#btnAceptaradministrandoInscripciones").text()=="Aceptar solicitud"){
-		accion="aceptarSolicitud";		
-		}else{
-			if($("#btnAceptaradministrandoInscripciones_pago").text()=="Aceptar Boucher"){
-			accion="aceptarBoucher";		
-			}
+
+	var a=true;
+
+		if(($(idBotonGuardar).text()=="Aceptar solicitud")&&a){
+			a=false;
+			accion="aceptarSolicitud";		
 		}
-	
-	
+		
+		if(($(idBotonGuardar).text()=="Reenviar email")&&a){
+			a=false;
+			accion="ReenviarEmail";		
+		}
+		
+		if(($(idBotonGuardar).text()=="Aceptar Boucher")&&a){
+			a=false;
+			accion="aceptarBoucher";		
+		}
+	$(idBotonGuardar).button('loading');
 		$("#"+formulario_id+' input#accion').val(accion);
 			var postData = $("#"+formulario_id).serializeArray();
 			var formURL = $("#"+formulario_id).attr("action");
@@ -763,10 +788,11 @@ function aceptarSolicitud(idBotonGuardar,idTablaAsociada){
 								}
 							}
 						}else{						//if fails      
-						$("#body-mensajes").html();
+						$("#body-mensajes").html(JSON.parse(data).m);
 						}
 						// setTimeout('wait("'+idTablaAsociada+'")',timeOut);
 						var tablaa=$(".tblGENERAL");recargarCombos();
+						$(idBotonGuardar).button('reset');
 						tablaa.each(function(){
 							setTimeout('wait("#'+$(this).attr("id")+'")',timeOut);
 						;})
@@ -793,7 +819,7 @@ var formulario_id=$(idBotonEliminar).parent().attr('id');
 var modal_id=$(idBotonEliminarModal).parent().parent().parent().parent().attr("id");
 var postData = $("#"+formulario_id).find("input[type=hidden]").serializeArray();
 var formURL = $("#"+formulario_id).attr("action");
-
+$(this).button('loading');
 	$(idBotonEliminar).click(function(e){
 		postData = $("#"+formulario_id).find("input[type=hidden]").serializeArray();
 		e.preventDefault(); //STOP default action
@@ -826,16 +852,17 @@ var formURL = $("#"+formulario_id).attr("action");
 				// console.dir(data);
 				// console.dir(jqXHR);
 					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&JSON.parse(data).e=="OK"){
-					 $("#body-mensajes").html(JSON.parse(data).m);
-					 resetFormulario("#"+formulario_id);
+					$("#body-mensajes").html(JSON.parse(data).m);
+					resetFormulario("#"+formulario_id);
 					}else{//if fails      
 					$("#body-mensajes").html(JSON.parse(data).m);
 					}
 					// setTimeout('wait("'+idTablaAsociada+'")',timeOut);
 					var tablaa=$(".tblGENERAL");
+					$(this).button('reset');
 					recargarCombos();
 					tablaa.each(function(){
-						etTimeout('wait("#'+$(this).attr("id")+'")',timeOut);
+						setTimeout('wait("#'+$(this).attr("id")+'")',timeOut);
 					;})
 					$('#mensajes').modal('show');
 					//data: return data from server

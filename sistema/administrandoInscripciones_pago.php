@@ -2,7 +2,7 @@
 //header("Content-Type: text/plain; charset=ISO-8859-1");
 header('Content-Type: text/html; charset=UTF-8');
 date_default_timezone_set('America/Mexico_City');setlocale(LC_ALL, "es_MX");
-include("seguridad.php");
+include("mysql_crud.php");
 include("mail.php");
 error_reporting(-1);
 
@@ -20,13 +20,13 @@ function responder($mensaje,$estado="OK"){
 				<span class='sr-only'>Error:</span>
 				$mensaje
 				</div></h4>";	
-	return json_encode(array("e"=>$estado,"m"=>$mensaje),JSON_FORCE_OBJECT);	 
+	return json_encode(array("e"=>$estado,"m"=>$mensaje));	 
 	 }else{
 		 $mensaje="<h4><div class='alert alert-danger' role='alert'>
 					<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
 					<span class='sr-only'>Error:</span>
 					$mensaje</div></h4>";
-	return json_encode(array("e"=>$estado,"m"=>$mensaje),JSON_FORCE_OBJECT);	 
+	return json_encode(array("e"=>$estado,"m"=>$mensaje));	 
 	}
 }
 
@@ -46,7 +46,7 @@ if(isset($_GET["idadministrandoInscripciones_pago"])){
 		}
 }else{
 		if(isset($_POST["accion"])){
-			if($_POST["accion"]=="aceptarBoucher"){
+			if($_POST["accion"]=="aceptarBoucher"||$_POST["accion"]=="ReenviarEmail"){
 						$bandera=false;
 						$id	=$_POST["idadministrandoInscripciones_pago"];
 						$db3 = new Database;
@@ -63,15 +63,21 @@ if(isset($_GET["idadministrandoInscripciones_pago"])){
 						$eMail->mensaje=str_ireplace('{NOMBRE}',$nombres_aspirante,$mensaje);
 						$eMail->mensaje=str_ireplace('{GUI}',$sello_pago,$eMail->mensaje);
 						$eMail->mensaje=str_ireplace('{SERVERNAME}',$_SERVER['SERVER_NAME'],$eMail->mensaje);
-						if($eMail->enviar()==1){
-						@$db3->update("solicitudes_inscripcion_pago",array("verificado"=>"Si"),"idadministrandoInscripciones_pago=$id");
-							if($db3->numRows()>0){
-							echo responder("Se ha notificado al cliente que su pago ha sido verificado con éxito.");
+						if($_POST["accion"]=="aceptarBoucher"){
+							if($eMail->enviar()==1){
+							@$db3->update("solicitudes_inscripcion_pago",array("verificado"=>"Si"),"idadministrandoInscripciones_pago=$id");
+								if($db3->numRows()>0){
+								echo responder("Se ha notificado al cliente que su pago ha sido verificado con éxito.");
+								}else{
+								echo responder("El pago no pudo ser procesado, habrá que intentarlo mas tarde.","error");
+								}
 							}else{
-							echo responder("El pago no pudo ser procesado, habrá que intentarlo mas tarde.","error");
+							echo responder("El email no pudo ser envíado, el pago no pudo ser procesado.","error");
 							}
 						}else{
-						echo responder("El email no pudo ser envíado, el pago no pudo ser procesado.","error");
+							if($eMail->enviar()==1){
+								echo responder("Se ha Reenviado el email confirmando el pago a el cliente.","OKrenvio");
+							}
 						}
 						$db3->disconnect();
 			}else{		
@@ -106,10 +112,9 @@ if(isset($_GET["idadministrandoInscripciones_pago"])){
 						$db3->disconnect();
 					}			
 				}
-					
 			}
 		}else{
-					$db = new Database;
+				$db = new Database;
 				$db->connect();
 				$db->select("edicion_cursos","idadministrandoInscripciones_pago
 				,email_aspirante_pago,nombres_aspirante_pago,apellidos_aspirante_pago,telefono_aspirante_pago,titulo_aspirante_pago,titulo_aspirante_pago,sello_pago,verificado,concat(edicion_cursos.faplicacion,' / ',edicion_cursos.haplicacion) as fhora_programada_pago,catalogo_cursos.nombre_curso,catalogo_centros.hospital",
@@ -123,6 +128,4 @@ if(isset($_GET["idadministrandoInscripciones_pago"])){
 				}
 			}
 		}
-
-		
 ?>

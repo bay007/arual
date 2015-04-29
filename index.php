@@ -89,33 +89,41 @@
  </div>
 <div id="contenido" class="animated fadeInRight row" style="min-height:400px;"> 
 		<div class="row">
-		<div class="col-md-7" >
-			 <div class="fluid_container">
-				 <div class="camera_wrap camera_charcoal_skin" id="camera_random">
-							<div data-thumb="images/slider-1.jpg" data-src="images/slider-1.jpg">
-								<div class="camera_caption moveFomRight">
-									<em>ARUAL</em> medicina de reanimacion&nbsp;.
+			<div class="col-md-7 col-sm-10" >
+				 <div class="fluid_container">
+					 <div class="camera_wrap camera_charcoal_skin" id="camera_random">
+								<div data-thumb="images/slider-1.jpg" data-src="images/slider-1.jpg">
+									<div class="camera_caption moveFomRight">
+										<em>ARUAL</em> medicina de reanimacion&nbsp;.
+									</div>
 								</div>
-							</div>
-							<div data-thumb="images/slider-2.jpg" data-src="images/slider-2.jpg">
-								<div class="camera_caption moveFomRight">
-									Centro de entrenamiento <em>internacional&nbsp;. </em>.
+								<div data-thumb="images/slider-2.jpg" data-src="images/slider-2.jpg">
+									<div class="camera_caption moveFomRight">
+										Centro de entrenamiento <em>internacional&nbsp;. </em>.
+									</div>
 								</div>
-							</div>
-							<div data-thumb="images/slider-3.jpg" data-src="images/slider-3.jpg">
-								<div class="camera_caption moveFomRight">
-									Centro de enseñanza e investigacion&nbsp;.
+								<div data-thumb="images/slider-3.jpg" data-src="images/slider-3.jpg">
+									<div class="camera_caption moveFomRight">
+										Centro de enseñanza e investigacion&nbsp;.
+									</div>
 								</div>
-							</div>
-					</div><!-- #camera_random -->
-			</div>			
-		</div>
+						</div><!-- #camera_random -->
+				</div>			
+			</div>
 		
 		
-		<div class="col-md-5 col-sm-2">
-		<img class="img-responsive img-thumbnail  center-block" src="images/Angeles Lomas.gif" alt="Random image" style="height:160px;" />
-		
-		</div>
+			<div class="col-md-5 col-sm-2">
+			<img class="img-responsive img-thumbnail  center-block" src="images/Angeles Lomas.gif" alt="Random image" style="height:160px;" />
+				<div id="fb-root"></div>
+				<script>(function(d, s, id) {
+				  var js, fjs = d.getElementsByTagName(s)[0];
+				  if (d.getElementById(id)) return;
+				  js = d.createElement(s); js.id = id;
+				  js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.3";
+				  fjs.parentNode.insertBefore(js, fjs);
+				}(document, 'script', 'facebook-jssdk'));</script>
+				<div class="fb-comments" data-href="https://www.facebook.com/pages/ARUAL-Medicina-de-Reanimaci%C3%B3n/339999439443308" data-numposts="2" data-colorscheme="dark"></div>
+			</div>
 		</div>
 		
 </div>

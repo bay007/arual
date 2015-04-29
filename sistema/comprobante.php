@@ -63,10 +63,10 @@ try{
 					$this->Cell(0,10,utf8_decode(""),0,1);$this->Ln(1);
 				}
 				$this->SetFont("Times","",11);
-				$this->Cell(0,10,utf8_decode("El número de comprobante es: $sello"),0,1);$this->Ln(1);
+				$this->Cell(0,10,utf8_decode("Su codigo de identificación es: $sello"),0,1);$this->Ln(1);
 				$this->SetFont("Times","",10); 
 				if(!$pagado){
-					$this->Cell(0,10,utf8_decode("Con éste número usted deberá subir una fotografia de su boucher de pago en la sección"),0,1);$this->Ln(1);
+					$this->Cell(0,10,utf8_decode("Con éste código usted deberá subir una fotografia de su boucher de pago en la sección"),0,1);$this->Ln(1);
 					$this->Cell(0,10,utf8_decode("'Cursos'->'Concluir Inscripción' de ARUAL (www.arualmr.com)."),0,1);$this->Ln(1);
 					$this->Cell(0,10,utf8_decode("A mas tardar el $fcaducidadSolicitud (48 horas apartir de éste momento)"),0,1);$this->Ln(1);
 					$this->Cell(0,10,utf8_decode("De lo contrario su lugar será re asignado a otra persona."),0,1);$this->Ln(1);

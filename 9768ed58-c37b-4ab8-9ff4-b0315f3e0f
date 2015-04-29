@@ -1,3 +1,4 @@
+jquery.imageLens.js
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -75,7 +76,8 @@
 	<h3>Administrando la página...</h3>
 	</div>
 	<div class="col-md-6"> 
-	<input type="button" value="Salir"  class="btn btn-primary navbar-btn pull-right" id="Salir" />
+	<button class="btn btn-primary pull-right" type="button" id="Salir">Salir</button>
+		<!-- <input type="button" value="Salir"  class="btn btn-primary navbar-btn pull-right" id="Salir" /> -->
 	</div>
 	</div>
 <hr/>	
@@ -510,8 +512,8 @@
 										  
 											</div>
 										</div>
-												<button type="botton" id="btnAceptaradministrandoInscripciones" class="btn btn-primary">Aceptar solicitud</button>
-												<button type="button" id="btnEliminaradministrandoInscripciones" class="btn btn-danger" >Rechazar solicitud</button>
+												<button type="botton" id="btnAceptaradministrandoInscripciones" class="btn btn-primary" data-loading-text="Procesando...">Aceptar solicitud</button>
+												<button type="button" id="btnEliminaradministrandoInscripciones" class="btn btn-danger" data-loading-text="Procesando...">Rechazar solicitud</button>
 												<button type="button" id="btnLimpiaradministrandoInscripciones" class="btn btn-primary">Eliminar</button>
 											<!-- </fieldset> -->
 										</form>
@@ -524,11 +526,11 @@
 								<div class="panel panel-primary">
 									<div class="panel-heading">Personas pendientes de pago:</div>
 									<div class="panel-body">
-										<table id="tbladministrandoInscripciones_pago" class="tblGENERAL" data-single-select="true" data-url="sistema/administrandoInscripciones_pago.php"  data-height="372" data-show-refresh="true"  data-show-columns="true" data-search="true" data-select-item-name="toolbar1">
+										<table id="tbladministrandoInscripciones_pago" class="tblGENERAL" data-single-select="true" data-url="sistema/administrandoInscripciones_pago.php"  data-height="400" data-show-refresh="true"  data-show-columns="true" data-search="true" data-select-item-name="toolbar1">
 											<thead>
 												<tr>
 													<th data-field="idadministrandoInscripciones_pago">ID</th>
-													<th data-field="verificado" data-align="left">Verificado</th>
+													<th data-field="verificado" data-align="left">Aceptado</th>
 													<th data-field="nombres_aspirante_pago" data-align="left">Nombre</th>
 													<th data-field="apellidos_aspirante_pago" data-align="left">Apellidos</th>
 													<th data-field="telefono_aspirante_pago" data-align="left">Teléfono</th>
@@ -592,8 +594,8 @@
 											</div>
 											<div class="col-md-4">		
 												<div class="form-group">
-												  <label for="sello_pago">Sello:</label>
-												  <input disabled type="text" name="sello_pago" required id="sello_pago" class="form-control">
+												  <label for="verificado">Aceptado:</label>
+												  <input disabled type="text" name="verificado" required id="verificado" class="form-control">
 												</div>
 											</div>
 											<div class="col-md-4">		
@@ -628,8 +630,8 @@
 											</div>
 											
 										</div>
-												<button type="botton" id="btnAceptaradministrandoInscripciones_pago" class="btn btn-primary">Aceptar Boucher</button>
-												<button type="button" id="btnEliminaradministrandoInscripciones_pago" class="btn btn-danger" >Rechazar Boucher</button>
+												<button type="botton" id="btnAceptaradministrandoInscripciones_pago" class="btn btn-primary" data-loading-text="Procesando...">Aceptar Boucher</button>
+												<button type="button" id="btnEliminaradministrandoInscripciones_pago" class="btn btn-danger" data-loading-text="Procesando..." >Rechazar Boucher</button>
 												<button type="button" id="btnLimpiaradministrandoInscripciones_pago" class="btn btn-primary">Eliminar</button>
 											<!-- </fieldset> -->
 										</form>
@@ -791,7 +793,7 @@
 		<h4>Por favor, especifique el motivo por el cual rechaza ésta solicitud.</h4>
 			<div class="form-group">
 				<label for="motivo">Contenido</label>
-				<textarea id="motivo" name="motivo" class="form-control" style="resize: vertical; height: 120px;"></textarea>
+				<textarea spellcheck="true" id="motivo" name="motivo" class="form-control" style="resize: vertical; height: 120px;"></textarea>
 			</div>
 	   </div>
       <div class="modal-footer">
@@ -814,7 +816,7 @@
 		<h4>Por favor, especifique el motivo por el cual rechaza éste pago.</h4>
 			<div class="form-group">
 				<label for="motivo">Contenido</label>
-				<textarea id="motivo" name="motivo" class="form-control" style="resize: vertical; height: 120px;"></textarea>
+				<textarea spellcheck="true" id="motivo" name="motivo" class="form-control" style="resize: vertical; height: 120px;"></textarea>
 			</div>
 	   </div>
       <div class="modal-footer">

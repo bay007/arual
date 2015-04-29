@@ -13,13 +13,13 @@ function responder($mensaje,$estado="OK"){
 				<span class='sr-only'>Error:</span>
 				$mensaje
 				</div></h4>";	
-	return json_encode(array("e"=>$estado,"m"=>$mensaje),JSON_FORCE_OBJECT);	 
+	return json_encode(array("e"=>$estado,"m"=>$mensaje));	 
 	 }else{
 		 $mensaje="<h4><div class='alert alert-danger' role='alert'>
 					<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
 					<span class='sr-only'>Error:</span>
 					$mensaje</div></h4>";
-	return json_encode(array("e"=>$estado,"m"=>$mensaje),JSON_FORCE_OBJECT);	 
+	return json_encode(array("e"=>$estado,"m"=>$mensaje));	 
 	}
 }
  
@@ -96,22 +96,40 @@ try{
 						$db->insert("solicitudes_inscripcion_pago",$pendientedePago[0]);
 						if($db->numRows()>0){
 						$db->delete("solicitudes_inscripcion","sello='$sello_aspirante'");
-							unlink("../inscripciones/aspirantes/".$OLD_Image);
 							if($db->numRows()>0){
-							echo responder("Hemos recibido su boucher de pago, una vez procesado (máximo en 24 horas) le enviaremos un email con una liga de acceso para descargar el material didáctico previo al curso.");
+								@unlink("../inscripciones/aspirantes/".$OLD_Image);
+								echo responder("Hemos recibido su boucher de pago, una vez procesado (máximo en 24 horas) le enviaremos un email con una liga de acceso para descargar el material didáctico previo al curso.");
+							}else{
+								echo responder("No fue posible procesar la solicitud en éste momento.","error");
 							}
 						}else{
 							echo responder("No fue posible procesar la solicitud en éste momento.","error");
 						}
 					}else{
-						echo responder("Su comprobante de pago no es el que tenemos registrado.","error");
+					@$db->select("solicitudes_inscripcion_pago","boucher_aspirante_pago,verificado","","sello_pago='$sello_aspirante' and verificado like 'Rechazado'");
+					@$pendientedePagoS=$db->getResult();
+						if($db->numRows()>0){
+						$nombreBoucherS=base64ToImage($boucher_aspirante,sha1($boucher_aspirante),'../inscripciones/comprobantes_pago/');
+						$OLD_Image=$pendientedePagoS[0]["boucher_aspirante_pago"];
+						$pendientedePagoS[0]["boucher_aspirante_pago"]=$nombreBoucherS;
+						$pendientedePagoS[0]["verificado"]="No";
+						$db->update("solicitudes_inscripcion_pago",$pendientedePagoS[0],"sello_pago='$sello_aspirante'");
+							if($db->numRows()>0){
+								@unlink("../inscripciones/comprobantes_pago/".$OLD_Image);
+								echo responder("Hemos recibido su boucher de pago, una vez procesado (máximo en 24 horas) le enviaremos un email con una liga de acceso para descargar el material didáctico previo al curso.");
+							}else{
+								echo responder("No fue posible procesar la solicitud en éste momento__.","error");
+							}
+						}else{
+						echo responder("Su comprobante de pago no es el que tenemos registrado, o bien está en proceso de aceptación.","error");	
+						}
 					}
-				$db->disconnect();
+					$db->disconnect();
 				}else{
 				echo responder("Debe adjuntar una imagen con su boucher de pago para poder continuar.","error");
 				}
 			}else{
-			echo responder("Por favor, proporcionenos su número de comprobante.","error");	
+			echo responder("Por favor, proporcionenos su código identificación.","error");	
 			}
 		}
 	}

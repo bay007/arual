@@ -2,7 +2,7 @@
 //header("Content-Type: text/plain; charset=ISO-8859-1");
 header('Content-Type: text/html; charset=UTF-8');
 date_default_timezone_set('America/Mexico_City');setlocale(LC_ALL, "es_MX");
-include("seguridad.php");
+include("mysql_crud.php");
 include("mail.php");
 error_reporting(-1);
 $tiempo_espera="+2 day";
@@ -17,13 +17,13 @@ function responder($mensaje,$estado="OK"){
 				<span class='sr-only'>Error:</span>
 				$mensaje
 				</div></h4>";	
-	return json_encode(array("e"=>$estado,"m"=>$mensaje),JSON_FORCE_OBJECT);	 
-	 }else{
+	return json_encode(array("e"=>$estado,"m"=>$mensaje));	 
+	}else{
 		$mensaje="<h4><div class='alert alert-danger' role='alert'>
 					<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
 					<span class='sr-only'>Error:</span>
 					$mensaje</div></h4>";
-		return json_encode(array("e"=>$estado,"m"=>$mensaje),JSON_FORCE_OBJECT);	 
+		return json_encode(array("e"=>$estado,"m"=>$mensaje));	 
 	}
 }
 
@@ -117,7 +117,9 @@ if(isset($_POST["accion"])){
 				$idcursoSolicitado=$result[0]["idcursoSolicitado"];
 		$db3->select("edicion_cursos","cupo","","id=$idcursoSolicitado");
 		$k=$db3->getResult();
-		$cupo=$k[0]['cupo']-1;
+		$cupo=0;
+		$cupo=$k[0]['cupo'];
+		$cupo=$cupo-1;
 		if($cupo>=0){
 				$nombres_aspirante=$result[0]["nombres_aspirante"];
 				$eMail = new mail();
