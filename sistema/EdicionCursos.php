@@ -51,7 +51,7 @@ $bandera=false;
 if(!$bandera){
 $db = new Database;
 $db->connect();
-$db->select("edicion_cursos","edicion_cursos.id,hospital,lespecifico,cupo,faplicacion,haplicacion,nombre_curso,edicion_cursos.activo","catalogo_centros join catalogo_cursos","catalogo_centros.id=edicion_cursos.fkIDCh AND catalogo_cursos.id=edicion_cursos.fkIDCc");
+$db->select("edicion_cursos","edicion_cursos.id,hospital,lespecifico,cupo,faplicacion,haplicacion,costo,nombre_curso,edicion_cursos.activo","catalogo_centros join catalogo_cursos","catalogo_centros.id=edicion_cursos.fkIDCh AND catalogo_cursos.id=edicion_cursos.fkIDCc");
 	$db->disconnect();
 	if($db->numRows()>0){
 	$catalogo_cursos=$db->getResult();

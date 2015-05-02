@@ -71,20 +71,25 @@ $conDatos=true;
 				$db->select("catalogo_centros","logotipo",'',"id=$id");
 				$r=$db->getResult();
 				$OLD_LOGO=$r[0]['logotipo'];
+				unlink("../logotipo/".$OLD_LOGO);//borramos la imagen si es que hubo imagen cargada en el sistema
 				}else{ // No contiene imagen
 				$db->select("catalogo_centros","logotipo",'',"id=".$id);
 				$r=$db->getResult();
 				$datos['logotipo']=$r[0]['logotipo'];
 				$ext="";
+				
 				}
 					if($ext!='ERROR'){
 						$datos['logotipo']=$datos['logotipo'].$ext;
-						@unlink("../logotipo/".$OLD_LOGO);//borramos la imagen si es que hubo imagen cargada en el sistema
 						$db->update("catalogo_centros",$datos,"id=".$id);
-						echo $db->numRows();
+						if($db->numRows()==1){
+							echo "1";
+						}else{
+							echo "10";
+						}
 					}else{
 						echo $ext;
-				}
+					}
 			}
 			break;
 		case 'delete':
@@ -145,7 +150,7 @@ $conDatos=true;
 	 }
 
 	if(($id!="")&&$bandera){
-		$db->select("catalogo_centros","id, latitud, longitud, hospital, direccion, contacto, telefono, email, activo",'',"id=".$id);
+		$db->select("catalogo_centros","id, latitud, longitud, hospital, direccion, contacto, telefono,email,noCuenta,banco,activo",'',"id=".$id);
 		if(($db->numRows())>0){
 		$catalogo_centros=$db->getResult();
 		$db->disconnect();

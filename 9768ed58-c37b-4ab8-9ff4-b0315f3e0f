@@ -1,4 +1,3 @@
-jquery.imageLens.js
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -76,8 +75,8 @@ jquery.imageLens.js
 	<h3>Administrando la página...</h3>
 	</div>
 	<div class="col-md-6"> 
-	<button class="btn btn-primary pull-right" type="button" id="Salir">Salir</button>
-		<!-- <input type="button" value="Salir"  class="btn btn-primary navbar-btn pull-right" id="Salir" /> -->
+	<!-- <button class="btn btn-primary pull-right" type="button" id="salir">Salir</button> -->
+		<input type="button" value="Salir"  class="btn btn-primary navbar-btn pull-right" id="salir" />
 	</div>
 	</div>
 <hr/>	
@@ -92,9 +91,6 @@ jquery.imageLens.js
 				  <li><a href="#catalogo_cursos" role="tab" data-toggle="tab">Catalogo de cursos</a></li>
 				  <li><a href="#catalogo_administradores" role="tab" data-toggle="tab">Administradores</a></li>
 				  <li><a href="#administrando_inscripciones" role="tab" data-toggle="tab">Solicitudes de inscripción</a></li>
-				  
-				 <!-- <li><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
-				  <li><a href="#settings" role="tab" data-toggle="tab">Settings</a></li> -->
 				</ul>
 
 				<!-- Tab panes -->
@@ -105,15 +101,11 @@ jquery.imageLens.js
 							<div class="panel panel-primary">
 								<div class="panel-heading">Ubicación real del inmueble</div>
 								<div class="panel-body">
-									<div  id="googleMap" style="height:440px;"></div>
-											
+									<div  id="googleMap" style="height:590px;"></div>
 						<hr>
 									<label for="cmbEdicionHospitales">Centros en el sistema:</label>
 									<select id="cmbEdicionHospitales" name="edicionHospitales" class="form-control">
-									<!-- 	<option>Seleccion</option>
-										<option>Angeles Lomas</option>
-										<option>Angeles Lindavista</option>
-										<option>Hospital Espa駉l</option> -->
+
 									</select>
 								</div>
 							</div>
@@ -152,6 +144,17 @@ jquery.imageLens.js
 											<div class="form-group">
 												<label for="email">Email:</label>
 												<input type="text" required name="email"  id="email" class="form-control" placeholder="servicios@angeleslindavista.com.mx">
+											</div>
+											
+											
+										 	<div class="form-group">
+												<label for="banco">Banco:</label>
+												<input type="text" required name="banco"  id="banco" class="form-control" placeholder="Banamex">
+											</div>
+											
+											<div class="form-group">
+												<label for="noCuenta">N° Cuenta:</label>
+												<input type="text" required name="noCuenta"  id="noCuenta" class="form-control" placeholder="05214587452">
 											</div>
 											
 											<div class="form-group">
@@ -193,6 +196,7 @@ jquery.imageLens.js
 												<th data-field="cupo" data-align="right" data-sortable="true">Cupo</th>
 												<th data-field="faplicacion" data-align="center" data-sortable="true">Fecha aplicación</th>
 												<th data-field="haplicacion" data-align="left">Hora aplicación</th>
+												<th data-field="costo" data-align="left">Co$to</th>
 												<th data-field="nombre_curso" data-align="left">Curso</th>
 												<th data-field="activo" data-align="left">Activo</th>
 											</tr>
@@ -223,7 +227,9 @@ jquery.imageLens.js
 													
 											<div class="form-group">
 												<label for="lespecifico">Lugar específico:</label>
-												<input type="text" required id="lespecifico" name="lespecifico" class="form-control" placeholder="Sala de conferencias A1">
+												 <div class="input-group">
+													<span class="input-group-addon"><i class="glyphicon glyphicon-pushpin"></i></span><input type="text" required id="lespecifico" name="lespecifico" class="form-control" placeholder="Sala de conferencias A1">
+												</div>
 											</div>
 													
 											<div class="form-group">
@@ -234,38 +240,29 @@ jquery.imageLens.js
 											<div class="form-group" id="faplicacion_">
 												<label for="faplicacion">Fecha aplicación:</label>
 												    <div class="input-group date">
-														<input id="faplicacion" type="text"  value="Seleccione fecha" name="faplicacion" class="form-control" readonly><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+														<span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span><input id="faplicacion" type="text"  value="Seleccione fecha" name="faplicacion" class="form-control" readonly>
 													</div>
-												
-												<!-- <input id="faplicacion" type="text" required name="faplicacion" class="form-control" > -->
 											</div>
 													
 											<div class="form-group">
 												<label for="haplicacion">Hora aplicación:</label>
 													<div class="input-group clockpicker" data-align="top" data-autoclose="true">
-														<input type="text" class="form-control" value="Seleccione hora" required id="haplicacion" name="haplicacion" readonly>
-														<span class="input-group-addon">
-															<span class="glyphicon glyphicon-time"></span>
-														</span>
+														<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span><input type="text" class="form-control" value="Seleccione hora" required id="haplicacion" name="haplicacion" readonly>
+														
 													</div>												
 												
-												<!-- <input type="time" required id="haplicacion" class="form-control" name="haplicacion"> -->
+											</div>
+											
+											<div class="form-group" id="costo">
+												<label for="costo">Costo:</label>
+												    <div class="input-group">
+														<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span><input id="costo" type="text"  name="costo" class="form-control">
+													</div>
 											</div>
 													
-										<!-- 	<div class="form-group">
-												<label for="duracion">Duraci贸n:</label>
-												<input type="text" required id="duracion" name="duracion" class="form-control" placeholder="2 d铆as (15 horas aproximadamente).">
-											</div> -->
-													 
 											<div class="form-group">
 												<label for="cmbCursosCatalogo">Curso a ofrecer:</label>
-													<select id="cmbCursosCatalogo" class="form-control" name="fkIDCc">
-														<!-- <option></option>
-														<option>SOPORTE VITAL B罶ICO (BLS)</option>
-														<option>SALVACORAZONES PRIMEROS AUXILIOS CON RCP Y DEA</option>
-														<option>REANIMACI覰 CARDIOPULMONAR AVANZADA (ACLS)</option>
-														<option>REANIMACI覰 CARDIOPULMONAR AVANZADA PARA PROFESIONALES EXPERTOS (ACLS PE)</option> -->
-													</select>
+													<select id="cmbCursosCatalogo" class="form-control" name="fkIDCc"></select>
 											</div>
 
 											<div class="checkbox">
@@ -828,117 +825,111 @@ jquery.imageLens.js
 </div><!-- /.modal --> 
   
   
-<script type='text/javascript'>
-$(".ajax").magnificPopup({type:'image',removalDelay: 250,  preloader: true});
-/*
-var centro=new google.maps.LatLng(19.394574923950497,-99.28167567436219);
-var mapProp = {center:centro,zoom:12};
-var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-var marker = new google.maps.Marker({
-       position: centro,
-       map: map,
-	   draggable: true,
-       title: 'Posicione en su centro ARUAL'
-   });
- function initialize(){
-  google.maps.event.addListener(marker, 'dragend', function (event) {
-     document.getElementById("latitud").value = this.getPosition().lat();
-     document.getElementById("longitud").value = this.getPosition().lng();
-	}); 
- }
- google.maps.event.addDomListener(window, 'load', initialize);
-*/
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-//Edicion CATALOGO de cursos
-iniciarTabla("#tblCatalogoCursos","#frmCatalogoCursos");
-resetFormularioBoton("#btnLimpiarCatalogoCurso");
-GuardarActualizar("#btnGuardarCatalogoCurso","#tblCatalogoCursos");
-EliminarElemento("#btnEliminarCatalogoCurso","#tblCatalogoCursos","#btnConfirmacionEliminarCatalogoCursos");
-CargaSelectPublicoDirigido("#publico_dirigido"); 
-///////catalogo de hospitales////////////////////////////////////////////////////////7 
-CargaSelectHospitales("#cmbEdicionHospitales");  
-formularioDesdeSelect("#cmbEdicionHospitales","#frmMapas");
-GuardarActualizarCentro("#btnGuardarHospital");
-resetFormularioBoton("#btnLimpiarFormularioCentros");
-EliminarElemento("#botonEliminarHospital",null,"#btnConfirmacionEliminarHospital");
-////////////////edicion de cursos////////////////////////////////////////
-CargaSelectHospitalesActivos("#cmbHospitalesCatalogo");
-CargaSelectCursos("#cmbCursosCatalogo");
-resetFormularioBoton("#btnLimpiarFormulario");
-iniciarTabla("#tblEdicionCursos","#frmEdicionCursos");
-GuardarActualizarEdicion("#btnGuardarEdicionCursos","#tblEdicionCursos");
-EliminarElemento("#btnEliminarEdicionCursos","#tblEdicionCursos","#btnConfirmacionEliminarEdicionCursos");
-////////////////////edicion administradores//////////
-resetFormularioBoton("#btnLimpiarAdministrador");
-iniciarTabla("#tblAdministradores","#frmAdministradores");
-EliminarElemento("#btnEliminarAdministrador","#tblAdministradores","#btnConfirmacionEliminarAdministradores");
-GuardarActualizarAdministradores("#btnGuardarAdministrador","#tblAdministradores");
-/////////////administrandoInscripciones////////////////////////////
-iniciarTabla("#tbladministrandoInscripciones","#frmadministrandoInscripciones");
-resetFormularioBoton("#btnLimpiaradministrandoInscripciones");
-EliminarElemento("#btnEliminaradministrandoInscripciones","#tbladministrandoInscripciones","#btnConfirmacionRechazarSolicitud");
-aceptarSolicitud("#btnAceptaradministrandoInscripciones","#tbladministrandoInscripciones");
-//////////////////esperando el pago////////
-iniciarTabla("#tbladministrandoInscripciones_pago","#frmadministrandoInscripciones_pago");
-resetFormularioBoton("#btnLimpiaradministrandoInscripciones_pago");
-aceptarSolicitud("#btnAceptaradministrandoInscripciones_pago","#tbladministrandoInscripciones_pago");
-EliminarElementoPago("#btnEliminaradministrandoInscripciones_pago","#tbladministrandoInscripciones_pago","#confirmacionesRechazarPago_pago");
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-$('#faplicacion_ .input-group.date').datepicker({
-    weekStart: 1,
-	format: "yyyy-mm-dd",
-startDate: "today",
-startView: 1,
-language: "es",
-orientation: "bottom left",
-keyboardNavigation: false,
-forceParse: false,
-autoclose: true,
-todayHighlight: true
-    });
-$('.clockpicker').clockpicker();
+	<script type='text/javascript'>
+	
+		$(".ajax").magnificPopup({type:'image',removalDelay: 250,  preloader: true});
+		
+		var centro=new google.maps.LatLng(19.394574923950497,-99.28167567436219);
+		var mapProp = {center:centro,zoom:10};
+		var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+		var marker = new google.maps.Marker({
+			   position: centro,
+			   map: map,
+			   draggable: true,
+			   title: 'Posicione en su centro ARUAL'
+		   });
+		 function initialize(){
+		  google.maps.event.addListener(marker, 'dragend', function (event) {
+			 document.getElementById("latitud").value = this.getPosition().lat();
+			 document.getElementById("longitud").value = this.getPosition().lng();
+			}); 
+		 }
+		 google.maps.event.addDomListener(window, 'load', initialize);
+		$( document ).ready(function(){
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+		//Edicion CATALOGO de cursos
+		iniciarTabla("#tblCatalogoCursos","#frmCatalogoCursos");
+		resetFormularioBoton("#btnLimpiarCatalogoCurso");
+		GuardarActualizar("#btnGuardarCatalogoCurso","#tblCatalogoCursos");
+		EliminarElemento("#btnEliminarCatalogoCurso","#tblCatalogoCursos","#btnConfirmacionEliminarCatalogoCursos");
+		CargaSelectPublicoDirigido("#publico_dirigido"); 
+		///////catalogo de hospitales////////////////////////////////////////////////////////7 
+		CargaSelectHospitales("#cmbEdicionHospitales");  
+		formularioDesdeSelect("#cmbEdicionHospitales","#frmMapas");
+		GuardarActualizarCentro("#btnGuardarHospital");
+		resetFormularioBoton("#btnLimpiarFormularioCentros");
+		EliminarElemento("#botonEliminarHospital",null,"#btnConfirmacionEliminarHospital");
+		////////////////edicion de cursos////////////////////////////////////////
+		CargaSelectHospitalesActivos("#cmbHospitalesCatalogo");
+		CargaSelectCursos("#cmbCursosCatalogo");
+		resetFormularioBoton("#btnLimpiarFormulario");
+		iniciarTabla("#tblEdicionCursos","#frmEdicionCursos");
+		GuardarActualizarEdicion("#btnGuardarEdicionCursos","#tblEdicionCursos");
+		EliminarElemento("#btnEliminarEdicionCursos","#tblEdicionCursos","#btnConfirmacionEliminarEdicionCursos");
+		////////////////////edicion administradores//////////
+		resetFormularioBoton("#btnLimpiarAdministrador");
+		iniciarTabla("#tblAdministradores","#frmAdministradores");
+		EliminarElemento("#btnEliminarAdministrador","#tblAdministradores","#btnConfirmacionEliminarAdministradores");
+		GuardarActualizarAdministradores("#btnGuardarAdministrador","#tblAdministradores");
+		/////////////administrandoInscripciones////////////////////////////
+		iniciarTabla("#tbladministrandoInscripciones","#frmadministrandoInscripciones");
+		resetFormularioBoton("#btnLimpiaradministrandoInscripciones");
+		EliminarElemento("#btnEliminaradministrandoInscripciones","#tbladministrandoInscripciones","#btnConfirmacionRechazarSolicitud");
+		aceptarSolicitud("#btnAceptaradministrandoInscripciones","#tbladministrandoInscripciones");
+		//////////////////esperando el pago////////
+		iniciarTabla("#tbladministrandoInscripciones_pago","#frmadministrandoInscripciones_pago");
+		resetFormularioBoton("#btnLimpiaradministrandoInscripciones_pago");
+		aceptarSolicitud("#btnAceptaradministrandoInscripciones_pago","#tbladministrandoInscripciones_pago");
+		EliminarElementoPago("#btnEliminaradministrandoInscripciones_pago","#tbladministrandoInscripciones_pago","#confirmacionesRechazarPago_pago");
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		$('#faplicacion_ .input-group.date').datepicker({
+			weekStart: 1,
+			format: "yyyy-mm-dd",
+		startDate: "today",
+		startView: 1,
+		language: "es",
+		orientation: "bottom left",
+		keyboardNavigation: false,
+		forceParse: false,
+		autoclose: true,
+		todayHighlight: true
+			});
+		$('.clockpicker').clockpicker();
 
-$(":file").change(function(){
-var file = this.files[0];
-var size = file.size;
-var type = file.type;
-		var FR= new FileReader();
-		FR.onload = function(e) {
-			$("#logotipo").val(e.target.result);
-		};       
-			if(size<=2097152){
-			if((type=="image/png")||(type=="image/jpg")||(type=="image/jpeg")||(type=="image/gif")){
-			FR.readAsDataURL( file );
-			}else{
-			alert("Los archivos sólo pueden ser gif, jpg ó png, seleccione de nuevo.");
-			$(":file").val(null);
-			}
-		}else{
-			alert("El archivo no debe ser mayor a 2 MB, seleccione de nuevo.");
-			$(":file").val(null);
-		}
-});
-	
-var d = new Date();
-var n = d.getFullYear(); 
-$("#fecha").text("© "+n);
-	
-	//window.onbeforeunload = function exitAlert()
-	//{
-	//var textillo = "Los datos que no se han guardado se perderán.";
-	//return textillo;
-	//}
-	
-	$("#Salir").click(function(){
-	$("#confirmacionSalirSistema").modal('show');
-	});
-	
-	$("input").val("");
-	$("textarea").val("");
-	$("#btnConfirmacionSalirSistema").click(function(){
-	self.location="index.php";
-	});
+		$(":file").change(function(){
+		var file = this.files[0];
+		var size = file.size;
+		var type = file.type;
+				var FR= new FileReader();
+				FR.onload = function(e) {
+					$("#logotipo").val(e.target.result);
+				};       
+					if(size<=2097152){
+					if((type=="image/png")||(type=="image/jpg")||(type=="image/jpeg")||(type=="image/gif")){
+					FR.readAsDataURL( file );
+					}else{
+					alert("Los archivos sólo pueden ser gif, jpg ó png, seleccione de nuevo.");
+					$(":file").val(null);
+					}
+				}else{
+					alert("El archivo no debe ser mayor a 2 MB, seleccione de nuevo.");
+					$(":file").val(null);
+				}
+		});
+			
+		var d = new Date();
+		var n = d.getFullYear(); 
+		$("#fecha").text("© "+n);
 
-</script>
+			$("form input").val("");
+			$("form textarea").val("");
+			$("#btnConfirmacionSalirSistema").click(function(){
+			self.location="index.php";
+			});
+			$("#salir").on('click',function(e){
+				$("#confirmacionSalirSistema").modal('show');
+			});
+	});
+	</script>
 </body>
 </html>

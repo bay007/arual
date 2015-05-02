@@ -283,6 +283,7 @@ var formURL = $("#"+formulario_id).attr("action");
 	});	
 		
 	$(idBotonEliminarModal).click(function(e){	
+	$(idBotonEliminar).button('loading');
 	var accion="delete";
 	$('#'+modal_id).modal('hide');
 		$("#"+formulario_id+' input#accion').val(accion);
@@ -319,6 +320,7 @@ var formURL = $("#"+formulario_id).attr("action");
 							setTimeout('wait("#'+$(this).attr("id")+'")',timeOut);
 					;})
 					$('#mensajes').modal('show');
+					$(idBotonEliminar).button('reset');
 					//data: return data from server
 				},
 				error: function(jqXHR, textStatus, errorThrown) 
@@ -360,54 +362,52 @@ $(idFormulario+'>select').val(-1);
 
 function formularioDesdeSelect(idSelect,idFormulario){
 var formURL = $(idFormulario).attr("action");
-
-							$(idSelect).on('change', function (e) {
-
-							var value=$(idSelect).val();
-							if(value=="Seleccion"){
-							resetFormularioMapas(idFormulario);
-							return;
-							}
-							
-							
-							$(idFormulario).parent().parent().addClass('animated pulse');
-								$.ajax(
-								{
-									url : formURL+"?accion=-&id="+value,
-									type: "GET",
-									
-									//data : "?accion=-&id="+value,
-									success:function(data, textStatus, jqXHR) 
-									{
-										var row= $.parseJSON(data);
-										var fila=row[0];
-										$.each(fila, function(key, value){
-											//console.log(key + ": " + fila[key]);
-										$(idFormulario+' :input#'+key).val(fila[key]);
-										if(key=="activo"){
-										$(idFormulario+' :checkbox#'+key).prop("checked",fila[key]=="Si"?true:false);
-										}
-										else{
-										$(idFormulario+' :checkbox#'+key).prop("checked",fila[key]=="Si"?true:false);
-										}
-										
-										});
-										
-										var centro=new google.maps.LatLng(document.getElementById("latitud").value ,document.getElementById("longitud").value);
-										marker.setPosition(centro);
-										map.setCenter(centro);
-										map.setZoom(mapProp.zoom);
-										
-									// console.dir(textStatus);
-									// console.dir(data);
-									// console.dir(jqXHR);
-									}
-								});
-
-							$(idFormulario).parent().parent().one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-							$(idFormulario).parent().parent().removeClass('animated pulse');
-							});
+	$(idSelect).on('change', function (e) {
+	var value=$(idSelect).val();
+	if(value=="Seleccion"){
+	resetFormularioMapas(idFormulario);
+	return;
+	}
+	
+	
+	$(idFormulario).parent().parent().addClass('animated pulse');
+		$.ajax(
+		{
+			url : formURL+"?accion=-&id="+value,
+			type: "GET",
+			
+			//data : "?accion=-&id="+value,
+			success:function(data, textStatus, jqXHR) 
+			{
+				var row= $.parseJSON(data);
+				var fila=row[0];
+				$.each(fila, function(key, value){
+					//console.log(key + ": " + fila[key]);
+				$(idFormulario+' :input#'+key).val(fila[key]);
+				if(key=="activo"){
+				$(idFormulario+' :checkbox#'+key).prop("checked",fila[key]=="Si"?true:false);
+				}
+				else{
+				$(idFormulario+' :checkbox#'+key).prop("checked",fila[key]=="Si"?true:false);
+				}
+				
 				});
+				
+				var centro=new google.maps.LatLng(document.getElementById("latitud").value ,document.getElementById("longitud").value);
+				marker.setPosition(centro);
+				map.setCenter(centro);
+				//map.setZoom(mapProp.zoom);
+				
+			// console.dir(textStatus);
+			// console.dir(data);
+			// console.dir(jqXHR);
+			}
+		});
+
+		$(idFormulario).parent().parent().one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+			$(idFormulario).parent().parent().removeClass('animated pulse');
+		});
+	});
 }
 
 function GuardarActualizarCentro(idBotonGuardar){
@@ -819,11 +819,12 @@ var formulario_id=$(idBotonEliminar).parent().attr('id');
 var modal_id=$(idBotonEliminarModal).parent().parent().parent().parent().attr("id");
 var postData = $("#"+formulario_id).find("input[type=hidden]").serializeArray();
 var formURL = $("#"+formulario_id).attr("action");
-$(this).button('loading');
+
+
 	$(idBotonEliminar).click(function(e){
 		postData = $("#"+formulario_id).find("input[type=hidden]").serializeArray();
 		e.preventDefault(); //STOP default action
-	
+$(idBotonEliminar).button('loading');	
 	if(postData[1].value!=""){
 		$("#"+modal_id).modal('show');
 		}else{	
@@ -846,8 +847,7 @@ $(this).button('loading');
 				url : formURL,
 				type: "POST",
 				data : postData,
-				success:function(data, textStatus, jqXHR) 
-				{
+				success:function(data, textStatus, jqXHR){
 				// console.dir(textStatus);
 				// console.dir(data);
 				// console.dir(jqXHR);
@@ -859,21 +859,20 @@ $(this).button('loading');
 					}
 					// setTimeout('wait("'+idTablaAsociada+'")',timeOut);
 					var tablaa=$(".tblGENERAL");
-					$(this).button('reset');
+					
 					recargarCombos();
 					tablaa.each(function(){
 						setTimeout('wait("#'+$(this).attr("id")+'")',timeOut);
-					;})
+					});
+					$(idBotonEliminar).button('reset');
 					$('#mensajes').modal('show');
 					//data: return data from server
 				},
-				error: function(jqXHR, textStatus, errorThrown) 
-				{
+				error: function(jqXHR, textStatus, errorThrown){
 				$("#body-mensajes").html('<p class=bg-warning">'+errorThrown+'</p>');
 				$('#mensajes').modal('show');
 					//if fails      
 				}
 			});
 		});
-} 
-
+}

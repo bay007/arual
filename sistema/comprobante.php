@@ -38,6 +38,9 @@ try{
 			$fcurso=$datos["faplicacion"];
 			$hcurso=$datos["haplicacion"];
 			$lespecifico=$datos["lespecifico"];
+			$costo=$datos["costo"];
+			$banco=$datos["banco"];
+			$noCuenta=$datos["noCuenta"];
 			if(!$pagado){
 			$fcaducidadSolicitud=$datos["fcaducidadSolicitud"];
 			}
@@ -59,7 +62,7 @@ try{
 				$this->Cell(0,10,utf8_decode("Que se impartirá el $fcurso a las $hcurso horas."),0,1);$this->Ln(2);
 				if(!$pagado){
 					$this->Cell(0,10,utf8_decode("Para concluir la inscripción es necesario que realice "),0,1);$this->Ln(1);
-					$this->Cell(0,10,utf8_decode("un depósito bancario a la cuenta {cuenta} de Banamex por la cantidad de {monto} MNX"),0,1);$this->Ln(1);
+					$this->Cell(0,10,utf8_decode("un depósito bancario a la cuenta $noCuenta del banco $banco por la cantidad de $costo MNX"),0,1);$this->Ln(1);
 					$this->Cell(0,10,utf8_decode(""),0,1);$this->Ln(1);
 				}
 				$this->SetFont("Times","",11);
