@@ -28,19 +28,34 @@ $bandera=false;
 	 switch ($accion) {
 		case 'update':
 			$db->update("edicion_cursos",$datos,"id=".$id);$db->disconnect();
-			//echo $db->getSql();
-			echo $db->numRows();
+				if($db->numRows()==1){
+					$r["Estado"]="OK";
+					$r["Respuesta"]="Ésta edición fue actualizada correctamente.";
+				}else{
+					$r["Estado"]="ERROR";
+					$r["Respuesta"]="Ésta edición NO pudo ser actualizada.";
+				}
+				echo json_encode($r);
 			$bandera=true;
 			break;
 		case 'delete':
-			 $db->delete("edicion_cursos","id=".$id);$db->disconnect();
 			$bandera=true; 
-			 echo $db->numRows();
-			 //echo var_dump($id);
+			$r=array("Estado"=>'','Respuesta'=>'');
+			$db->sql("call SP_EdicionCursos_Borrar($id)");
+			$r=$db->getResult()[0];
+			echo utf8_decode(json_encode($r));
+			$db->disconnect();
 			break;
 		case 'create':
 			$db->insert("edicion_cursos",$datos);$db->disconnect();
-			 echo $db->numRows();
+				if($db->numRows()==1){
+					$r["Estado"]="OK";
+					$r["Respuesta"]="La edición ha sido creada exitosamente.";
+				}else{
+					$r["Estado"]="ERROR";
+					$r["Respuesta"]="Ésta edición NO pudo ser creada.";
+				}
+				echo json_encode($r);
 			 $bandera=true;
 			break;
 		default:

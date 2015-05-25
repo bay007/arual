@@ -23,16 +23,33 @@ if(isset($_POST["accion"])){
 
 			if($accion=="create"){
 				$db->insert("administradores",$datos);
-				$db->disconnect();
-				echo $db->numRows();
+
+				if($db->numRows()==1){
+					$r["Estado"]="OK";
+					$r["Respuesta"]="El administrador fué dado de alta satisfactoriamente.";
+				}else{
+					$r["Estado"]="ERROR";
+					$r["Respuesta"]="No se pudo dar de alta éste administrador.";
+				}
+				$db->disconnect();				
+				echo json_encode($r);
 			}else if($accion=="delete"){
-				$db->delete("administradores","id='$id'");
+				$r=array("Estado"=>'','Respuesta'=>'');
+				$db->sql("call SP_Administradores_Borrar($id)");
+				$r=$db->getResult()[0];
 				$db->disconnect();
-				echo $db->numRows();
+				echo utf8_decode(json_encode($r));
 			}else if($accion=="update"){
 				$db->update("administradores",$datos,"id='$id'");
+				if($db->numRows()==1){
+					$r["Estado"]="OK";
+					$r["Respuesta"]="Los datos del administrador fueron actualizados exitosamente.";
+				}else{
+					$r["Estado"]="ERROR";
+					$r["Respuesta"]="Los datos del administrador NO fueron actualizados.";
+				}
 				$db->disconnect();
-				echo $db->numRows();
+				echo json_encode($r);
 			}
 		}else{
 

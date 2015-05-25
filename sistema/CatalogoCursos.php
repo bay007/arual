@@ -17,28 +17,39 @@ $datos=$_POST;
 
 //$db->select("catalogo_cursos","id,nombre_curso,contenido,duracion,requisitos,publico_dirigido,activo");
 //$catalogo_cursos=$db->getResult();
-
+$r=array("Estado"=>'','Respuesta'=>'');
 $db->disconnect();
   switch ($accion) {
     case 'update':
 		$db->update("catalogo_cursos",$datos,"id=".$id);$db->disconnect();
-		 echo $db->numRows();
+		 if($db->numRows()==1){
+			$r["Estado"]="OK";
+			$r["Respuesta"]="El curso ha sido actualizado exitosamente.";
+		}else{
+			$r["Estado"]="ERROR";
+			$r["Respuesta"]="El curso NO pudo ser actulizado.";
+		}
+		echo json_encode($r);
 		//
         break;
     case 'delete':
-         $db->delete("edicion_cursos","fkIDCc=".$id);
-		 if($db->numRows()>0){
-		 $db->delete("catalogo_cursos","id=".$id);
-			if($db->numRows()==1){
-			echo 1;
-			}
-		 }
+		$r=array("Estado"=>'','Respuesta'=>'');
+			$db->sql("call SP_CatalogoCursos_Borrar($id)");
+			$r=$db->getResult()[0];
+			echo utf8_decode(json_encode($r));
 		 $db->disconnect();
-		 //echo var_dump($id);
         break;
     case 'create':
         $db->insert("catalogo_cursos",$datos);$db->disconnect();
-		 echo $db->numRows();
+		if($db->numRows()==1){
+			$r["Estado"]="OK";
+			$r["Respuesta"]="El curso ha sido dado de alta exitosamente.";
+		}else{
+			$r["Estado"]="ERROR";
+			$r["Respuesta"]="El curso NO se pudo dar de alta.";
+			
+		}
+		echo json_encode($r);
         break;
 	}
 }else{

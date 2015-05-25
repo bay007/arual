@@ -58,64 +58,60 @@ $conDatos=true;
 	
 	switch ($accion) {
 		case 'update':
+		$r=array("Estado"=>'','Respuesta'=>'');
 		$bandera=false;
 		$LOGOTIPO=$datos['logotipo'];
 		$db->select("catalogo_centros","logotipo",'',"logotipo like '%".sha1($LOGOTIPO)."%'");
 			if($db->numRows()>0){
-			echo "ya_se_uso_la_imagen";
+				$r["Estado"]="ERROR";
+				$r["Respuesta"]="El logotipo ya está siendo usado. Intente con otro archivo.";
+				echo json_encode($r);
 			}else{
-				
 				if($LOGOTIPO!=""){//implica que la actualizacion contiene una imagen
 				$datos['logotipo']=sha1($LOGOTIPO);
 				$ext=base64ToImage($LOGOTIPO,$datos['logotipo']);
 				$db->select("catalogo_centros","logotipo",'',"id=$id");
-				$r=$db->getResult();
-				$OLD_LOGO=$r[0]['logotipo'];
-				unlink("../logotipo/".$OLD_LOGO);//borramos la imagen si es que hubo imagen cargada en el sistema
+				$res=$db->getResult();
+				$OLD_LOGO=$res[0]['logotipo'];
+				@unlink("../logotipo/".$OLD_LOGO);//borramos la imagen si es que hubo imagen cargada en el sistema
 				}else{ // No contiene imagen
 				$db->select("catalogo_centros","logotipo",'',"id=".$id);
-				$r=$db->getResult();
-				$datos['logotipo']=$r[0]['logotipo'];
+				$res=$db->getResult();
+				$datos['logotipo']=$res[0]['logotipo'];
 				$ext="";
-				
 				}
 					if($ext!='ERROR'){
 						$datos['logotipo']=$datos['logotipo'].$ext;
 						$db->update("catalogo_centros",$datos,"id=".$id);
 						if($db->numRows()==1){
-							echo "1";
+							$r["Estado"]="OK";
+							$r["Respuesta"]="La actualización fué exitosa.";
 						}else{
-							echo "10";
+							$r["Estado"]="ERROR";
+							$r["Respuesta"]="Ocurrió un error al actualizar el Centro Arual.";
 						}
+						echo json_encode($r);
 					}else{
 						echo $ext;
 					}
 			}
 			break;
 		case 'delete':
-			$db->select("catalogo_centros","logotipo",'',"id=".$id);
-			$r=$db->getResult();
-			$logo=$r[0]['logotipo'];
-			$db->delete("edicion_cursos","fkIDCh=".$id);
-			if($db->numRows()>0){
-				$db->delete("catalogo_centros","id=".$id);
-				if($db->numRows()==1){
-					if(($logo!="logotipo.png")){
-						
-						if(@unlink("../logotipo/".$logo)){
-						
-						echo 1;
-						}
-						else{
-						echo "ERRORdeBorradoArchivo";
-						}
+		$r=array("Estado"=>'','Respuesta'=>'');
+			$db->sql("call SP_CatalogoCentros_Borrar($id)");
+			$r=$db->getResult()[0];
+				if($r["Estado"]=="OK"){
+					if(($r["Respuesta"]=="logotipo.png")){
 					}else{	
-						echo 1;
+					@unlink("../logotipo/".$r["Respuesta"]);
 					}
-				}else{
-				echo "ERRORdeBorradodeCentro";
-				}	
-			}
+					$r["Respuesta"]="Centro eliminado satisfactoriamente";
+					echo json_encode($r);
+				}
+				
+				if($r["Estado"]=="ERROR"){
+				echo utf8_decode(json_encode($r));
+				}
 			$db->disconnect();
 			$bandera=false; 
 			break;
@@ -123,7 +119,9 @@ $conDatos=true;
 			$LOGOTIPO=$datos['logotipo'];
 			$db->select("catalogo_centros","logotipo",'',"logotipo like '%".sha1($LOGOTIPO)."%'");
 			if($db->numRows()>0){
-			echo "ya_se_uso_la_imagen";
+				$r["Estado"]="ERROR";
+				$r["Respuesta"]="El logotipo usado ya está siendo utilizado, por favor, intente con otro.";
+				echo json_encode($r);
 			}else{
 			if($LOGOTIPO!=""){//implica que la actualizacion contiene una imagen
 			$datos['logotipo']=sha1($LOGOTIPO);
@@ -135,14 +133,18 @@ $conDatos=true;
 				if($ext!='ERROR'){
 					$datos['logotipo']=$datos['logotipo'].$ext;
 					if($db->insert("catalogo_centros",$datos)){
-						echo 1;	
+						$r["Estado"]="OK";
+						$r["Respuesta"]="El alta fue exitosa.";
+						echo json_encode($r);
 					}
 					else{
 						@unlink("../logotipo/".$datos['logotipo']);
 					}
 					$db->disconnect();
 				}else{
-					echo $ext;
+					$r["Estado"]="ERROR";
+					$r["Respuesta"]="El archivo del logotipo no es una imagen.";
+					echo json_encode($r);
 				}
 			$bandera=false;
 			break;
@@ -150,7 +152,7 @@ $conDatos=true;
 	 }
 
 	if(($id!="")&&$bandera){
-		$db->select("catalogo_centros","id, latitud, longitud, hospital, direccion, contacto, telefono,email,noCuenta,banco,activo",'',"id=".$id);
+		$db->select("catalogo_centros","id, latitud, longitud, hospital, direccion, contacto, telefono,email,noCuenta,banco,fkIDadministrador,activo",'',"id=".$id);
 		if(($db->numRows())>0){
 		$catalogo_centros=$db->getResult();
 		$db->disconnect();
@@ -189,6 +191,17 @@ $conDatos=true;
 		$catalogo_centros=$db->getResult();
 		$db->disconnect();
 		echo json_encode($catalogo_centros);
+		}else{
+		echo 1;
+		}
+	}
+	
+	if($accion=="AdministradoresDisponibles"){
+		$db->select("AdministradoresDisponibles","*");
+		if(($db->numRows())>0){
+		$AdministradoresDisponibles=$db->getResult();
+		$db->disconnect();
+		echo json_encode($AdministradoresDisponibles);
 		}else{
 		echo 1;
 		}

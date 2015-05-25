@@ -17,13 +17,13 @@ function responder($mensaje,$estado="OK"){
 				<span class='sr-only'>Error:</span>
 				$mensaje
 				</div></h4>";	
-	return json_encode(array("e"=>$estado,"m"=>$mensaje));	 
+	return json_encode(array("Estado"=>$estado,"Respuesta"=>$mensaje));	 
 	}else{
 		$mensaje="<h4><div class='alert alert-danger' role='alert'>
 					<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
 					<span class='sr-only'>Error:</span>
 					$mensaje</div></h4>";
-		return json_encode(array("e"=>$estado,"m"=>$mensaje));	 
+		return json_encode(array("Estado"=>$estado,"Respuesta"=>$mensaje));	 
 	}
 }
 
@@ -66,7 +66,7 @@ if(isset($_POST["accion"])){
 			if($db3->numRows()>0){
 				echo responder("Se ha re-envíado un email al solicitante..","OKrenvio");
 			}else{
-				echo responder("Ocurrió un error al actualizar al administrador.","error");
+				echo responder("Ocurrió un error al actualizar al administrador.","ERROR");
 			}
 		}
 	}			

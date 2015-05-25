@@ -13,7 +13,8 @@ class Database{
 	 * means that they will only be available with the 
 	 * Database class
 	 */
-	private $db_host = "mysql10.000webhost.com";  // Change as required
+	//private $db_host = "mysql10.000webhost.com";  // Change as required
+	private $db_host = "23.229.199.133";  // Change as required
 	private $db_user = "a2227072_arualmr";  // Change as required
 	private $db_pass = "a2227072_arualmr";  // Change as required
 	private $db_name = "a2227072_arualmr";	// Change as required
@@ -72,7 +73,7 @@ class Database{
     }
 	
 	public function sql($sql){
-	@mysqli_query($this->myconn,"start transaction;");
+	//@mysqli_query($this->myconn,"start transaction;");
 		$query = @mysqli_query($this->myconn,$sql);
         $this->myQuery = $sql; // Pass back the SQL
 		if($query){
@@ -93,11 +94,11 @@ class Database{
 					}
 				}
 			}
-			@mysqli_query($this->myconn,"commit;");
+			//@mysqli_query($this->myconn,"commit;");
 			return true; // Query was successful
 		}else{
 			array_push($this->result,mysqli_errno($this->myconn));
-			@mysqli_query($this->myconn,"rollback;");
+			//@mysqli_query($this->myconn,"rollback;");
 			return false; // No rows where returned
 		}
 	}

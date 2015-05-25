@@ -57,7 +57,7 @@ else{
 			catalogo_centros.hospital,catalogo_centros.direccion,lespecifico,banco,noCuenta,costo",
 			"catalogo_cursos join catalogo_centros join solicitudes_inscripcion_pago",
 			"idcursoSolicitado_pago=edicion_cursos.id and fkIDCh=catalogo_centros.id and fkIDCc=catalogo_cursos.id and sello_pago like '$sello'");
-			var_dump($db->getSql());
+			
 			@$resultado=$db->getResult();
 			
 				if($db->numRows()>0){

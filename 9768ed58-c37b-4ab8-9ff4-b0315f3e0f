@@ -162,6 +162,15 @@
 												<input type="file" accept=".gif,.jpg,.jpeg,.png" class="form-control">
 												<input type="hidden"  name="logotipo"  id="logotipo">
 											</div>
+											
+											<div class="form-group">
+												<label for="fkIDadministrador">Administrador del Centro</label>
+												<select id="fkIDadministrador" class="form-control" name="fkIDadministrador">
+												 <option value="-1">Seleccion</option>
+												  <option value="11">esteban.galicia@axa-assistance.com.mx</option>
+												  
+												</select>
+											</div>
 
 											<div class="checkbox">
 												<label>
@@ -267,12 +276,12 @@
 
 											<div class="checkbox">
 												<label>
-													<input type="checkbox" required id="activo" name> Activar curso.
+													<input type="checkbox" required id="activo" name> Activar edición.
 												</label>
 											</div>
 											
 											<button type="button" id="btnGuardarEdicionCursos" class="btn btn-primary">Salvar cambios</button>
-											<button type="button" class="btn btn-primary" id="btnLimpiarFormulario">Nuevo curso</button>
+											<button type="button" class="btn btn-primary" id="btnLimpiarFormulario">Nueva edición</button>
 											<button type="button" class="btn btn-danger" id="btnEliminarEdicionCursos">Eliminar</button>
 					<!-- 					</fieldset> -->
 									</form>
@@ -347,7 +356,7 @@
 												</label>
 											</div>
 											<button type="botton" id="btnGuardarCatalogoCurso" class="btn btn-primary">Salvar cambios</button>
-											<button type="button" id="btnLimpiarCatalogoCurso" class="btn btn-primary">Nueva Edición</button>
+											<button type="button" id="btnLimpiarCatalogoCurso" class="btn btn-primary">Nuevo curso</button>
 											<button type="button" id="btnEliminarCatalogoCurso" class="btn btn-danger" >Eliminar</button>
 										<!-- </fieldset> -->
 									</form>
@@ -859,6 +868,7 @@
 		GuardarActualizarCentro("#btnGuardarHospital");
 		resetFormularioBoton("#btnLimpiarFormularioCentros");
 		EliminarElemento("#botonEliminarHospital",null,"#btnConfirmacionEliminarHospital");
+		CargaSelectAdministradoresDisponibles("#fkIDadministrador");
 		////////////////edicion de cursos////////////////////////////////////////
 		CargaSelectHospitalesActivos("#cmbHospitalesCatalogo");
 		CargaSelectCursos("#cmbCursosCatalogo");

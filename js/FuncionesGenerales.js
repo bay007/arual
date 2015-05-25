@@ -1,5 +1,5 @@
 $.ajaxSetup({ cache:false });
-var timeOut=750;
+var timeOut=50;
 function seleccionaTAGSelect(idSelect,datoABuscar){
 $(idSelect+" option").each(function(){
 	if($(this).data("texto")==datoABuscar){
@@ -42,7 +42,7 @@ $(idFormulario).parent().parent().parent().addClass('animated pulse');
 										$("#credencial_aspirante").removeAttr("disabled");
 									}else{
 										$("#credencial_aspirante").attr("disabled","true");
-										alert("Sin credencial presentada");	
+										alert("Sin credencial presentada.");	
 									}
 								}else{						//if fails      
 
@@ -207,13 +207,13 @@ function GuardarActualizar(idBotonGuardar,idTablaAsociada){
 					// console.dir(textStatus);
 					// console.dir(data);
 					// console.dir(jqXHR);
-						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
+						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&JSON.parse(data).Estado=="OK")
 						{
-							$("#body-mensajes").html('<div class="alert alert-success" role="alert">El cambio en el curso fué exitoso.</div>');
+							$("#body-mensajes").html('<div class="alert alert-success" role="alert">'+JSON.parse(data).Respuesta+'</div>');
 							resetFormulario("#"+formulario_id);
-						}else{						//if fails      
-						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al actualizar el curso.</div>');
-						
+						}
+						if(JSON.parse(data).Estado=="ERROR"){						//if fails      
+						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">'+JSON.parse(data).Respuesta+'</div>');
 						}
 						// setTimeout('wait("'+idTablaAsociada+'")',timeOut);
 						var tablaa=$(".tblGENERAL");recargarCombos();
@@ -300,27 +300,21 @@ var formURL = $("#"+formulario_id).attr("action");
 				// console.dir(textStatus);
 				// console.dir(data);
 				// console.dir(jqXHR);
-					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
+					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&JSON.parse(data).Estado=="OK")
 					{
-					 $("#body-mensajes").html('<div class="alert alert-success" role="alert">La eliminación fué exitosa.</div>');
-					 resetFormulario("#"+formulario_id);
+					 $("#body-mensajes").html('<div class="alert alert-success" role="alert">'+JSON.parse(data).Respuesta+'</div>');
+					 var tablaa=$(".tblGENERAL");
+					 tablaa.each(function(){
+						 setTimeout('wait("#'+$(this).attr("id")+'")',timeOut);
+						 });
+					 recargarCombos();
 					}else{						//if fails      
-					$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al eliminar el elemento,inténtelo de nuevo por favor.</div>');
-						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data=="OK"){
-							 $("#body-mensajes").html('<div class="alert alert-success" role="alert">La eliminación fué exitosa.</div>');
-						 resetFormulario("#"+formulario_id);
-						}else{
-						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al declinar la solicitud,inténtelo de nuevo por favor.</div>');
-						}
+					$("#body-mensajes").html('<div class="alert alert-warning" role="alert">'+JSON.parse(data).Respuesta+'</div>');
 					}
-					// setTimeout('wait("'+idTablaAsociada+'")',timeOut);
-					var tablaa=$(".tblGENERAL");
-					recargarCombos();
-					tablaa.each(function(){
-							setTimeout('wait("#'+$(this).attr("id")+'")',timeOut);
-					;})
+					resetFormulario("#"+formulario_id);
 					$('#mensajes').modal('show');
 					$(idBotonEliminar).button('reset');
+					$("tr").attr("class","")
 					//data: return data from server
 				},
 				error: function(jqXHR, textStatus, errorThrown) 
@@ -364,7 +358,7 @@ function formularioDesdeSelect(idSelect,idFormulario){
 var formURL = $(idFormulario).attr("action");
 	$(idSelect).on('change', function (e) {
 	var value=$(idSelect).val();
-	if(value=="Seleccion"){
+	if(value=="-1"){
 	resetFormularioMapas(idFormulario);
 	return;
 	}
@@ -384,6 +378,7 @@ var formURL = $(idFormulario).attr("action");
 				$.each(fila, function(key, value){
 					//console.log(key + ": " + fila[key]);
 				$(idFormulario+' :input#'+key).val(fila[key]);
+				
 				if(key=="activo"){
 				$(idFormulario+' :checkbox#'+key).prop("checked",fila[key]=="Si"?true:false);
 				}
@@ -438,6 +433,10 @@ function GuardarActualizarCentro(idBotonGuardar){
 				nuevoElemento=false;
 				alert('Escriba un nombre para el nuevo centro ARUAL.');
 				}
+				if((e.name=="latitud"||e.name=="longitud")&&(e.value=="")){
+				nuevoElemento=false;
+				alert('Defina en el mapa la ubicación del centro.');
+				}
 				if(e.name=="direccion"&&(e.value=="")){
 				nuevoElemento=false;
 				alert('Proporcione una dirección.');
@@ -454,6 +453,18 @@ function GuardarActualizarCentro(idBotonGuardar){
 				nuevoElemento=false;
 				alert('Defina una dirección de e-mail.');
 				}
+				if(e.name=="banco"&&(e.value=="")){
+				nuevoElemento=false;
+				alert('Defina una banco para los depositos.');
+				}
+				if(e.name=="noCuenta"&&(e.value=="")){
+				nuevoElemento=false;
+				alert('Defina un numero de cuenta.');
+				}
+				if(e.name=="fkIDadministrador"&&(e.value=="-1")){
+				nuevoElemento=false;
+				alert('Defina un administrador para éste centro ARUAL.');
+				}
 			;})
 			
 		if((nuevoElemento)){
@@ -466,21 +477,16 @@ function GuardarActualizarCentro(idBotonGuardar){
 				// console.dir(textStatus);
 				// console.dir(data);
 				// console.dir(jqXHR);
-					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
+					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&JSON.parse(data).Estado=="OK")
 					{
-						$("#body-mensajes").html('<div class="alert alert-success" role="alert">El cambio en el centro afiliado ARUAL fue exitoso.</div>');
-						resetFormularioMapas("#"+formulario_id);
+						$("#body-mensajes").html('<div class="alert alert-success" role="alert">'+JSON.parse(data).Respuesta+'</div>');
 					}else{						//if fails      
-					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data=="ya_se_uso_la_imagen")
-					{
-					$("#body-mensajes").html('<div class="alert alert-warning" role="alert">La imagen que intentó usar ya está fué, seleccione otra por favor.</div>');
-					}else
-						{
-						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al actualizar el Centro Arual.</div>');
-						}
+						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">'+JSON.parse(data).Respuesta+'</div>');
 					}
+						resetFormularioMapas("#"+formulario_id);
 						$('#mensajes').modal('show');
 						recargarCombos();
+
 					//data: return data from server
 				},
 				error: function(jqXHR, textStatus, errorThrown) 
@@ -516,6 +522,26 @@ function CargaSelectPublicoDirigido(IdSelect){
 		}
 	});
 }	
+
+function CargaSelectAdministradoresDisponibles(IdSelect){
+	$.ajax({
+		type: "GET",
+		url: 'sistema/CatalogoCentros.php?accion=AdministradoresDisponibles&id=',
+	   // data: {'categoryID': $("#category").val(),'isAjax':true},
+		dataType:'json',
+		success: function(data) {
+		   var select = $(IdSelect);
+		   options = '<option value="-1">Seleccion</option>';
+		   select.empty();      
+
+		   for(var i=0;i<data.length; i++)
+		   {
+			options += "<option value='"+data[i].id+"'>"+ data[i].email+"</option>";
+		   }
+		   select.append(options);
+		}
+	});
+}
 ////////////////EDICION de cursos usuario final////////////////////////////////////////////////////
 
 function GuardarActualizarEdicion(idBotonGuardar,idTablaAsociada){
@@ -560,6 +586,10 @@ function GuardarActualizarEdicion(idBotonGuardar,idTablaAsociada){
 				nuevoElemento=false;
 				alert('Seleccione una hora.');
 				}
+				if(e.name=="costo"&&(e.value==""||e.value=="-1")){
+				nuevoElemento=false;
+				alert('Defina un costo para éste curso.');
+				}
 				if(e.name=="fkIDCc"&&(e.value==""||e.value=="-1")){
 				nuevoElemento=false;
 				alert('Seleccione un curso.');}
@@ -587,7 +617,7 @@ function GuardarActualizarEdicion(idBotonGuardar,idTablaAsociada){
 						var tablaa=$(".tblGENERAL");recargarCombos();
 					tablaa.each(function(){
 						setTimeout('wait("#'+$(this).attr("id")+'")',timeOut);
-					;})
+					});
 					}else{						//if fails      
 					$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al actualizar la edición a un curso.</div>');
 					}
@@ -622,7 +652,7 @@ function CargaSelectCursos(IdSelect){
 
 		   for(var i=0;i<data.length; i++)
 		   {
-			options += "<option data-texto='"+data[i].nombre_curso+"' value='"+data[i].id+"'>"+ data[i].nombre_curso+"</option>";              
+			options += "<option data-texto='"+data[i].nombre_curso+"' value='"+data[i].id+"'>"+ data[i].nombre_curso+"</option>";
 		   }
 		   select.append(options);
 		}
@@ -658,6 +688,7 @@ function recargarCombos(){
 CargaSelectHospitalesActivos("#cmbHospitalesCatalogo");
 CargaSelectHospitales("#cmbEdicionHospitales");  
 CargaSelectCursos("#cmbCursosCatalogo");
+CargaSelectAdministradoresDisponibles("#fkIDadministrador");
 } 
 ////////////////Edicion ADMINISTRADORES////////////////////////////////////////////////////
 function GuardarActualizarAdministradores(idBotonGuardar,idTablaAsociada){
@@ -692,20 +723,18 @@ function GuardarActualizarAdministradores(idBotonGuardar,idTablaAsociada){
 					// console.dir(textStatus);
 					// console.dir(data);
 					// console.dir(jqXHR);
-						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&data==1)
+						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&JSON.parse(data).Estado=="OK")
 						{
-							$("#body-mensajes").html('<div class="alert alert-success" role="alert">El cambio en el administrador fué exitoso.</div>');
+							$("#body-mensajes").html('<div class="alert alert-success" role="alert">'+JSON.parse(data).Respuesta+'</div>');
 							resetFormulario("#"+formulario_id);
-						}else{						//if fails      
-						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">Ocurrió un error al actualizar al administrador.</div>');
-						}
-						// setTimeout('wait("'+idTablaAsociada+'")',timeOut);
 						var tablaa=$(".tblGENERAL");recargarCombos();
 						tablaa.each(function(){
-							setTimeout('wait("#'+$(this).attr("id")+'")',timeOut);
-						;})
+						setTimeout('wait("#'+$(this).attr("id")+'")',timeOut);
+						});
+						}else{						//if fails      
+						$("#body-mensajes").html('<div class="alert alert-warning" role="alert">'+JSON.parse(data).Respuesta+'</div>');
+						}
 						$('#mensajes').modal('show');
-						//data: return data from server
 					},
 					error: function(jqXHR, textStatus, errorThrown) 
 					{
@@ -772,23 +801,23 @@ function aceptarSolicitud(idBotonGuardar,idTablaAsociada){
 					// console.dir(data);
 					// console.dir(jqXHR);
 					resetFormulario("#"+formulario_id);
-						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&(JSON.parse(data).e=="OK"||JSON.parse(data).e=="OKrenvio"||JSON.parse(data).e=="OKSinCupos"))
+						if(jqXHR.status==200&&jqXHR.statusText=="OK"&&(JSON.parse(data).Estado=="OK"||JSON.parse(data).Estado=="OKrenvio"||JSON.parse(data).Estado=="OKSinCupos"))
 						{
-							if(JSON.parse(data).e=="OKrenvio"){
-								$("#body-mensajes").html(JSON.parse(data).m);
+							if(JSON.parse(data).Estado=="OKrenvio"){
+								$("#body-mensajes").html(JSON.parse(data).Respuesta);
 							}else{
-								if(JSON.parse(data).e=="OKSinCupos"){
-								$("#body-mensajes").html(JSON.parse(data).m);
+								if(JSON.parse(data).Estado=="OKSinCupos"){
+								$("#body-mensajes").html(JSON.parse(data).Respuesta);
 								}else{
-									if(JSON.parse(data).e=="OK"){
-									$("#body-mensajes").html(JSON.parse(data).m);
+									if(JSON.parse(data).Estado=="OK"){
+									$("#body-mensajes").html(JSON.parse(data).Respuesta);
 									}else{
-									$("#body-mensajes").html(JSON.parse(data).m);	
+									$("#body-mensajes").html(JSON.parse(data).Respuesta);	
 									}
 								}
 							}
 						}else{						//if fails      
-						$("#body-mensajes").html(JSON.parse(data).m);
+						$("#body-mensajes").html(JSON.parse(data).Respuesta);
 						}
 						// setTimeout('wait("'+idTablaAsociada+'")',timeOut);
 						var tablaa=$(".tblGENERAL");recargarCombos();
@@ -851,11 +880,11 @@ $(idBotonEliminar).button('loading');
 				// console.dir(textStatus);
 				// console.dir(data);
 				// console.dir(jqXHR);
-					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&JSON.parse(data).e=="OK"){
-					$("#body-mensajes").html(JSON.parse(data).m);
+					if(jqXHR.status==200&&jqXHR.statusText=="OK"&&JSON.parse(data).Estado=="OK"){
+					$("#body-mensajes").html(JSON.parse(data).Respuesta);
 					resetFormulario("#"+formulario_id);
 					}else{//if fails      
-					$("#body-mensajes").html(JSON.parse(data).m);
+					$("#body-mensajes").html(JSON.parse(data).Respuesta);
 					}
 					// setTimeout('wait("'+idTablaAsociada+'")',timeOut);
 					var tablaa=$(".tblGENERAL");

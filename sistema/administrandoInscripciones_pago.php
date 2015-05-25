@@ -20,13 +20,13 @@ function responder($mensaje,$estado="OK"){
 				<span class='sr-only'>Error:</span>
 				$mensaje
 				</div></h4>";	
-	return json_encode(array("e"=>$estado,"m"=>$mensaje));	 
+	return json_encode(array("Estado"=>$estado,"Respuesta"=>$mensaje));	 
 	 }else{
 		 $mensaje="<h4><div class='alert alert-danger' role='alert'>
 					<span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>
 					<span class='sr-only'>Error:</span>
 					$mensaje</div></h4>";
-	return json_encode(array("e"=>$estado,"m"=>$mensaje));	 
+	return json_encode(array("Estado"=>$estado,"Respuesta"=>$mensaje));	 
 	}
 }
 
@@ -69,10 +69,10 @@ if(isset($_GET["idadministrandoInscripciones_pago"])){
 								if($db3->numRows()>0){
 								echo responder("Se ha notificado al cliente que su pago ha sido verificado con éxito.");
 								}else{
-								echo responder("El pago no pudo ser procesado, habrá que intentarlo mas tarde.","error");
+								echo responder("El pago no pudo ser procesado, habrá que intentarlo mas tarde.","ERROR");
 								}
 							}else{
-							echo responder("El email no pudo ser envíado, el pago no pudo ser procesado.","error");
+							echo responder("El email no pudo ser envíado, el pago no pudo ser procesado.","ERROR");
 							}
 						}else{
 							if($eMail->enviar()==1){
@@ -104,10 +104,10 @@ if(isset($_GET["idadministrandoInscripciones_pago"])){
 							if($db3->numRows()>0){
 							echo responder("Se ha rechazado el pago, se ha notificado a el cliente.");
 							}else{
-							echo responder("El rechazo no pudo ser procesado, no se notifico al cliente.","error");
+							echo responder("El rechazo no pudo ser procesado, no se notifico al cliente.","ERROR");
 							}
 						}else{
-						echo responder("El email no pudo ser envíado, el rechazo no pudo ser procesado.","error");
+						echo responder("El email no pudo ser envíado, el rechazo no pudo ser procesado.","ERROR");
 						}
 						$db3->disconnect();
 					}			
@@ -121,7 +121,6 @@ if(isset($_GET["idadministrandoInscripciones_pago"])){
 				"catalogo_cursos join catalogo_centros join solicitudes_inscripcion_pago",
 				"idcursoSolicitado_pago=edicion_cursos.id and fkIDCh=catalogo_centros.id and fkIDCc=catalogo_cursos.id","verificado asc");
 				if($db->numRows()>0){
-				//$adminis=array("0"=>array("id"=>"18","sello_solicitud"=>"0c224cc4","titulo_aspirante"=>"Dr","email_aspirante"=>"a@a.com","nombres_aspirante"=>"nombre_aspirante","apellidos_aspirante"=>"apellidos_aspirante","telefono_aspirante"=>"telefono_aspirante","lugar_aplicacion"=>"Pedregal Angeles","fhora_programada"=>"2015-10-22/16:20:00","curso_solicitado"=>"SALVACORAZONES PRIMEROS AUXILIOS CON RCP Y DEA","descarga_instrucciones"=>"No"));
 				$Resp=$db->getResult();
 				$db->disconnect();
 				echo (utf8_decode(json_encode($Resp)));
